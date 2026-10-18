@@ -4,12 +4,13 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0, 1 and 6 of [PLAN.md](PLAN.md) (scaffold, `doctor`, probe and workspace, shot detection) are in place. Commands:
+Steps 0 to 4 and 6 of [PLAN.md](PLAN.md) (scaffold, `doctor`, probe and workspace, transcription, Gemini overview, video tools, shot detection) are in place. Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
 make doctor                              # tools, release.json, keys, Claude auth mode
-uv run python -m server.cli ingest <video> [--only probe|shots] [--force]
+uv run python -m server.cli ingest <video> [--only probe|transcribe|overview|shots] [--force]
+uv run python -m server.cli tool <name> '<json args>' [--video <video>]   # call one agent tool
 make test                                # unit + offline e2e tests, no keys needed
 make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
 make lint / make fmt                     # ruff
@@ -23,6 +24,7 @@ uv run python -m server.cli <command>    # the CLI
 - **Providers:** `server/providers/`. Protocols `Transcriber`, `VisionModel`, `AgentClient` in `base.py`; always get one from the factories in `__init__.py`. Real implementations go in their own module (`elevenlabs.py` in step 2, `gemini.py` in step 3) and the factory picks them up. Fakes and recording wrappers are in `fakes.py`; fixture layout is in `fixtures.py`.
 - **Workspace:** `server/workspace.py`. `workspace/<video_id>/`, where the id is the first 16 hex characters of the file's SHA-256. `source<ext>` links to the original. The module docstring lists which step writes which file; write outputs with `Workspace.write_json` (atomic).
 - **Ingest steps:** `server/ingest/`. One module per step defining `STEP = Step(name, outputs, run, requires)`, listed in `STEP_MODULES`. A step whose outputs exist is skipped; `requires` pulls in earlier steps. Raise `ingest.Rejected` for unacceptable input. `ingest --only <name>` picks the step up automatically.
+- **Agent tools:** `server/agent/tools.py`. `VideoTools` holds the plain tool methods for one workspace; `build_server()` wraps them as the in-process MCP server `video` (`ALLOWED_TOOLS` lists `mcp__video__*`). Raise `ToolError` for a call the agent should fix.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
 - **Tests:** `tests/unit/` and `tests/e2e/test_stepNN_<name>.py`. E2E tests run the CLI as a subprocess through the `cli` fixture, which isolates `.env`, keys and the Claude login and sets `HARNESS_FAKE_PROVIDERS=1`. Mark real-API tests `@pytest.mark.live`. Use the `videomme("short")` fixture for Video-MME videos (skips when absent, as in CI) and `test_media` for generated media.
 
