@@ -10,6 +10,7 @@ tool reads and writes only inside its workspace. Files, by the step that writes 
 | `meta.json` | 1: ffprobe metadata |
 | `transcript.json` | 2 |
 | `gemini_file.json`, `overview.json` | 3 |
+| `inspect/<hash>.json` | 4: cached `inspect` tool answers |
 | `shots.json` | 6 |
 | `captions.json` | 7 |
 | `index.sqlite` | 8 |
