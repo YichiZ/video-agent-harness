@@ -4,7 +4,7 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 8 of [PLAN.md](PLAN.md) are in place: M1, the agent chat CLI, plus shot detection, per-shot captions and the search index. Commands:
+Steps 0 to 9 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI) and M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries). Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
@@ -24,7 +24,7 @@ uv run python -m server.cli <command>    # the CLI
 - **Claude auth:** `server/auth.py`. `detect_auth()` gives "API key", "Claude subscription (fallback)" or "none found"; `claude_env()` is the `env` to pass to `ClaudeAgentOptions`.
 - **Providers:** `server/providers/`. Protocols `Transcriber`, `VisionModel`, `AgentClient` in `base.py`; always get one from the factories in `__init__.py`. Real implementations go in their own module (`elevenlabs.py` in step 2, `gemini.py` in step 3) and the factory picks them up. Fakes and recording wrappers are in `fakes.py`; fixture layout is in `fixtures.py`.
 - **Workspace:** `server/workspace.py`. `workspace/<video_id>/`, where the id is the first 16 hex characters of the file's SHA-256. `source<ext>` links to the original. The module docstring lists which step writes which file; write outputs with `Workspace.write_json` (atomic).
-- **Ingest steps:** `server/ingest/`. One module per step defining `STEP = Step(name, outputs, run, requires)`, listed in `STEP_MODULES`. A step whose outputs exist is skipped; `requires` pulls in earlier steps. Raise `ingest.Rejected` for unacceptable input. `ingest --only <name>` picks the step up automatically.
+- **Ingest steps:** `server/ingest/`. One module per step defining `STEP = Step(name, outputs, run, requires)`, listed in `STEP_MODULES`. `run_steps` runs them in parallel threads as their `requires` finish, writes `status.json` (chat-ready once `CHAT_READY` steps are done), and returns failed or blocked results instead of raising. A step whose outputs exist is skipped. Raise `ingest.Rejected` for unacceptable input. `ingest --only <name>` picks the step up automatically. `HARNESS_FAKE_FAIL` / `HARNESS_FAKE_SLOW` inject failures and delays in tests.
 - **Agent tools:** `server/agent/tools.py`. `VideoTools` holds the plain tool methods for one workspace; `build_server()` wraps them as the in-process MCP server `video` (`ALLOWED_TOOLS` lists `mcp__video__*`). Raise `ToolError` for a call the agent should fix.
 - **Agent session:** `server/agent/session.py`. `build_options()` is the only place `ClaudeAgentOptions` is set (no built-in tools, `mcp__video__*` only, `dontAsk`); `ChatSession.ask()` yields text, tool and result events and keeps `session.json`. The system prompt is `server/agent/prompt.<prompt_version>.md`. Offline replays `tests/fixtures/agent/<media>-chat.json` / `-resume.json`.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.

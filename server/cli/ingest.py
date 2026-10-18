@@ -1,7 +1,10 @@
-"""`ingest <video> [--only STEP ...] [--force]`: build the video's workspace.
+"""`ingest <video> [--only STEP ...] [--force] [--retry STEP ...]`: build the video's workspace.
 
-Prints one line per step (`probe: done (...)` or `probe: skipped`) and then the
-workspace path. Exit codes: 0 ok, 2 the video was rejected, 3 a step failed.
+Steps run in parallel (see `server.ingest`). Prints one line per step as it
+finishes (`probe: done (...)`, `probe: skipped`, `captions: failed (...)`) and
+then the workspace path; `status.json` in the workspace records every step's
+state. `--retry captions` re-runs a step (failed or not) and then whatever else
+is missing. Exit codes: 0 ok, 2 the video was rejected, 3 a step failed.
 """
 
 from __future__ import annotations
@@ -28,6 +31,14 @@ def register(subparsers: argparse._SubParsersAction) -> None:
         help=f"run only this step and what it needs (repeatable): {', '.join(ingest.steps())}",
     )
     p.add_argument("--force", action="store_true", help="re-run the named steps even if done")
+    p.add_argument(
+        "--retry",
+        action="append",
+        default=[],
+        choices=list(ingest.steps()),
+        metavar="STEP",
+        help="re-run this step, then finish the rest of the ingest (repeatable)",
+    )
     p.set_defaults(func=run)
 
 
@@ -52,8 +63,10 @@ def run(args: argparse.Namespace) -> int:
         summary = f" ({result.summary})" if result.summary else ""
         out.print(f"{result.name}: {result.state}{summary}")
 
+    names = None if args.retry else args.only
+    force = [*((args.only or ingest.steps()) if args.force else ()), *args.retry]
     try:
-        ingest.run_steps(ctx, args.only, force=args.force, on_result=report)
+        results = ingest.run_steps(ctx, names, force=force, on_result=report)
     except ingest.Rejected as e:
         if created:
             workspace.remove()
@@ -63,6 +76,10 @@ def run(args: argparse.Namespace) -> int:
         err.print(f"error: ingest failed: {type(e).__name__}: {e}")
         return cli.EXIT_STEP_FAILED
     out.print(f"workspace: {workspace.dir}")
+    failed = [r.name for r in ingest.failures(results) if r.state == "failed"]
+    if failed:
+        err.print(f"error: ingest failed: {', '.join(failed)}; rerun with --retry <step>")
+        return cli.EXIT_STEP_FAILED
     return cli.EXIT_OK
 
 

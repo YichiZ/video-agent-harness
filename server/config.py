@@ -24,6 +24,7 @@ Environment variables the harness reads:
 | `HARNESS_FIXTURES_DIR` | Recorded provider responses (default `<repo>/tests/fixtures`) |
 | `HARNESS_FAKE_PROVIDERS` | `1` replaces every provider with a fake that replays fixtures |
 | `HARNESS_RECORD_FIXTURES` | `1` records real provider responses into the fixtures dir |
+| `HARNESS_FAKE_FAIL`, `HARNESS_FAKE_SLOW` | Fake providers only: steps that fail or are slow |
 """
 
 from __future__ import annotations
@@ -107,6 +108,8 @@ class Settings:
     fake_providers: bool
     record_fixtures: bool
     env_file: Path
+    fake_fail: frozenset[str] = frozenset()
+    fake_slow: frozenset[str] = frozenset()
 
     @classmethod
     def load(cls) -> Settings:
@@ -119,6 +122,9 @@ class Settings:
             if value is None or value == "":
                 value = file_values.get(name)
             return value or None
+
+        def names(name: str) -> frozenset[str]:
+            return frozenset(n.strip() for n in (get(name) or "").split(",") if n.strip())
 
         def path(name: str, default: Path) -> Path:
             return Path(get(name) or default).expanduser()
@@ -135,4 +141,6 @@ class Settings:
             fake_providers=_truthy(get("HARNESS_FAKE_PROVIDERS")),
             record_fixtures=_truthy(get("HARNESS_RECORD_FIXTURES")),
             env_file=env_file,
+            fake_fail=names("HARNESS_FAKE_FAIL"),
+            fake_slow=names("HARNESS_FAKE_SLOW"),
         )
