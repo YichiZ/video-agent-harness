@@ -149,7 +149,8 @@ def stored_file(workspace: Workspace) -> RemoteFile | None:
 
 def ensure_active(vision: VisionModel, workspace: Workspace) -> tuple[RemoteFile, bool]:
     """Return the uploaded file for the workspace video, and whether it was uploaded now."""
-    # ponytail: trusts the stored record; check the bucket too if objects get deleted.
+    # ponytail: trusts the stored record; after changing HARNESS_GCS_BUCKET or deleting the
+    # object, rerun with the workspace's gemini_file.json removed.
     stored = stored_file(workspace)
     if stored:
         return stored, False

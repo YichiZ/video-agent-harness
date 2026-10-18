@@ -17,6 +17,7 @@ import mimetypes
 from pathlib import Path
 
 from google import genai
+from google.auth.exceptions import DefaultCredentialsError
 from google.cloud import storage
 from google.genai import types
 
@@ -45,14 +46,19 @@ class GeminiVisionModel:
         ]
         if missing:
             raise ProviderUnavailable(f"{' and '.join(missing)} not set (add to .env)")
-        self.client = genai.Client(
-            vertexai=True,
-            project=settings.google_cloud_project,
-            location=settings.google_cloud_location,
-        )
-        self.bucket = storage.Client(project=settings.google_cloud_project).bucket(
-            settings.gcs_bucket
-        )
+        try:
+            self.client = genai.Client(
+                vertexai=True,
+                project=settings.google_cloud_project,
+                location=settings.google_cloud_location,
+            )
+            gcs = storage.Client(project=settings.google_cloud_project)
+        except DefaultCredentialsError as e:
+            raise ProviderUnavailable(
+                "no Google Application Default Credentials "
+                "(run `gcloud auth application-default login`)"
+            ) from e
+        self.bucket = gcs.bucket(settings.gcs_bucket)
         self.model = release.gemini_model
 
     def upload(self, media: Path) -> RemoteFile:
