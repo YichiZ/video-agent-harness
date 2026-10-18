@@ -32,7 +32,7 @@ workspace/     Per-video data (gitignored)
 ## Requirements
 
 - Python 3.12+, Node 20+, ffmpeg
-- `ELEVENLABS_API_KEY` and `GEMINI_API_KEY` in `.env`. `ANTHROPIC_API_KEY` is optional: without it the agent uses your Claude Code login (subscription).
+- `ELEVENLABS_API_KEY`, `GOOGLE_CLOUD_PROJECT` and `HARNESS_GCS_BUCKET` in `.env`, plus `gcloud auth application-default login` for Gemini on Vertex AI. `ANTHROPIC_API_KEY` is optional: without it the agent uses your Claude Code login (subscription).
 
 ## Contributing
 

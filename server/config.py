@@ -13,7 +13,10 @@ Environment variables the harness reads:
 
 | Variable | Meaning |
 |---|---|
-| `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`, `GEMINI_API_KEY` | Provider keys |
+| `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY` | Provider keys |
+| `GOOGLE_CLOUD_PROJECT` | GCP project for Gemini on Vertex AI (auth is ADC) |
+| `GOOGLE_CLOUD_LOCATION` | Vertex AI location (default `global`) |
+| `HARNESS_GCS_BUCKET` | GCS bucket that videos upload to for Gemini |
 | `VIDEO_MME_DIR` | Video-MME root (default `~/data/video-mme`) |
 | `HARNESS_ENV_FILE` | `.env` path (default `<repo>/.env`) |
 | `HARNESS_RELEASE_FILE` | `release.json` path (default `<repo>/release.json`) |
@@ -95,7 +98,9 @@ class Settings:
 
     anthropic_api_key: str | None
     elevenlabs_api_key: str | None
-    gemini_api_key: str | None
+    google_cloud_project: str | None
+    google_cloud_location: str
+    gcs_bucket: str | None
     video_mme_dir: Path
     workspace_dir: Path
     fixtures_dir: Path
@@ -121,7 +126,9 @@ class Settings:
         return cls(
             anthropic_api_key=get("ANTHROPIC_API_KEY"),
             elevenlabs_api_key=get("ELEVENLABS_API_KEY"),
-            gemini_api_key=get("GEMINI_API_KEY"),
+            google_cloud_project=get("GOOGLE_CLOUD_PROJECT"),
+            google_cloud_location=get("GOOGLE_CLOUD_LOCATION") or "global",
+            gcs_bucket=get("HARNESS_GCS_BUCKET"),
             video_mme_dir=path("VIDEO_MME_DIR", Path("~/data/video-mme")),
             workspace_dir=path("HARNESS_WORKSPACE_DIR", REPO_ROOT / "workspace"),
             fixtures_dir=path("HARNESS_FIXTURES_DIR", REPO_ROOT / "tests" / "fixtures"),

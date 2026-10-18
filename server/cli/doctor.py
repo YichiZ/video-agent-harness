@@ -1,4 +1,4 @@
-"""`doctor`: check the local setup and report the Claude auth mode.
+"""`doctor`: check the local setup and report the Claude and Gemini auth modes.
 
 Never prints key values, only whether each key is set.
 """
@@ -10,13 +10,17 @@ import asyncio
 import shutil
 import subprocess
 
+import google.auth
+from google.auth.credentials import Credentials
+from google.auth.exceptions import DefaultCredentialsError
+from google.auth.transport.requests import Request as GoogleRequest
 from rich.console import Console
 
 from server import cli
 from server.auth import AuthMode, detect_auth
 from server.config import ConfigError, Release, Settings, load_release, release_path
 
-KEYS = ["ANTHROPIC_API_KEY", "ELEVENLABS_API_KEY", "GEMINI_API_KEY"]
+KEYS = ["ANTHROPIC_API_KEY", "ELEVENLABS_API_KEY", "GOOGLE_CLOUD_PROJECT", "HARNESS_GCS_BUCKET"]
 
 
 def register(subparsers: argparse._SubParsersAction) -> None:
@@ -24,7 +28,7 @@ def register(subparsers: argparse._SubParsersAction) -> None:
     p.add_argument(
         "--live",
         action="store_true",
-        help="also make one tiny Claude call in the detected auth mode",
+        help="also make one tiny Claude call and refresh the Google credentials",
     )
     p.set_defaults(func=run)
 
@@ -42,6 +46,15 @@ def _tool_version(name: str) -> str | None:
     parts = first.split()
     version = parts[2] if len(parts) > 2 and parts[1] == "version" else "unknown version"
     return f"{version} ({path})"
+
+
+def _google_credentials() -> Credentials | None:
+    """Application Default Credentials, or None. Loads them without a network call."""
+    try:
+        creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/cloud-platform"])
+    except DefaultCredentialsError:
+        return None
+    return creds
 
 
 def run(args: argparse.Namespace) -> int:
@@ -79,13 +92,23 @@ def run(args: argparse.Namespace) -> int:
     present = {
         "ANTHROPIC_API_KEY": settings.anthropic_api_key,
         "ELEVENLABS_API_KEY": settings.elevenlabs_api_key,
-        "GEMINI_API_KEY": settings.gemini_api_key,
+        "GOOGLE_CLOUD_PROJECT": settings.google_cloud_project,
+        "HARNESS_GCS_BUCKET": settings.gcs_bucket,
     }
     for key in KEYS:
         line(key, "set" if present[key] else "missing")
 
     auth = detect_auth(settings)
     console.print(f"{'Claude auth':<20} {auth.mode.value} ({auth.detail})")
+    google_creds = _google_credentials()
+    if google_creds:
+        project = settings.google_cloud_project or "not set"
+        where = f"project {project}, location {settings.google_cloud_location}"
+        console.print(f"{'Gemini auth':<20} Vertex AI, Application Default Credentials ({where})")
+    else:
+        console.print(
+            f"{'Gemini auth':<20} none found (run `gcloud auth application-default login`)"
+        )
 
     video_mme = settings.video_mme_dir
     found = "found" if video_mme.is_dir() else "not found, so Video-MME tests will skip"
@@ -109,5 +132,13 @@ def run(args: argparse.Namespace) -> int:
             except Exception as e:  # report any SDK or CLI failure as a doctor failure
                 ok = False
                 line("Claude call", "FAIL", str(e))
+
+        if google_creds:
+            try:
+                google_creds.refresh(GoogleRequest())
+                line("Google credentials", "ok", "refreshed")
+            except Exception as e:  # an expired login raises RefreshError
+                ok = False
+                line("Google credentials", "FAIL", str(e))
 
     return cli.EXIT_OK if ok else cli.EXIT_CONFIG

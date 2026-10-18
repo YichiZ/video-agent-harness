@@ -1,6 +1,3 @@
-from dataclasses import replace
-from datetime import UTC, datetime, timedelta
-
 import pytest
 
 from server.ingest import overview
@@ -37,53 +34,16 @@ def test_clamp_chapters():
 def test_ensure_active_uploads_then_reuses(tmp_path, workspace):
     vision = FakeVisionModel(tmp_path)
     file, uploaded = ensure_active(vision, workspace)
-    assert uploaded and file.state == "ACTIVE"
+    assert uploaded and file.uri.startswith("fake://")
     again, uploaded = ensure_active(vision, workspace)
     assert not uploaded and again.name == file.name
     assert len(vision.uploads) == 1
 
 
-def test_ensure_active_reuploads_within_an_hour_of_expiry(tmp_path, workspace):
+def test_ensure_active_reuploads_a_files_api_record(tmp_path, workspace):
     vision = FakeVisionModel(tmp_path)
-    file, _ = ensure_active(vision, workspace)
-    near_expiry = file.expires_at - timedelta(minutes=59)
-    _, uploaded = ensure_active(vision, workspace, now=near_expiry)
+    ensure_active(vision, workspace)
+    legacy = workspace.read_json(overview.GEMINI_FILE) | {"expires_at": "2026-10-19T00:00:00+00:00"}
+    workspace.write_json(overview.GEMINI_FILE, legacy)
+    _, uploaded = ensure_active(vision, workspace)
     assert uploaded and len(vision.uploads) == 2
-
-
-class SlowVision(FakeVisionModel):
-    """Uploads start PROCESSING and become `final` on the second poll."""
-
-    final = "ACTIVE"
-
-    def upload(self, media):
-        self.polls = 0
-        return replace(super().upload(media), state="PROCESSING")
-
-    def get_file(self, name):
-        self.polls += 1
-        state = "PROCESSING" if self.polls < 2 else self.final
-        return replace(super().get_file(name), state=state)
-
-
-def test_ensure_active_polls_until_active(tmp_path, workspace, monkeypatch):
-    monkeypatch.setattr(overview.time, "sleep", lambda _: None)
-    vision = SlowVision(tmp_path)
-    file, _ = ensure_active(vision, workspace)
-    assert file.state == "ACTIVE" and vision.polls == 2
-    assert workspace.read_json(overview.GEMINI_FILE)["state"] == "ACTIVE"
-
-
-def test_ensure_active_raises_when_processing_fails(tmp_path, workspace, monkeypatch):
-    monkeypatch.setattr(overview.time, "sleep", lambda _: None)
-    vision = SlowVision(tmp_path)
-    vision.final = "FAILED"
-    with pytest.raises(RuntimeError, match="could not process"):
-        ensure_active(vision, workspace)
-    assert not workspace.path(overview.GEMINI_FILE).exists()
-
-
-def test_stored_expiry_is_timezone_aware(tmp_path, workspace):
-    ensure_active(FakeVisionModel(tmp_path), workspace)
-    stored = overview.stored_file(workspace)
-    assert stored.expires_at > datetime.now(UTC)

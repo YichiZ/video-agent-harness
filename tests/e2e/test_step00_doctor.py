@@ -26,11 +26,12 @@ def test_no_api_key_and_no_login_reports_none_found(cli):
 
 def test_dummy_key_reports_api_key_without_printing_it(cli):
     secret = "sk-ant-dummy-0123456789"
-    result = cli("doctor", env={"ANTHROPIC_API_KEY": secret, "GEMINI_API_KEY": "g-secret"})
+    result = cli("doctor", env={"ANTHROPIC_API_KEY": secret, "GOOGLE_CLOUD_PROJECT": "g-project"})
     assert result.returncode == 0, result.stdout + result.stderr
     assert "Claude auth          API key" in result.stdout
     assert "ANTHROPIC_API_KEY    set" in result.stdout
-    assert "GEMINI_API_KEY       set" in result.stdout
+    assert "GOOGLE_CLOUD_PROJECT set" in result.stdout
+    assert "Gemini auth" in result.stdout
     assert secret not in result.stdout + result.stderr
     assert "g-secret" not in result.stdout + result.stderr
 
