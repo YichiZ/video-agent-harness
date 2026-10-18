@@ -41,15 +41,6 @@ def test_fakes_satisfy_protocols(tmp_path, monkeypatch, release):
     assert isinstance(client, AgentClient)
 
 
-def test_real_providers_not_implemented_yet_say_which_step(tmp_path, monkeypatch, release):
-    s = settings(False, tmp_path, monkeypatch)
-    # Step 3 adds the real module; until then the error names the step.
-    try:
-        get_vision_model(s, release)
-    except ProviderUnavailable as e:
-        assert "step 3" in str(e)
-
-
 def test_real_transcriber_needs_its_key(tmp_path, monkeypatch, release):
     monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
     s = settings(False, tmp_path, monkeypatch)
@@ -116,3 +107,9 @@ async def test_scripted_agent_replays_turn_and_interrupt():
     with pytest.raises(FixtureMissing):
         await client.query("one too many")
     await client.disconnect()
+
+
+def test_real_vision_model_needs_gemini_key(tmp_path, monkeypatch, release):
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    with pytest.raises(ProviderUnavailable, match="GEMINI_API_KEY"):
+        get_vision_model(settings(False, tmp_path, monkeypatch), release)

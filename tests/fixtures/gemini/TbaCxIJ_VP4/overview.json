@@ -1,0 +1,14 @@
+{
+  "_comment": "Hand-written stand-in for the Video-MME 'short' video. Replace it with a real recording: `uv run pytest -m live --record tests/e2e/test_step03_overview.py`.",
+  "summary": "An animated explainer of how mRNA vaccines work. It shows a virus attaching its spikes to a host cell, then explains how an mRNA vaccine teaches cells to make the spike protein so the immune system learns to recognise it.",
+  "subjects": [
+    {"name": "Virus", "kind": "object", "description": "A coronavirus particle with spike proteins.", "first_seen": "00:02"},
+    {"name": "Host cell", "kind": "object", "description": "A human cell, drawn with a red membrane once the virus invades it.", "first_seen": "00:05"},
+    {"name": "mRNA vaccine", "kind": "object", "description": "The vaccine that carries mRNA instructions for the spike protein.", "first_seen": "00:30"}
+  ],
+  "chapters": [
+    {"start": "00:00", "end": "00:25", "title": "How a virus infects a cell", "summary": "The virus attaches its spikes to a host cell and takes it over."},
+    {"start": "00:25", "end": "00:58", "title": "What an mRNA vaccine delivers", "summary": "The vaccine's mRNA tells cells to make harmless spike proteins."},
+    {"start": "00:58", "end": "01:23", "title": "The immune response", "summary": "The immune system learns the spike and is ready for the real virus."}
+  ]
+}

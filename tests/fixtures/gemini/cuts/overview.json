@@ -1,0 +1,10 @@
+{
+  "_comment": "Hand-written response for the generated cuts.mp4 (its clips differ by machine), so CI can run step 3 offline.",
+  "summary": "A 20-second montage of five unrelated four-second clips with hard cuts between them and no audio.",
+  "subjects": [],
+  "chapters": [
+    {"start": "00:00", "end": "00:08", "title": "First clips", "summary": "The first two clips."},
+    {"start": "00:08", "end": "00:16", "title": "Middle clips", "summary": "The third and fourth clips."},
+    {"start": "00:16", "end": "00:25", "title": "Last clip", "summary": "The last clip. The end time overruns the video to exercise clamping."}
+  ]
+}
