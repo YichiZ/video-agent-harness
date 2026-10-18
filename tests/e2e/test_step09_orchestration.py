@@ -69,7 +69,7 @@ def check_chat_starts_early(cli, video: Path) -> None:
     child.sendline("/quit")
     child.expect(pexpect.EOF)
     child.close()
-    assert child.exitstatus == 0
+    assert child.exitstatus == 0, child.before
     assert states(cli, video) == dict.fromkeys(ALL, "done")
 
 
