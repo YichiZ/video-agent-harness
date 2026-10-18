@@ -1,0 +1,11 @@
+{
+  "_comment": "Hand-written example of the raw Scribe response shape, not a real recording.",
+  "language_code": "en",
+  "language_probability": 0.99,
+  "text": "Hello there.",
+  "words": [
+    {"text": "Hello", "start": 0.12, "end": 0.48, "type": "word", "speaker_id": "speaker_0"},
+    {"text": " ", "start": 0.48, "end": 0.52, "type": "spacing", "speaker_id": "speaker_0"},
+    {"text": "there.", "start": 0.52, "end": 0.9, "type": "word", "speaker_id": "speaker_0"}
+  ]
+}

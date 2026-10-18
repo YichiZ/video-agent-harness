@@ -1,0 +1,6 @@
+{
+  "_comment": "Video-MME videos used by tests, looked up under $VIDEO_MME_DIR/videos/data/<id>.mp4. Never committed.",
+  "short": {"id": "TbaCxIJ_VP4", "duration_s": 83.9, "what": "mRNA vaccine explainer, 1:24"},
+  "medium": {"id": "t6V9i8fFADI", "duration_s": 367, "what": "Finance explainer, step-up in basis, 6:07"},
+  "long": {"id": "Sm0lziolZyM", "duration_s": 3540, "what": "Du Fu documentary, 59:00"}
+}

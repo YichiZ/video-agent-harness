@@ -1,0 +1,113 @@
+{
+  "_comment": "Hand-written example of the recorded agent stream format, not a real recording. Live runs with --record write real ones.",
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "session_id": "example-session",
+          "model": "claude-opus-5-5"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e1",
+        "session_id": "example-session",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Let me search "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "Let me search the transcript."
+          },
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_1",
+            "name": "mcp__video__search",
+            "input": {
+              "query": "spikes"
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": null,
+        "message_id": null,
+        "stop_reason": null,
+        "session_id": "example-session",
+        "uuid": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_1",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"hits\": [{\"start\": 4.2, \"end\": 9.8, \"text\": \"attaching its spikes to a host cell\"}]}"
+              }
+            ],
+            "is_error": false
+          }
+        ],
+        "uuid": null,
+        "parent_tool_use_id": null,
+        "tool_use_result": null,
+        "origin": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "The virus attaches with its spikes [00:04]."
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": null,
+        "message_id": null,
+        "stop_reason": null,
+        "session_id": "example-session",
+        "uuid": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 1200,
+        "duration_api_ms": 1100,
+        "is_error": false,
+        "num_turns": 2,
+        "session_id": "example-session",
+        "stop_reason": null,
+        "total_cost_usd": 0.0123,
+        "usage": null,
+        "result": "The virus attaches with its spikes [00:04].",
+        "structured_output": null,
+        "model_usage": null,
+        "permission_denials": null,
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": null,
+        "terminal_reason": null,
+        "origin": null
+      }
+    ]
+  ]
+}

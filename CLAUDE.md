@@ -4,7 +4,24 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-The project is at the design stage. Nothing is scaffolded yet, so there are no build, test or run commands. Add them here when the scaffold lands.
+Step 0 of [PLAN.md](PLAN.md) (scaffold and `doctor`) is in place. Commands:
+
+```
+uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
+make doctor                              # tools, release.json, keys, Claude auth mode
+make test                                # unit + offline e2e tests, no keys needed
+make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
+make lint / make fmt                     # ruff
+uv run python -m server.cli <command>    # the CLI
+```
+
+## Code map
+
+- **Config:** `server/config.py`. `release.json` → `Release` (model ids, budgets, prompt version, `max_video_minutes`; unknown keys rejected). Env and `.env` → `Settings` (keys, paths, `HARNESS_*` flags; the module docstring lists them). `.env` is read without touching `os.environ`.
+- **Claude auth:** `server/auth.py`. `detect_auth()` gives "API key", "Claude subscription (fallback)" or "none found"; `claude_env()` is the `env` to pass to `ClaudeAgentOptions`.
+- **Providers:** `server/providers/`. Protocols `Transcriber`, `VisionModel`, `AgentClient` in `base.py`; always get one from the factories in `__init__.py`. Real implementations go in their own module (`elevenlabs.py` in step 2, `gemini.py` in step 3) and the factory picks them up. Fakes and recording wrappers are in `fakes.py`; fixture layout is in `fixtures.py`.
+- **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
+- **Tests:** `tests/unit/` and `tests/e2e/test_stepNN_<name>.py`. E2E tests run the CLI as a subprocess through the `cli` fixture, which isolates `.env`, keys and the Claude login and sets `HARNESS_FAKE_PROVIDERS=1`. Mark real-API tests `@pytest.mark.live`. Use the `videomme("short")` fixture for Video-MME videos (skips when absent, as in CI) and `test_media` for generated media.
 
 ## Decisions (don't change these without asking Yichi)
 
