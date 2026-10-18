@@ -23,8 +23,13 @@ from functools import cache
 from server.config import Release, Settings
 from server.workspace import Workspace
 
-# In run order. Later steps append "server.ingest.transcribe", "server.ingest.overview", ...
-STEP_MODULES = ["server.ingest.probe", "server.ingest.transcribe", "server.ingest.overview"]
+# In run order.
+STEP_MODULES = [
+    "server.ingest.probe",
+    "server.ingest.transcribe",
+    "server.ingest.overview",
+    "server.ingest.shots",
+]
 
 
 class Rejected(Exception):

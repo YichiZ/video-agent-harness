@@ -4,12 +4,12 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 and 1 of [PLAN.md](PLAN.md) (scaffold, `doctor`, probe and workspace) are in place. Commands:
+Steps 0, 1 and 6 of [PLAN.md](PLAN.md) (scaffold, `doctor`, probe and workspace, shot detection) are in place. Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
 make doctor                              # tools, release.json, keys, Claude auth mode
-uv run python -m server.cli ingest <video> [--only probe] [--force]
+uv run python -m server.cli ingest <video> [--only probe|shots] [--force]
 make test                                # unit + offline e2e tests, no keys needed
 make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
 make lint / make fmt                     # ruff
