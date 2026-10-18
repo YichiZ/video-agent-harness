@@ -115,9 +115,9 @@ def test_list_shots_prefers_matching_captions_and_filters_range(tools, monkeypat
     late = tools.list_shots(16)
     assert [s["caption"] for s in late["shots"]] == ["Shot 3."] and "note" not in late
 
-    monkeypatch.setattr("server.agent.tools.MAX_SHOTS", 2)
-    assert len(tools.list_shots()["shots"]) == 2 and "narrow" in tools.list_shots()["note"]
-
     tools.workspace.write_json("shots.json", {"shots": shots[:3]})  # shots re-detected
     stale = tools.list_shots()
     assert "caption" not in stale["shots"][0] and "out of date" in stale["note"]
+
+    monkeypatch.setattr("server.agent.tools.MAX_SHOTS", 2)
+    assert len(tools.list_shots()["shots"]) == 2 and "narrow" in tools.list_shots()["note"]
