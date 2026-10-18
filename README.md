@@ -10,7 +10,7 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Running the chat
 
-The agent chat CLI works end to end (PLAN.md steps 0–7). The web UI comes later.
+The agent chat CLI works end to end (plan steps 0–7). The web UI comes later.
 
 ### 1. Install
 
