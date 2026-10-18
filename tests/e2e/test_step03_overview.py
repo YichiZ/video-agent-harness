@@ -1,7 +1,7 @@
 """Step 3 e2e: `server.cli ingest <video> --only overview` uploads to Gemini and writes
 `overview.json`.
 
-Offline mode replays `tests/fixtures/gemini/<media>/overview.json`. The `short`
+Offline mode replays `tests/fixtures/gemini/<media>/overview*.json`. The `short`
 cases need Video-MME (skip in CI); the `cuts.mp4` cases run everywhere.
 """
 
