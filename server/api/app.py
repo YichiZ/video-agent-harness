@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+import uuid
+
 from fastapi import FastAPI, HTTPException, Request, WebSocket
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
@@ -78,7 +80,7 @@ def create_app(settings: Settings | None = None, release: Release | None = None)
             except ToolError as e:
                 raise HTTPException(500, str(e)) from e
             path.parent.mkdir(exist_ok=True)
-            tmp = path.with_suffix(".tmp")
+            tmp = path.with_suffix(f".{uuid.uuid4().hex}.tmp")  # requests may race
             tmp.write_bytes(frames[0])
             tmp.replace(path)
         return FileResponse(path, media_type="image/jpeg")

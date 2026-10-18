@@ -48,6 +48,8 @@ class Library:
         self.root.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
         self._ingests: dict[str, threading.Thread] = {}
+        self.generation = 0
+        """Counts uploads, so a chat connection knows to start a new session."""
         self.current, self.name = self._load_current()
 
     def _load_current(self) -> tuple[Workspace | None, str | None]:
@@ -85,8 +87,12 @@ class Library:
             if size == 0:
                 raise UploadError(f"{name}: empty upload")
             # Keep the file name: fixtures and Gemini display names are keyed by it.
-            final = uploads / digest.hexdigest()[:ID_LENGTH] / safe_name(name)
-            final.parent.mkdir(exist_ok=True)
+            folder = uploads / digest.hexdigest()[:ID_LENGTH]
+            earlier = sorted(folder.glob("*"))
+            if earlier:  # the same bytes again: keep the file a running ingest reads
+                return earlier[0]
+            final = folder / safe_name(name)
+            folder.mkdir(exist_ok=True)
             part.replace(final)
             return final
         finally:
@@ -108,6 +114,7 @@ class Library:
             workspace.path(SESSION).unlink(missing_ok=True)  # a new upload starts a new chat
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name
+            self.generation += 1
             running = self._ingests.get(workspace.id)
             if running is None or not running.is_alive():  # the same video uploaded again
                 thread = threading.Thread(target=self._ingest, args=(workspace,), daemon=True)

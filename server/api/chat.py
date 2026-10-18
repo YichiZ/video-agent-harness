@@ -3,8 +3,8 @@
 Each connection reads client frames in one task and sends every server frame
 through one queue, so a turn can stream while an `interrupt` arrives and
 `ingest_status` frames go out whenever `status.json` changes. A connection keeps
-one `ChatSession` for the current video and resumes its stored session; after an
-upload replaces the video, the next message starts a new session.
+one `ChatSession` for the current video and resumes its stored session; after any
+upload (even of the same video), the next message starts a new session.
 """
 
 from __future__ import annotations
@@ -51,6 +51,7 @@ class Connection:
         self.library = library
         self.outbox: asyncio.Queue[BaseModel] = asyncio.Queue()
         self.session: ChatSession | None = None
+        self.generation = -1  # the library's upload count the session belongs to
         self.turn: asyncio.Task | None = None
         self.interrupted = False
 
@@ -64,9 +65,10 @@ class Connection:
         except WebSocketDisconnect:
             pass
         finally:
-            for task in [*tasks, *([self.turn] if self.turn else [])]:
+            tasks += [self.turn] if self.turn else []
+            for task in tasks:
                 task.cancel()
-            await asyncio.gather(*tasks, return_exceptions=True)
+            await asyncio.gather(*tasks, return_exceptions=True)  # let the turn unwind first
             await self._close_session()
 
     async def _writer(self) -> None:
@@ -119,8 +121,8 @@ class Connection:
         self.turn = asyncio.create_task(self._turn(text))
 
     async def _ensure_session(self) -> None:
-        current = self.library.current
-        if self.session and current and self.session.workspace.id == current.id:
+        current, generation = self.library.current, self.library.generation
+        if self.session and self.generation == generation:
             return
         await self._close_session()
         if current is None:
@@ -132,7 +134,7 @@ class Connection:
             resume=ChatSession.has_stored_session(current),
         )
         await session.connect()
-        self.session = session
+        self.session, self.generation = session, generation
 
     async def _turn(self, text: str) -> None:
         assert self.session
