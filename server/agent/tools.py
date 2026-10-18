@@ -20,6 +20,7 @@ agent as error results.
 
 from __future__ import annotations
 
+import asyncio
 import base64
 import hashlib
 import json
@@ -160,7 +161,11 @@ class VideoTools:
     ) -> JSON:
         lo, hi = self._range(start, end)
         request = {"question": question, "start": lo, "end": hi, "fps": fps}
-        key = hashlib.sha256(json.dumps(request, sort_keys=True).encode()).hexdigest()[:16]
+        prompt = INSPECT_PROMPT.format(
+            start=format_clock(lo), end=format_clock(hi), question=question
+        )
+        cache_key = {**request, "model": self.release.gemini_model, "prompt": prompt}
+        key = hashlib.sha256(json.dumps(cache_key, sort_keys=True).encode()).hexdigest()[:16]
         cache = self.workspace.path(INSPECT_DIR) / f"{key}.json"
         if cache.exists():
             return {**json.loads(cache.read_text()), "cached": True}
@@ -233,7 +238,8 @@ def build_server(tools: VideoTools) -> McpSdkServerConfig:
     def wrap(fn):
         async def handler(args: JSON) -> dict[str, Any]:
             try:
-                return fn(args)
+                # Tools block on ffmpeg and Gemini; keep the event loop free for streaming.
+                return await asyncio.to_thread(fn, args)
             except ToolError as e:
                 return _error(e)
 
