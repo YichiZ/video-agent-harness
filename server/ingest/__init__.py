@@ -24,7 +24,7 @@ from server.config import Release, Settings
 from server.workspace import Workspace
 
 # In run order. Later steps append "server.ingest.transcribe", "server.ingest.overview", ...
-STEP_MODULES = ["server.ingest.probe"]
+STEP_MODULES = ["server.ingest.probe", "server.ingest.transcribe"]
 
 
 class Rejected(Exception):
