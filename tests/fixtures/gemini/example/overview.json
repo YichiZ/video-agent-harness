@@ -1,0 +1,5 @@
+{
+  "_comment": "Hand-written example of a recorded Gemini JSON response, not a real recording.",
+  "summary": "An example video.",
+  "chapters": [{"start": "00:00", "end": "00:05", "title": "Intro"}]
+}

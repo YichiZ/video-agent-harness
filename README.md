@@ -10,7 +10,14 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Status
 
-The project is at the design stage, and there is no runnable code yet. See [DESIGN.md](DESIGN.md) for the architecture, tool list, phases and open items.
+The scaffold and `doctor` (PLAN.md step 0) are in place. The agent CLI lands over steps 1–5.
+
+```
+uv sync
+cp .env.example .env    # add keys; ANTHROPIC_API_KEY is optional
+make doctor             # checks ffmpeg, release.json, keys and the Claude auth mode
+make test               # offline tests, no keys needed
+```
 
 ## Planned layout
 
@@ -21,10 +28,10 @@ web/           Vite + React: player, transcript, chat
 workspace/     Per-video data (gitignored)
 ```
 
-## Requirements (planned)
+## Requirements
 
 - Python 3.12+, Node 20+, ffmpeg
-- `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`, `GEMINI_API_KEY` in `.env`
+- `ELEVENLABS_API_KEY` and `GEMINI_API_KEY` in `.env`. `ANTHROPIC_API_KEY` is optional: without it the agent uses your Claude Code login (subscription).
 
 ## Contributing
 
