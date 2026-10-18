@@ -1,4 +1,3 @@
-from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
@@ -66,10 +65,7 @@ def test_fake_transcriber_missing_fixture_says_how_to_record(tmp_path):
 def test_fake_vision_upload_and_generate(tmp_path):
     fake = FakeVisionModel(FIXTURES)
     remote = fake.upload(tmp_path / "example.mp4")
-    assert remote.state == "ACTIVE"
     assert remote.display_name == "example"
-    assert remote.expires_at > datetime.now(UTC)
-    assert fake.get_file(remote.name) == remote
     out = fake.generate_json(file=remote, prompt="p", schema={}, purpose="overview")
     assert out["summary"] == "An example video."
     assert fake.calls[0]["purpose"] == "overview"
@@ -109,7 +105,8 @@ async def test_scripted_agent_replays_turn_and_interrupt():
     await client.disconnect()
 
 
-def test_real_vision_model_needs_gemini_key(tmp_path, monkeypatch, release):
-    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
-    with pytest.raises(ProviderUnavailable, match="GEMINI_API_KEY"):
+def test_real_vision_model_needs_project_and_bucket(tmp_path, monkeypatch, release):
+    monkeypatch.delenv("GOOGLE_CLOUD_PROJECT", raising=False)
+    monkeypatch.delenv("HARNESS_GCS_BUCKET", raising=False)
+    with pytest.raises(ProviderUnavailable, match="GOOGLE_CLOUD_PROJECT and HARNESS_GCS_BUCKET"):
         get_vision_model(settings(False, tmp_path, monkeypatch), release)

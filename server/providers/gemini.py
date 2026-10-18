@@ -1,4 +1,9 @@
-"""`GeminiVisionModel`: the real `VisionModel`, on the Gemini Files API and `google-genai`.
+"""`GeminiVisionModel`: the real `VisionModel`, on Vertex AI with Application Default Credentials.
+
+Auth matches `~/code/video-rag`: `genai.Client(vertexai=True, project, location)`
+with the ADC from `gcloud auth application-default login`. Vertex has no Files
+API, so `upload` copies the video to `gs://<HARNESS_GCS_BUCKET>/video-agent-harness/`
+and requests reference it by its `gs://` URI. GCS objects do not expire.
 
 The model id comes from `release.gemini_model`. Requests that pass `start`, `end`
 or `fps` send them as the video part's `VideoMetadata`, so Gemini only looks at
@@ -9,29 +14,17 @@ from __future__ import annotations
 
 import json
 import mimetypes
-from datetime import UTC
 from pathlib import Path
 
 from google import genai
+from google.cloud import storage
 from google.genai import types
 
 from server.config import Release, Settings
 from server.providers import fixtures
 from server.providers.base import JSON, RemoteFile
 
-
-def _remote(file: types.File) -> RemoteFile:
-    state = file.state.name if file.state else "STATE_UNSPECIFIED"
-    if file.expiration_time is None:
-        raise RuntimeError(f"Gemini file {file.name} has no expiration time")
-    return RemoteFile(
-        name=file.name or "",
-        display_name=file.display_name or "",
-        uri=file.uri or "",
-        mime_type=file.mime_type or "video/mp4",
-        state=state,
-        expires_at=file.expiration_time.astimezone(UTC),
-    )
+GCS_PREFIX = "video-agent-harness"
 
 
 def _offset(seconds: float) -> str:
@@ -40,23 +33,40 @@ def _offset(seconds: float) -> str:
 
 class GeminiVisionModel:
     def __init__(self, settings: Settings, release: Release):
-        if not settings.gemini_api_key:
-            from server.providers import ProviderUnavailable
+        from server.providers import ProviderUnavailable
 
-            raise ProviderUnavailable("GEMINI_API_KEY is not set (add it to .env)")
-        self.client = genai.Client(api_key=settings.gemini_api_key)
+        missing = [
+            name
+            for name, value in [
+                ("GOOGLE_CLOUD_PROJECT", settings.google_cloud_project),
+                ("HARNESS_GCS_BUCKET", settings.gcs_bucket),
+            ]
+            if not value
+        ]
+        if missing:
+            raise ProviderUnavailable(f"{' and '.join(missing)} not set (add to .env)")
+        self.client = genai.Client(
+            vertexai=True,
+            project=settings.google_cloud_project,
+            location=settings.google_cloud_location,
+        )
+        self.bucket = storage.Client(project=settings.google_cloud_project).bucket(
+            settings.gcs_bucket
+        )
         self.model = release.gemini_model
 
     def upload(self, media: Path) -> RemoteFile:
+        media = media.resolve()
+        key = fixtures.media_key(media)
         mime = mimetypes.guess_type(media.name)[0] or "video/mp4"
-        file = self.client.files.upload(
-            file=media.resolve(),
-            config=types.UploadFileConfig(display_name=fixtures.media_key(media), mime_type=mime),
+        blob = self.bucket.blob(f"{GCS_PREFIX}/{key}/{media.name}")
+        blob.upload_from_filename(str(media), content_type=mime)
+        return RemoteFile(
+            name=blob.name,
+            display_name=key,
+            uri=f"gs://{self.bucket.name}/{blob.name}",
+            mime_type=mime,
         )
-        return _remote(file)
-
-    def get_file(self, name: str) -> RemoteFile:
-        return _remote(self.client.files.get(name=name))
 
     def generate_json(
         self,

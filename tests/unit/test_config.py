@@ -29,14 +29,15 @@ def test_missing_file(tmp_path):
 def test_settings_env_beats_env_file(tmp_path, monkeypatch):
     env_file = tmp_path / ".env"
     env_file.write_text(
-        "GEMINI_API_KEY=from-file\nELEVENLABS_API_KEY=el-file\nANTHROPIC_API_KEY=\n"
+        "GOOGLE_CLOUD_PROJECT=from-file\nELEVENLABS_API_KEY=el-file\nANTHROPIC_API_KEY=\n"
     )
     monkeypatch.setenv("HARNESS_ENV_FILE", str(env_file))
-    monkeypatch.setenv("GEMINI_API_KEY", "from-env")
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "from-env")
     monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     s = Settings.load()
-    assert s.gemini_api_key == "from-env"
+    assert s.google_cloud_project == "from-env"
+    assert s.google_cloud_location == "global"
     assert s.elevenlabs_api_key == "el-file"
     assert s.anthropic_api_key is None  # empty counts as unset
 

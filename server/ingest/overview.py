@@ -1,9 +1,8 @@
 """Ingest step `overview`: upload the video to Gemini and write `overview.json`.
 
-`ensure_active()` keeps an `ACTIVE` Gemini file for the video, recorded in
-`gemini_file.json`. It uploads the video again when there is no stored file or
-the stored one is within `REFRESH_MARGIN` of its expiry (Gemini keeps files 48 h).
-Step 4's `inspect` tool uses it too.
+`ensure_active()` uploads the video once (to GCS, for Vertex AI) and records it
+in `gemini_file.json`; later calls reuse that record. Step 4's `inspect` tool uses
+it too.
 
 `overview.json` comes from one schema-constrained call:
 
@@ -19,8 +18,7 @@ Chapter times are clamped to the video's duration from `meta.json`.
 
 from __future__ import annotations
 
-import time
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from typing import Literal
 
 from pydantic import BaseModel, Field
@@ -31,9 +29,6 @@ from server.workspace import Workspace
 
 GEMINI_FILE = "gemini_file.json"
 OVERVIEW = "overview.json"
-REFRESH_MARGIN = timedelta(hours=1)
-POLL_INTERVAL_S = 2.0
-UPLOAD_TIMEOUT_S = 600.0
 
 PROMPT = """\
 You are indexing a video so an assistant can answer questions about it later.
@@ -133,8 +128,6 @@ def _store(workspace: Workspace, file: RemoteFile) -> None:
             "display_name": file.display_name,
             "uri": file.uri,
             "mime_type": file.mime_type,
-            "state": file.state,
-            "expires_at": file.expires_at.isoformat(),
             "uploaded_at": datetime.now(UTC).isoformat(),
         },
     )
@@ -144,38 +137,23 @@ def stored_file(workspace: Workspace) -> RemoteFile | None:
     if not workspace.path(GEMINI_FILE).exists():
         return None
     data = workspace.read_json(GEMINI_FILE)
+    if "expires_at" in data:  # a Gemini Files API upload from before Vertex AI: upload again
+        return None
     return RemoteFile(
         name=data["name"],
         display_name=data["display_name"],
         uri=data["uri"],
         mime_type=data["mime_type"],
-        state=data["state"],
-        expires_at=datetime.fromisoformat(data["expires_at"]),
     )
 
 
-def wait_active(vision: VisionModel, file: RemoteFile) -> RemoteFile:
-    deadline = time.monotonic() + UPLOAD_TIMEOUT_S
-    while file.state != "ACTIVE":
-        if file.state == "FAILED":
-            raise RuntimeError(f"Gemini could not process the video ({file.name})")
-        if time.monotonic() > deadline:
-            raise TimeoutError(f"Gemini file {file.name} not ACTIVE after {UPLOAD_TIMEOUT_S:g} s")
-        time.sleep(POLL_INTERVAL_S)
-        file = vision.get_file(file.name)
-    return file
-
-
-def ensure_active(
-    vision: VisionModel, workspace: Workspace, now: datetime | None = None
-) -> tuple[RemoteFile, bool]:
-    """Return an ACTIVE Gemini file for the workspace video, and whether it was uploaded now."""
-    now = now or datetime.now(UTC)
+def ensure_active(vision: VisionModel, workspace: Workspace) -> tuple[RemoteFile, bool]:
+    """Return the uploaded file for the workspace video, and whether it was uploaded now."""
+    # ponytail: trusts the stored record; check the bucket too if objects get deleted.
     stored = stored_file(workspace)
-    # ponytail: trusts the stored expiry; check get_file() too if files vanish early.
-    if stored and stored.state == "ACTIVE" and stored.expires_at - now > REFRESH_MARGIN:
+    if stored:
         return stored, False
-    file = wait_active(vision, vision.upload(workspace.source))
+    file = vision.upload(workspace.source)
     _store(workspace, file)
     return file, True
 

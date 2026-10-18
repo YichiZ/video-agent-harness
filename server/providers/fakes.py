@@ -14,7 +14,6 @@ from __future__ import annotations
 
 from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -22,8 +21,6 @@ from claude_agent_sdk import Message, ResultMessage
 
 from server.providers import fixtures, sdk_codec
 from server.providers.base import JSON, AgentClient, RemoteFile, Transcriber, VisionModel
-
-GEMINI_FILE_TTL = timedelta(hours=48)
 
 
 class FakeTranscriber:
@@ -53,34 +50,17 @@ def _request(prompt: str, schema: JSON, start, end, fps) -> dict[str, Any]:
 
 @dataclass
 class FakeVisionModel:
-    """Replays Gemini responses. Uploads are instant and become ACTIVE at once."""
+    """Replays Gemini responses. Uploads are instant."""
 
     fixtures_dir: Path
-    ttl: timedelta = GEMINI_FILE_TTL
     calls: list[dict[str, Any]] = field(default_factory=list)
     uploads: list[Path] = field(default_factory=list)
-    _files: dict[str, RemoteFile] = field(default_factory=dict)
 
     def upload(self, media: Path) -> RemoteFile:
         self.uploads.append(media)
         key = fixtures.media_key(media)
-        name = f"files/fake-{key}-{len(self.uploads)}"
-        remote = RemoteFile(
-            name=name,
-            display_name=key,
-            uri=f"fake://{name}",
-            mime_type="video/mp4",
-            state="ACTIVE",
-            expires_at=datetime.now(UTC) + self.ttl,
-        )
-        self._files[name] = remote
-        return remote
-
-    def get_file(self, name: str) -> RemoteFile:
-        try:
-            return self._files[name]
-        except KeyError:
-            raise LookupError(f"fake vision model has no file {name!r}") from None
+        name = f"fake-{key}-{len(self.uploads)}"
+        return RemoteFile(name=name, display_name=key, uri=f"fake://{name}", mime_type="video/mp4")
 
     def generate_json(
         self,
@@ -110,9 +90,6 @@ class RecordingVisionModel:
 
     def upload(self, media: Path) -> RemoteFile:
         return self.inner.upload(media)
-
-    def get_file(self, name: str) -> RemoteFile:
-        return self.inner.get_file(name)
 
     def generate_json(self, *, file, prompt, schema, purpose, start=None, end=None, fps=None):
         response = self.inner.generate_json(

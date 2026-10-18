@@ -14,7 +14,6 @@ from __future__ import annotations
 
 from collections.abc import AsyncIterator
 from dataclasses import dataclass
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
 
@@ -38,14 +37,12 @@ class Transcriber(Protocol):
 
 @dataclass(frozen=True)
 class RemoteFile:
-    """A video uploaded to the vision provider (the Gemini Files API)."""
+    """A video uploaded for the vision provider (a GCS object for Vertex AI Gemini)."""
 
     name: str
     display_name: str  # the media key (source stem); names recorded fixtures
-    uri: str
+    uri: str  # gs://bucket/path
     mime_type: str
-    state: str  # "PROCESSING", "ACTIVE" or "FAILED"
-    expires_at: datetime
 
 
 @runtime_checkable
@@ -53,11 +50,7 @@ class VisionModel(Protocol):
     """Video understanding (Gemini in production, steps 3, 4 and 7)."""
 
     def upload(self, media: Path) -> RemoteFile:
-        """Upload a video. The returned file may still be `PROCESSING`."""
-        ...
-
-    def get_file(self, name: str) -> RemoteFile:
-        """Fetch a file's current state, to poll until it is `ACTIVE`."""
+        """Upload a video. The returned file is ready to use."""
         ...
 
     def generate_json(
