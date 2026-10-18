@@ -50,3 +50,4 @@ Never edit files or commit in the main checkout. `main` there stays clean and on
 - **Starting work:** create a worktree on a new branch, either `claude --worktree <name>` or `git worktree add .claude/worktrees/<name> -b <name>`, and do all edits and commits inside it.
 - **Location:** worktrees live under `.claude/worktrees/`, which is gitignored.
 - **Finishing:** push the branch and open a PR to `main`. After it merges, remove the worktree with `git worktree remove .claude/worktrees/<name>`.
+- **After every merge:** run `git pull` in the main checkout (on `main`) so it stays current with `origin/main`.
