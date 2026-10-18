@@ -45,6 +45,7 @@ SERVER_NAME = "video"
 INSPECT_DIR = "inspect"
 MAX_FRAMES = 8
 DEFAULT_K = 5
+MAX_SHOTS = 60
 FRAME_HEIGHT = 720
 
 INSPECT_PROMPT = """\
@@ -157,12 +158,19 @@ class VideoTools:
 
     def list_shots(self, start: float | None = None, end: float | None = None) -> JSON:
         lo, hi = self._range(start, end)
+        shots = [{**s, "time": format_clock(s["start_s"])} for s in self._read(SHOTS)["shots"]]
+        note = "captions are not ready yet; shots have times only"
         if self.workspace.path(CAPTIONS).exists():
-            shots, note = self._read(CAPTIONS)["shots"], None
-        else:
-            shots = [{**s, "time": format_clock(s["start_s"])} for s in self._read(SHOTS)["shots"]]
-            note = "captions are not ready yet; shots have times only"
+            captioned = self._read(CAPTIONS)["shots"]
+            bounds = lambda xs: [(x["start_s"], x["end_s"]) for x in xs]  # noqa: E731
+            if bounds(captioned) == bounds(shots):
+                shots, note = captioned, None
+            else:  # shots were re-detected after captioning
+                note = "captions are out of date with the shots; shots have times only"
         shots = [s for s in shots if s["start_s"] < hi and s["end_s"] > lo]
+        if len(shots) > MAX_SHOTS:
+            shots = shots[:MAX_SHOTS]
+            note = f"only the first {MAX_SHOTS} shots; narrow the range for more"
         return {"start": lo, "end": hi, "shots": shots, **({"note": note} if note else {})}
 
     def inspect(

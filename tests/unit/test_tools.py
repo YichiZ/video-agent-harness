@@ -104,16 +104,20 @@ def test_mcp_server_lists_tools_and_reports_errors(tools):
     assert [b.type for b in ok.content] == ["text", "image"]
 
 
-def test_list_shots_prefers_captions_and_filters_range(tools):
-    tools.workspace.write_json(
-        "shots.json",
-        {"shots": [{"index": i, "start_s": i * 5.0, "end_s": i * 5.0 + 5} for i in range(4)]},
-    )
+def test_list_shots_prefers_matching_captions_and_filters_range(tools, monkeypatch):
+    shots = [{"index": i, "start_s": i * 5.0, "end_s": i * 5.0 + 5} for i in range(4)]
+    tools.workspace.write_json("shots.json", {"shots": shots})
     early = tools.list_shots(4, 6)
     assert [s["index"] for s in early["shots"]] == [0, 1] and "not ready" in early["note"]
-    tools.workspace.write_json(
-        "captions.json",
-        {"shots": [{"index": 3, "start_s": 15.0, "end_s": 20.0, "caption": "End."}]},
-    )
+
+    captioned = [{**s, "caption": f"Shot {s['index']}."} for s in shots]
+    tools.workspace.write_json("captions.json", {"shots": captioned})
     late = tools.list_shots(16)
-    assert late["shots"][0]["caption"] == "End." and "note" not in late
+    assert [s["caption"] for s in late["shots"]] == ["Shot 3."] and "note" not in late
+
+    monkeypatch.setattr("server.agent.tools.MAX_SHOTS", 2)
+    assert len(tools.list_shots()["shots"]) == 2 and "narrow" in tools.list_shots()["note"]
+
+    tools.workspace.write_json("shots.json", {"shots": shots[:3]})  # shots re-detected
+    stale = tools.list_shots()
+    assert "caption" not in stale["shots"][0] and "out of date" in stale["note"]

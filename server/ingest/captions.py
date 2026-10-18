@@ -17,7 +17,9 @@ index, so merging never depends on the times it reports.
                  "entities": ["credit card"], "action": "..."}, ...]
     }
 
-A shot Gemini skips keeps an empty caption, and the step's summary counts it.
+A shot Gemini skips keeps an empty caption, and the step's summary counts it. If more
+than `MAX_MISSING` of the shots come back without one (a truncated response), the step
+fails instead, so nothing partial is cached.
 """
 
 from __future__ import annotations
@@ -32,6 +34,7 @@ from server.providers import JSON, get_vision_model
 
 CAPTIONS = "captions.json"
 WINDOW_S = 20 * 60
+MAX_MISSING = 0.1
 
 PROMPT = """\
 You are indexing a video so an assistant can answer questions about it later.
@@ -153,6 +156,9 @@ def run(ctx: StepContext) -> str:
         captions += [c for c in Response.model_validate(raw).shots if c.index in wanted]
 
     merged = merge(shots, captions)
+    missing = sum(not s["caption"] for s in merged)
+    if missing > MAX_MISSING * len(merged):
+        raise RuntimeError(f"Gemini left {missing} of {len(merged)} shots without a caption")
     ctx.workspace.write_json(
         CAPTIONS,
         {
@@ -161,7 +167,6 @@ def run(ctx: StepContext) -> str:
             "shots": merged,
         },
     )
-    missing = sum(not s["caption"] for s in merged)
     calls = f"{len(groups)} call{'s' if windowed else ''}"
     note = f", {missing} without a caption" if missing else ""
     return f"{len(merged)} shots in {calls}{note}"
