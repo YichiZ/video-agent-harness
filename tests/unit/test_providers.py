@@ -43,12 +43,18 @@ def test_fakes_satisfy_protocols(tmp_path, monkeypatch, release):
 
 def test_real_providers_not_implemented_yet_say_which_step(tmp_path, monkeypatch, release):
     s = settings(False, tmp_path, monkeypatch)
-    # Steps 2 and 3 add the real modules; until then the error names the step.
-    for factory, step in [(get_transcriber, "step 2"), (get_vision_model, "step 3")]:
-        try:
-            factory(s, release)
-        except ProviderUnavailable as e:
-            assert step in str(e)
+    # Step 3 adds the real module; until then the error names the step.
+    try:
+        get_vision_model(s, release)
+    except ProviderUnavailable as e:
+        assert "step 3" in str(e)
+
+
+def test_real_transcriber_needs_its_key(tmp_path, monkeypatch, release):
+    monkeypatch.delenv("ELEVENLABS_API_KEY", raising=False)
+    s = settings(False, tmp_path, monkeypatch)
+    with pytest.raises(ProviderUnavailable, match="ELEVENLABS_API_KEY"):
+        get_transcriber(s, release)
 
 
 def test_fake_transcriber_replays_by_resolved_stem(tmp_path):
