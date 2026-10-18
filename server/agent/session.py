@@ -2,10 +2,11 @@
 
 `ChatSession` owns an `AgentClient` (a `ClaudeSDKClient` in production) set up
 by `build_options()`: the model from `release.json`, the workspace as `cwd`,
-the versioned system prompt, the `video` MCP server as the only tools, and the
-budget and turn limits. `ask()` sends one user message and yields `Event`s as
-the turn streams. The SDK session id is kept in `session.json`, so
-`ChatSession(..., resume=True)` continues the conversation.
+the versioned system prompt, the `video` MCP server and the Skills in
+`plugin/skills/` as the only tools, and the budget and turn limits. `ask()`
+sends one user message and yields `Event`s as the turn streams. The SDK
+session id is kept in `session.json`, so `ChatSession(..., resume=True)`
+continues the conversation.
 
 Offline (`HARNESS_FAKE_PROVIDERS=1`) the client replays the recorded stream
 `tests/fixtures/agent/<media>-chat.json`, or `<media>-resume.json` when resuming.
@@ -35,6 +36,10 @@ from server.workspace import Workspace
 
 SESSION = "session.json"
 PROMPT_DIR = Path(__file__).resolve().parent
+# The Skills ship as a local plugin rather than in `.claude/skills/`, so loading them
+# needs no `setting_sources` and the repo's CLAUDE.md and settings stay out.
+PLUGIN_DIR = PROMPT_DIR / "plugin"
+SKILLS = ["video:summarize-video", "video:find-moments"]
 # Built-in Claude Code tools the agent must never get, on top of `tools=[]`.
 DISALLOWED_TOOLS = ["Bash", "WebFetch", "WebSearch", "Read", "Write", "Edit", "Glob", "Grep"]
 
@@ -53,7 +58,9 @@ def build_options(
         model=release.agent_model,
         cwd=str(tools.workspace.dir),
         system_prompt=system_prompt(release),
-        tools=[],  # no built-in tools at all; only the video MCP server
+        tools=["Skill"],  # the only built-in tool; the rest is the video MCP server
+        plugins=[{"type": "local", "path": str(PLUGIN_DIR)}],
+        skills=SKILLS,  # hides every other discovered Skill
         mcp_servers={SERVER_NAME: build_server(tools)},
         strict_mcp_config=True,  # no MCP servers from the developer's config
         allowed_tools=ALLOWED_TOOLS,
@@ -93,6 +100,7 @@ class ChatSession:
         *,
         resume: bool = False,
         client: AgentClient | None = None,
+        fixture: str | None = None,
     ):
         self.workspace = workspace
         self.tools = VideoTools(workspace, settings, release)
@@ -100,8 +108,9 @@ class ChatSession:
         if resume and self.session_id is None:
             raise LookupError("no earlier chat to resume for this video")
         options = build_options(self.tools, settings, release, resume=self.session_id)
-        media = fixtures.media_key(workspace.source)
-        fixture = f"{media}-{'resume' if resume else 'chat'}"
+        if fixture is None:
+            media = fixtures.media_key(workspace.source)
+            fixture = f"{media}-{'resume' if resume else 'chat'}"
         self.client = client or get_agent_client(settings, options, fixture=fixture)
 
     def stored_session_id(self) -> str | None:

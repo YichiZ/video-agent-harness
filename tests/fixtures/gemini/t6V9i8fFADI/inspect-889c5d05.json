@@ -1,0 +1,29 @@
+{
+  "answer": "Warren Buffett is visually shown on screen during the following time ranges:\n- 00:01 - 00:09 (in photo and video footage holding an ice cream bar in a crowd)\n- 00:46 - 00:54 (in an ABC News television interview segment)\n- 00:54 - 01:07 (in an illustrated cutout graphic seated in an armchair alongside his secretary)\n- 01:07 - 01:11 (in a CNBC interview clip speaking about taxes)",
+  "observations": [
+    {
+      "time": "00:01",
+      "observation": "Warren Buffett appears on screen holding an ice cream bar surrounded by press and attendees."
+    },
+    {
+      "time": "00:09",
+      "observation": "Warren Buffett's image transitions off-screen to a graphic explaining Berkshire Hathaway."
+    },
+    {
+      "time": "00:46",
+      "observation": "Warren Buffett appears in an ABC News interview clip alongside his secretary."
+    },
+    {
+      "time": "00:54",
+      "observation": "A cutout image illustration of Warren Buffett seated next to his secretary appears with tax explanation graphics."
+    },
+    {
+      "time": "01:07",
+      "observation": "Warren Buffett appears speaking in a CNBC broadcast interview."
+    },
+    {
+      "time": "01:11",
+      "observation": "The CNBC footage cuts away to an income growth chart."
+    }
+  ]
+}

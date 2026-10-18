@@ -1,4 +1,4 @@
-.PHONY: help sync test test-live lint fmt media doctor chat
+.PHONY: help sync test test-live lint fmt media doctor chat eval
 
 help:  ## list targets
 	@grep -E "^[a-z-]+:.*##" $(MAKEFILE_LIST) | sed -E "s/:.*## /\t/"
@@ -28,3 +28,8 @@ doctor:  ## check tools, config, keys and Claude auth
 
 chat:  ## chat about a video (step 5): make chat VIDEO=path/to/video.mp4
 	uv run python -m server.cli chat $(VIDEO)
+
+SUBSET ?= smoke
+eval:  ## compare prompt v1 with v2 (step 12): make eval SUBSET=smoke
+	@test "$(SUBSET)" = smoke || { echo "only SUBSET=smoke exists until step 13"; exit 2; }
+	uv run python -m evals.smoke

@@ -118,12 +118,15 @@ options = ClaudeAgentOptions(
     cwd=f"workspace/{video_id}",
     system_prompt=VIDEO_AGENT_PROMPT,          # versioned file, like agent-harness
     mcp_servers={"video": video_server},
-    allowed_tools=["mcp__video__*", "Read", "Grep", "Glob", "Skill"],
+    tools=["Skill"],                           # the only built-in tool
+    allowed_tools=["mcp__video__*"],
     disallowed_tools=["Bash", "WebFetch", "WebSearch"],
     permission_mode="dontAsk",                 # anything not allowed is denied, never prompts
     include_partial_messages=True,             # token streaming to the UI
     max_budget_usd=2.00,
-    setting_sources=["project"],               # loads .claude/skills from the harness repo
+    plugins=[{"type": "local", "path": "server/agent/plugin"}],  # the Skills
+    skills=["video:summarize-video", "video:find-moments"],
+    setting_sources=[],                        # no CLAUDE.md or settings from the repo or user
 )
 ```
 
@@ -157,7 +160,7 @@ Later phases wrap the VideoAgent audio roles as tools as well:
 
 ### Skills
 
-Skills replace VideoAgent's `intents.yml` recipes. They are markdown under `.claude/skills/`, for example:
+Skills replace VideoAgent's `intents.yml` recipes. They are markdown under `server/agent/plugin/skills/`, shipped as a local plugin named `video`. A plugin needs no `setting_sources`, so the repo's own `CLAUDE.md` and `.claude/` settings (which are for developers, not the agent) never reach it. For example:
 - `summarize-video`
 - `find-moments`
 - `highlight-reel`
@@ -226,11 +229,11 @@ video-agent-harness/
   server/                 FastAPI app
     app.py                routes: POST /video, GET /video/{id}/..., WS /chat
     ingest/               probe.py, proxy.py, scribe.py, shots.py, gemini_index.py, index.py
-    agent/                session.py (ClaudeSDKClient lifecycle), prompt.v1.md, tools.py (MCP server)
+    agent/                session.py (ClaudeSDKClient lifecycle), prompt.v*.md, tools.py (MCP server),
+                          plugin/skills/ (summarize-video, find-moments, ...)
     edl/                  schema.py, render.py (ffmpeg)            # phase 2
     legacy/               adapted VideoAgent roles + BaseTool→MCP adapter
   web/                    Vite + React UI
-  .claude/skills/         summarize-video, find-moments, highlight-reel, ...
   workspace/              per-video data (gitignored)
   evals/                  question set + judge (from agent-harness)
   release.json            model ids, prompt version, budgets

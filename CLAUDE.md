@@ -4,7 +4,7 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 6 of [PLAN.md](PLAN.md) are in place: M1, the agent chat CLI, plus shot detection. Commands:
+Steps 0 to 6 and 12 of [PLAN.md](PLAN.md) are in place: M1, the agent chat CLI, plus shot detection. Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
@@ -14,6 +14,7 @@ uv run python -m server.cli tool <name> '<json args>' [--video <video>]   # call
 make chat VIDEO=<video>                  # streaming terminal chat (`server.cli chat <video> --resume` continues)
 make test                                # unit + offline e2e tests, no keys needed
 make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
+make eval SUBSET=smoke                   # prompt v1 vs v2 on six Video-MME questions
 make lint / make fmt                     # ruff
 uv run python -m server.cli <command>    # the CLI
 ```
@@ -26,7 +27,9 @@ uv run python -m server.cli <command>    # the CLI
 - **Workspace:** `server/workspace.py`. `workspace/<video_id>/`, where the id is the first 16 hex characters of the file's SHA-256. `source<ext>` links to the original. The module docstring lists which step writes which file; write outputs with `Workspace.write_json` (atomic).
 - **Ingest steps:** `server/ingest/`. One module per step defining `STEP = Step(name, outputs, run, requires)`, listed in `STEP_MODULES`. A step whose outputs exist is skipped; `requires` pulls in earlier steps. Raise `ingest.Rejected` for unacceptable input. `ingest --only <name>` picks the step up automatically.
 - **Agent tools:** `server/agent/tools.py`. `VideoTools` holds the plain tool methods for one workspace; `build_server()` wraps them as the in-process MCP server `video` (`ALLOWED_TOOLS` lists `mcp__video__*`). Raise `ToolError` for a call the agent should fix.
-- **Agent session:** `server/agent/session.py`. `build_options()` is the only place `ClaudeAgentOptions` is set (no built-in tools, `mcp__video__*` only, `dontAsk`); `ChatSession.ask()` yields text, tool and result events and keeps `session.json`. The system prompt is `server/agent/prompt.<prompt_version>.md`. Offline replays `tests/fixtures/agent/<media>-chat.json` / `-resume.json`.
+- **Agent session:** `server/agent/session.py`. `build_options()` is the only place `ClaudeAgentOptions` is set (only the `Skill` built-in, `mcp__video__*`, `dontAsk`, `setting_sources=[]`); `ChatSession.ask()` yields text, tool and result events and keeps `session.json`. The system prompt is `server/agent/prompt.<prompt_version>.md`. Offline replays `tests/fixtures/agent/<media>-chat.json` / `-resume.json`.
+- **Skills:** `server/agent/plugin/skills/<name>/SKILL.md`, loaded as the local plugin `video`; list a new one in `session.SKILLS` as `video:<name>`.
+- **Evals:** `make eval SUBSET=smoke` (`evals/smoke.py`) asks the six Video-MME questions in `evals/smoke.jsonl` with prompt v1 and v2 and fails if v2 scores lower. Step 13 replaces it.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
 - **Tests:** `tests/unit/` and `tests/e2e/test_stepNN_<name>.py`. E2E tests run the CLI as a subprocess through the `cli` fixture, which isolates `.env`, keys and the Claude login and sets `HARNESS_FAKE_PROVIDERS=1`. Mark real-API tests `@pytest.mark.live`. Use the `videomme("short")` fixture for Video-MME videos (skips when absent, as in CI) and `test_media` for generated media.
 

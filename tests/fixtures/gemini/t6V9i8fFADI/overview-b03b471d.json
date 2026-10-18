@@ -1,0 +1,55 @@
+{
+  "summary": "This video examines how the American tax system enables billionaires to pay significantly lower tax rates than middle-class workers. Through examples like Warren Buffett and former Wall Street executive Morris Pearl, it explains the difference between income tax and capital gains tax, alongside loopholes like the 'stepped-up basis'. It also discusses proposed policy reforms aimed at taxing capital gains more heavily to reduce economic disparity.",
+  "subjects": [
+    {
+      "name": "Warren Buffett",
+      "kind": "person",
+      "description": "Billionaire investor and CEO of Berkshire Hathaway who famously noted he pays lower tax rates than his secretary.",
+      "first_seen": "00:02"
+    },
+    {
+      "name": "Morris Pearl",
+      "kind": "person",
+      "description": "Former BlackRock executive and member of Patriotic Millionaires who advocates for higher taxes on the wealthy.",
+      "first_seen": "01:36"
+    },
+    {
+      "name": "Jeff Bezos",
+      "kind": "person",
+      "description": "Founder of Amazon whose wealth primarily resides in untaxed company stock.",
+      "first_seen": "03:16"
+    },
+    {
+      "name": "Elon Musk",
+      "kind": "person",
+      "description": "Billionaire entrepreneur who utilizes bank loans against stock to avoid taxable income realization.",
+      "first_seen": "03:40"
+    }
+  ],
+  "chapters": [
+    {
+      "start": "00:00",
+      "end": "01:34",
+      "title": "The Billionaire Tax Disparity",
+      "summary": "Warren Buffett's stock-based fortune illustrates why wealthy individuals often face lower overall tax rates than regular wage earners."
+    },
+    {
+      "start": "01:35",
+      "end": "03:55",
+      "title": "Income vs. Capital Gains",
+      "summary": "Former finance executive Morris Pearl explains how untaxed stock gains and low capital gains rates benefit the rich over wage laborers."
+    },
+    {
+      "start": "03:56",
+      "end": "05:49",
+      "title": "The Stepped-Up Basis Loophole and Reforms",
+      "summary": "The video outlines the 'buy, borrow, die' strategy, inherited tax exemptions, and Joe Biden's proposal to increase capital gains taxes."
+    },
+    {
+      "start": "05:50",
+      "end": "06:07",
+      "title": "Credits",
+      "summary": "Closing credits roll for the Vox production team and sources cited."
+    }
+  ]
+}
