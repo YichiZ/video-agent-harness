@@ -29,6 +29,7 @@ STEP_MODULES = [
     "server.ingest.transcribe",
     "server.ingest.overview",
     "server.ingest.shots",
+    "server.ingest.captions",
 ]
 
 

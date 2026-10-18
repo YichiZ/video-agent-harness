@@ -10,6 +10,7 @@
 #                 otherwise each missing clip is a solid colour.
 #   over_cap.mp4  61 minutes of 2x2 px black at 1 fps (about 100 KB), for the
 #                 60-minute cap. (ffmpeg's colour source rejects 1x1.)
+#   windowed.mp4  25 minutes of the same, so step 7 captions it in two windows.
 #
 # Existing files are kept unless --force is given.
 set -euo pipefail
@@ -28,6 +29,12 @@ if need over_cap.mp4; then
   ffmpeg -v error -y -f lavfi -i "color=c=black:size=2x2:rate=1" -t 3660 \
     -c:v libx264 -pix_fmt yuv420p -tune stillimage "$out/over_cap.mp4"
   echo "wrote $out/over_cap.mp4"
+fi
+
+if need windowed.mp4; then
+  ffmpeg -v error -y -f lavfi -i "color=c=black:size=2x2:rate=1" -t 1500 \
+    -c:v libx264 -pix_fmt yuv420p -tune stillimage "$out/windowed.mp4"
+  echo "wrote $out/windowed.mp4"
 fi
 
 if need cuts.mp4; then

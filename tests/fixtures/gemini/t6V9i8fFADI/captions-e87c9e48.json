@@ -1,0 +1,504 @@
+{
+  "shots": [
+    {
+      "index": 0,
+      "caption": "A display of DQ cups with a company logo leads into footage of Warren Buffet holding an ice cream bar, followed by graphic bubbles of companies owned by Berkshire Hathaway.",
+      "on_screen_text": [
+        "Vox",
+        "sina",
+        "FOX BUSINESS",
+        "CNBC",
+        "Warren Buffett",
+        "Net worth: $102 billion",
+        "as of July 1, 2021",
+        "Berkshire Hathaway",
+        "DQ",
+        "GEICO",
+        "DURACELL",
+        "LONG & FOSTER REAL ESTATE",
+        "See's CANDIES",
+        "FRUIT OF THE LOOM",
+        "BNSF RAILWAY",
+        "SiriusXM",
+        "BANK OF AMERICA",
+        "Coca-Cola",
+        "KraftHeinz",
+        "AMERICAN EXPRESS"
+      ],
+      "entities": [
+        "Warren Buffett",
+        "Berkshire Hathaway",
+        "DQ",
+        "GEICO",
+        "Duracell",
+        "Apple",
+        "Coca-Cola"
+      ],
+      "action": "Warren Buffett poses with an ice cream bar in a crowd, and an infographic shows the companies owned by Berkshire Hathaway."
+    },
+    {
+      "index": 1,
+      "caption": "A close-up shot focuses on the Apple logo and a graphic representing a stock certificate rising.",
+      "on_screen_text": [
+        "Vox",
+        "RUIT OF THE LOOM",
+        "sxm",
+        "OF AMERICA",
+        "STOCK"
+      ],
+      "entities": [
+        "Apple",
+        "Stock certificate"
+      ],
+      "action": "An animation shows an Apple stock certificate rising with an arrow."
+    },
+    {
+      "index": 2,
+      "caption": "An animation demonstrates how Berkshire Hathaway's stock value rises alongside its holdings.",
+      "on_screen_text": [
+        "Vox",
+        "STOCK",
+        "Berkshire Hathaway",
+        "DQ",
+        "GEICO",
+        "DURACELL"
+      ],
+      "entities": [
+        "Berkshire Hathaway"
+      ],
+      "action": "An animated Berkshire Hathaway banner and stock rise upwards."
+    },
+    {
+      "index": 3,
+      "caption": "A graph depicts the dramatic growth of Berkshire Hathaway Inc. stock price from 1965 to 2021, visualised with stacks of shares.",
+      "on_screen_text": [
+        "Vox",
+        "STOCK 1965",
+        "$19 1965",
+        "1975",
+        "1985",
+        "1995",
+        "2005",
+        "2015",
+        "2020",
+        "50k",
+        "100k",
+        "150k",
+        "200k",
+        "250k",
+        "300k",
+        "350k",
+        "400k",
+        "Berkshire Hathaway Inc. stock price (BRK-A)",
+        "NYSE/Yahoo Finance, as of July 1, 2021",
+        "$421,000",
+        "Buffett's wealth"
+      ],
+      "entities": [
+        "Berkshire Hathaway",
+        "Warren Buffett"
+      ],
+      "action": "The graph's line charts steep growth up to $421,000, and stock certificates pile up to illustrate Warren Buffett's wealth."
+    },
+    {
+      "index": 4,
+      "caption": "A CNN headline about Buffett's tax rate appears over a clip of an interview with Warren Buffett and his secretary.",
+      "on_screen_text": [
+        "Vox",
+        "CNN",
+        "Buffett says he's still paying lower tax rate than his secretary",
+        "MARCH 4, 2013 | CHRIS ISIDORE",
+        "abc NEWS EXCLUSIVE",
+        "THE BILLIONAIRE AND HIS SECRETARY",
+        "HOW MUCH DO THEY PAY IN TAXES?"
+      ],
+      "entities": [
+        "Warren Buffett",
+        "Debbie Bosanek"
+      ],
+      "action": "A CNN headline displays over footage of Warren Buffett and his secretary Debbie Bosanek."
+    },
+    {
+      "index": 5,
+      "caption": "Warren Buffett speaks during an ABC News interview about the tax rate difference between him and his secretary.",
+      "on_screen_text": [
+        "Vox",
+        "abc NEWS EXCLUSIVE",
+        "THE BILLIONAIRE AND HIS SECRETARY",
+        "HOW MUCH DO THEY PAY IN TAXES?"
+      ],
+      "entities": [
+        "Warren Buffett"
+      ],
+      "action": "Warren Buffett speaks during an interview."
+    },
+    {
+      "index": 6,
+      "caption": "An animation contrasts income tax on salary with capital gains tax on stock, using Warren Buffett and his secretary.",
+      "on_screen_text": [
+        "Vox",
+        "abc NEWS .com",
+        "INCOME TAX",
+        "STOCK",
+        "CAPITAL GAINS TAX",
+        "Maximum rate: 20%",
+        "long-term",
+        "Maximum rate: 37%"
+      ],
+      "entities": [
+        "Warren Buffett",
+        "Debbie Bosanek"
+      ],
+      "action": "Graphics compare the 37% maximum income tax rate with the 20% capital gains tax rate."
+    },
+    {
+      "index": 7,
+      "caption": "Warren Buffett gestures while speaking in a televised interview on CNBC.",
+      "on_screen_text": [
+        "Vox",
+        "CNBC",
+        "BREAKING NEWS",
+        "BUFFETT: U.S. IS STILL AN",
+        "The wealthy are definitely undertaxed."
+      ],
+      "entities": [
+        "Warren Buffett"
+      ],
+      "action": "Warren Buffett shrugs and gestures with his hands while speaking."
+    },
+    {
+      "index": 8,
+      "caption": "A line chart shows the growth of after-tax income in the US for the top 0.01% compared to other income groups, followed by the Vox logo.",
+      "on_screen_text": [
+        "Vox",
+        "Growth of after-tax income of Americans",
+        "New York Times",
+        "400%",
+        "300",
+        "200",
+        "100",
+        "0",
+        "1980",
+        "1990",
+        "2000",
+        "2010",
+        "Top 0.01%",
+        "Middle 40%",
+        "Bottom 50%"
+      ],
+      "entities": [
+        "Vox"
+      ],
+      "action": "A line chart demonstrates increasing income disparity over four decades, concluding with the Vox logo."
+    },
+    {
+      "index": 9,
+      "caption": "Morris Pearl, former BlackRock executive and millionaire, speaks via video call.",
+      "on_screen_text": [
+        "Vox",
+        "Morris Pearl",
+        "Former BlackRock executive",
+        "millionaire"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl talks directly to the camera during a video conference."
+    },
+    {
+      "index": 10,
+      "caption": "A mobile billboard truck displays a photo of Jeff Bezos advocating for higher taxes in front of the US Capitol.",
+      "on_screen_text": [
+        "Vox",
+        "tax me if you can!",
+        "taxtherich.com",
+        "pro-tax billboard paid for by his group, Patriotic Millionaires"
+      ],
+      "entities": [
+        "Jeff Bezos",
+        "United States Capitol",
+        "Patriotic Millionaires"
+      ],
+      "action": "A black truck bearing a 'tax me if you can!' billboard parks near the Capitol building."
+    },
+    {
+      "index": 11,
+      "caption": "Morris Pearl explains his views on middle-class purchasing power during a video call.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl speaks to the camera in front of his bookshelf."
+    },
+    {
+      "index": 12,
+      "caption": "A bar chart compares the composition of income types (labor vs capital income) across different income percentiles.",
+      "on_screen_text": [
+        "Vox",
+        "Type of Income Center on Budget and Policy Priorities, Congressional Budget Office",
+        "100%",
+        "75",
+        "50",
+        "25",
+        "0",
+        "Bottom fifth",
+        "Second fifth",
+        "Third fifth",
+        "Fourth fifth",
+        "Top fifth",
+        "Top 1%",
+        "Labor income",
+        "Federal income tax",
+        "Maximum: 37%",
+        "Capital income",
+        "Capital gains tax",
+        "Maximum: 20%",
+        "long-term"
+      ],
+      "entities": [],
+      "action": "An animated bar chart fills up to illustrate the prevalence of capital income among the top earners."
+    },
+    {
+      "index": 13,
+      "caption": "Morris Pearl describes a recent stock transaction and the taxes associated with it.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl talks on a video call."
+    },
+    {
+      "index": 14,
+      "caption": "An animation contrasts the $50,000 capital gains tax on a $400,000 stock sale with the $110,000 income tax on a $400,000 salary.",
+      "on_screen_text": [
+        "Vox",
+        "STOCK",
+        "$400,000",
+        "CAPITAL GAINS TAX",
+        "$50,000",
+        "INCOME TAX",
+        "$110,000"
+      ],
+      "entities": [],
+      "action": "The graphic compares taxes owed on equal sums earned via stock sale versus regular employment."
+    },
+    {
+      "index": 15,
+      "caption": "Stock certificates multiply to form a giant pyramid representing non-taxable wealth.",
+      "on_screen_text": [
+        "Vox",
+        "STOCK",
+        "wealth"
+      ],
+      "entities": [],
+      "action": "Numerous stock certificates accumulate into a pyramid labeled 'wealth'."
+    },
+    {
+      "index": 16,
+      "caption": "Morris Pearl talks about how paper wealth is only taxed once assets are sold.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl speaks on camera during a video call."
+    },
+    {
+      "index": 17,
+      "caption": "An illustration shows Jeff Bezos against an immense pile of Amazon stock and explains how unrealized gains stay untaxed until sold.",
+      "on_screen_text": [
+        "Vox",
+        "Jeff Bezos",
+        "STOCK",
+        "Net worth: $199 billion",
+        "as of July 1, 2021",
+        "SOLD",
+        "CAPITAL GAINS TAX"
+      ],
+      "entities": [
+        "Jeff Bezos"
+      ],
+      "action": "Jeff Bezos stands before a mountain of stock certificates as one is peeled off and stamped 'SOLD'."
+    },
+    {
+      "index": 18,
+      "caption": "An animation illustrates how Elon Musk borrows money against his stock from banks without incurring taxes.",
+      "on_screen_text": [
+        "Vox",
+        "worth",
+        "taxable",
+        "Elon Musk",
+        "BANK",
+        "Net worth: $185 billion",
+        "as of July 1, 2021",
+        "not taxed"
+      ],
+      "entities": [
+        "Elon Musk"
+      ],
+      "action": "An animated diagram shows a bank providing cash loans secured by a stack of stocks, avoiding taxable events."
+    },
+    {
+      "index": 19,
+      "caption": "Morris Pearl summarizes that billionaires don't require conventional income.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl speaks to the camera."
+    },
+    {
+      "index": 20,
+      "caption": "An animated chart explains the stepped-up basis loophole for inherited stocks and untaxed capital gains.",
+      "on_screen_text": [
+        "Vox",
+        "stepped",
+        "up basis",
+        "sell",
+        "$$$,$$$",
+        "Capital gains taxes",
+        "$",
+        "inherited",
+        "Untaxed"
+      ],
+      "entities": [],
+      "action": "A line chart demonstrates how capital gains taxes reset when inherited stock is sold, leaving past gains untaxed."
+    },
+    {
+      "index": 21,
+      "caption": "Icons representing 'buy, borrow, die' appear before transitioning into a donut chart showing the top 1% share of capital gains, followed by a historical rate graph.",
+      "on_screen_text": [
+        "Vox",
+        "STOCK",
+        "buy",
+        "borrow",
+        "die",
+        "Long-term capital gains collected by income group, 2018",
+        "Center on Budget and Policy Priorities, Tax Policy Center",
+        "Top 1%",
+        "69%",
+        "everyone else",
+        "Maximum capital gains tax rate, long-term",
+        "US Treasury, not including NIIT",
+        "50%",
+        "40",
+        "30",
+        "20",
+        "10",
+        "0",
+        "1960",
+        "1970",
+        "1980",
+        "1990",
+        "2000",
+        "2010",
+        "2020",
+        "proposed"
+      ],
+      "entities": [],
+      "action": "An infographic displays the 'buy, borrow, die' strategy, a donut chart of capital gains distribution, and a chart tracking capital gains tax rates."
+    },
+    {
+      "index": 22,
+      "caption": "A graph of proposed capital gains tax rates transitions into estimated tax revenues and comparisons between Buffett and his secretary.",
+      "on_screen_text": [
+        "Vox",
+        "Maximum capital gains tax rate, long-term",
+        "proposed",
+        "39.6%",
+        "1960",
+        "1970",
+        "1980",
+        "1990",
+        "2000",
+        "2010",
+        "2020",
+        "Revenue estimates of Biden's proposal",
+        "over 10 years",
+        "$213 billion",
+        "Tax Foundation",
+        "$300 billion",
+        "Penn Wharton",
+        "$376 billion",
+        "Tax Policy Center",
+        "$400 billion",
+        "Americans for Tax Fairness",
+        "abc NEWS .com",
+        "Maximum rate: 20%",
+        "long-term",
+        "Maximum rate: 37%",
+        "STOCK",
+        "CAPITAL GAINS TAX",
+        "INCOME TAX",
+        "Maximum rate: 39.6%",
+        "untaxed"
+      ],
+      "entities": [
+        "Warren Buffett",
+        "Debbie Bosanek"
+      ],
+      "action": "Graphs illustrate Biden's proposed 39.6% rate and revenue forecasts before comparing Buffett's modified tax rate to his secretary's."
+    },
+    {
+      "index": 23,
+      "caption": "Morris Pearl speaks about potential solutions to make the tax system fairer.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl discusses tax reforms from his office."
+    },
+    {
+      "index": 24,
+      "caption": "A pie chart shows that 80% of Americans are bothered that wealthy people don't pay their fair share of taxes.",
+      "on_screen_text": [
+        "Vox",
+        "Americans bothered that some wealthy don't pay their fair share of taxes",
+        "Pew Research Center, 2021",
+        "80%"
+      ],
+      "entities": [],
+      "action": "A pie chart animates to highlight the 80% majority of concerned Americans."
+    },
+    {
+      "index": 25,
+      "caption": "Morris Pearl gestures with his hands while making a concluding point about systemic wealth inequality.",
+      "on_screen_text": [
+        "Vox"
+      ],
+      "entities": [
+        "Morris Pearl"
+      ],
+      "action": "Morris Pearl speaks and gestures emphatically with both hands."
+    },
+    {
+      "index": 26,
+      "caption": "Credits roll against a dark grey background listing producers, editors, researchers, sources, and music tracks.",
+      "on_screen_text": [
+        "Producer MADELINE MARSHALL",
+        "Story Editor ADAM FREELANDER BRIDGETT HENWOOD",
+        "Art Director JOEY SENDAYDIEGO",
+        "Researcher MELISSA HIRSCH",
+        "Executive Producer MONA LALWANI",
+        "Managing Producer VALERIE LAPINSKI",
+        "Production Manager ASHLEY SATHER",
+        "Engagement AGNES MAZUR",
+        "Sources BLOOMBERG, MARKETWATCH, NEW YORK TIMES WALL STREET JOURNAL, CNBC, CEPR TAX FOUNDATION, TAX POLICY CENTER US TREASURY, PEW RESEARCH CENTER",
+        "Images GETTY IMAGES",
+        "Footage ABC, CNBC",
+        "Music FEELING IT, PRIMO BENEDIC JUDE LAMDIN, NATHANIEL KENELM PEARCE BEST DAY EVER THOMAS MICHAEL HIRSCHMANN CAREFUL PLANNING BOB BRADLEY, ANDREW GRIFFITHS EVOLVING LANDSCAPE BEN WIDDICOMBE"
+      ],
+      "entities": [],
+      "action": "Closing credits scroll upwards along a yellow timeline marker."
+    }
+  ]
+}

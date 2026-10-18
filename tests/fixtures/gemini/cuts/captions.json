@@ -1,0 +1,40 @@
+{
+  "_comment": "Hand-written response for the generated cuts.mp4 (its clips differ by machine), so CI can run a full ingest offline.",
+  "shots": [
+    {
+      "index": 0,
+      "caption": "Clip 1 of five, a four-second excerpt.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "a single continuous clip"
+    },
+    {
+      "index": 1,
+      "caption": "Clip 2 of five, a four-second excerpt.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "a single continuous clip"
+    },
+    {
+      "index": 2,
+      "caption": "Clip 3 of five, a four-second excerpt.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "a single continuous clip"
+    },
+    {
+      "index": 3,
+      "caption": "Clip 4 of five, a four-second excerpt.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "a single continuous clip"
+    },
+    {
+      "index": 4,
+      "caption": "Clip 5 of five, a four-second excerpt.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "a single continuous clip"
+    }
+  ]
+}
