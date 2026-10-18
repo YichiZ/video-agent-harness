@@ -75,3 +75,35 @@ def cli(tmp_path: Path, request: pytest.FixtureRequest) -> Cli:
     live = request.node.get_closest_marker("live") is not None
     (tmp_path / "claude-config").mkdir()
     return Cli(workspace=tmp_path / "workspace", tmp=tmp_path, live=live)
+
+
+WEB = REPO_ROOT / "web"
+
+
+@pytest.fixture(scope="session")
+def web_dist() -> Path:
+    """`web/dist`, built once per session with npm (skips without npm)."""
+    import shutil
+
+    if shutil.which("npm") is None:
+        pytest.skip("npm not found; the browser tests need the built UI")
+    if not (WEB / "node_modules").is_dir():
+        subprocess.run(["npm", "ci"], cwd=WEB, check=True, capture_output=True)
+    subprocess.run(["npm", "run", "build"], cwd=WEB, check=True, capture_output=True)
+    return WEB / "dist"
+
+
+@pytest.fixture
+def page(web_dist):
+    """A Playwright page in Google Chrome, which (unlike Chromium) plays the H.264 proxy."""
+    from playwright.sync_api import Error, sync_playwright
+
+    with sync_playwright() as p:
+        try:
+            browser = p.chromium.launch(channel="chrome")
+        except Error as e:
+            pytest.skip(f"Google Chrome not available to Playwright: {e.message.splitlines()[0]}")
+        page = browser.new_page()
+        page.on("dialog", lambda dialog: dialog.accept())
+        yield page
+        browser.close()

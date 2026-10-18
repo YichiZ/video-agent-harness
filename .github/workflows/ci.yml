@@ -18,6 +18,17 @@ jobs:
           enable-cache: true
       - name: Install dependencies
         run: uv sync --locked
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install the UI and Google Chrome for Playwright
+        run: |
+          npm ci --prefix web
+          uv run playwright install --with-deps chrome
+      - name: UI unit tests and build
+        run: make test-web
       - name: Lint
         run: make lint
       - name: Unit and offline e2e tests

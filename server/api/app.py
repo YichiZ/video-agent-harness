@@ -6,6 +6,9 @@
 | `GET /video/current/status` | `IngestStatus` (also pushed over `WS /chat`) |
 | `GET /video/current/proxy` | The 720p `proxy.mp4`, with HTTP range support |
 | `GET /video/current/thumbs/<shot>.jpg` | A shot's thumbnail, made on first request |
+| `GET /video/current/transcript` | `transcript.json` |
+| `GET /video/current/shots` | The shots, with their captions once those exist |
+| `GET /` | The built UI in `web/dist/` (`npm run build`), if present |
 | `WS /chat` | The chat; frames in `server.api.protocol` |
 """
 
@@ -16,18 +19,22 @@ import uuid
 from fastapi import FastAPI, HTTPException, Request, WebSocket
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
+from fastapi.staticfiles import StaticFiles
 
 from server import ingest
 from server.agent.tools import ToolError, VideoTools
 from server.api import chat
 from server.api.library import Library, UploadError
 from server.api.protocol import IngestStatus
-from server.config import Release, Settings, load_release
+from server.config import REPO_ROOT, Release, Settings, load_release
+from server.ingest.captions import CAPTIONS
 from server.ingest.proxy import PROXY
 from server.ingest.shots import SHOTS
+from server.ingest.transcribe import TRANSCRIPT
 from server.workspace import Workspace
 
 THUMBS = "thumbs"
+WEB_DIST = REPO_ROOT / "web" / "dist"
 
 
 def create_app(settings: Settings | None = None, release: Release | None = None) -> FastAPI:
@@ -85,8 +92,20 @@ def create_app(settings: Settings | None = None, release: Release | None = None)
             tmp.replace(path)
         return FileResponse(path, media_type="image/jpeg")
 
+    @app.get("/video/current/transcript")
+    def transcript() -> FileResponse:
+        return FileResponse(ready_file(TRANSCRIPT).path(TRANSCRIPT), media_type="application/json")
+
+    @app.get("/video/current/shots")
+    def shots() -> dict:
+        workspace = ready_file(SHOTS)
+        name = CAPTIONS if workspace.path(CAPTIONS).is_file() else SHOTS
+        return {"captioned": name == CAPTIONS, "shots": workspace.read_json(name)["shots"]}
+
     @app.websocket("/chat")
     async def chat_socket(ws: WebSocket) -> None:
         await chat.chat(ws, library)
 
+    if WEB_DIST.is_dir():  # last, so the API routes win
+        app.mount("/", StaticFiles(directory=WEB_DIST, html=True), name="web")
     return app

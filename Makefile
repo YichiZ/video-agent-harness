@@ -1,4 +1,4 @@
-.PHONY: help sync test test-live lint fmt media doctor chat serve
+.PHONY: help sync test test-live test-web web lint fmt media doctor chat serve
 
 help:  ## list targets
 	@grep -E "^[a-z-]+:.*##" $(MAKEFILE_LIST) | sed -E "s/:.*## /\t/"
@@ -11,6 +11,12 @@ test: media  ## unit + offline e2e tests (no keys needed)
 
 test-live: media  ## live tests against the real APIs; add ARGS=--record to refresh fixtures
 	uv run pytest -m live $(ARGS)
+
+test-web:  ## UI type check, vitest and build (web/dist, which `serve` and the browser tests use)
+	cd web && npx vitest run && npm run build
+
+web:  ## build the UI into web/dist
+	cd web && npm run build
 
 lint:  ## ruff lint and format check
 	uv run ruff check .
