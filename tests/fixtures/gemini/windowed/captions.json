@@ -1,0 +1,405 @@
+{
+  "_comment": "Hand-written response for the generated 25-minute windowed.mp4. It covers all 50 shots; each window's call keeps only its own, so one file serves both windows.",
+  "shots": [
+    {
+      "index": 0,
+      "caption": "A black frame, shot 0.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 1,
+      "caption": "A black frame, shot 1.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 2,
+      "caption": "A black frame, shot 2.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 3,
+      "caption": "A black frame, shot 3.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 4,
+      "caption": "A black frame, shot 4.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 5,
+      "caption": "A black frame, shot 5.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 6,
+      "caption": "A black frame, shot 6.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 7,
+      "caption": "A black frame, shot 7.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 8,
+      "caption": "A black frame, shot 8.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 9,
+      "caption": "A black frame, shot 9.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 10,
+      "caption": "A black frame, shot 10.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 11,
+      "caption": "A black frame, shot 11.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 12,
+      "caption": "A black frame, shot 12.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 13,
+      "caption": "A black frame, shot 13.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 14,
+      "caption": "A black frame, shot 14.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 15,
+      "caption": "A black frame, shot 15.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 16,
+      "caption": "A black frame, shot 16.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 17,
+      "caption": "A black frame, shot 17.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 18,
+      "caption": "A black frame, shot 18.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 19,
+      "caption": "A black frame, shot 19.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 20,
+      "caption": "A black frame, shot 20.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 21,
+      "caption": "A black frame, shot 21.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 22,
+      "caption": "A black frame, shot 22.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 23,
+      "caption": "A black frame, shot 23.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 24,
+      "caption": "A black frame, shot 24.",
+      "on_screen_text": [],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 25,
+      "caption": "A black frame, shot 25.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 26,
+      "caption": "A black frame, shot 26.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 27,
+      "caption": "A black frame, shot 27.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 28,
+      "caption": "A black frame, shot 28.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 29,
+      "caption": "A black frame, shot 29.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 30,
+      "caption": "A black frame, shot 30.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 31,
+      "caption": "A black frame, shot 31.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 32,
+      "caption": "A black frame, shot 32.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 33,
+      "caption": "A black frame, shot 33.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 34,
+      "caption": "A black frame, shot 34.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 35,
+      "caption": "A black frame, shot 35.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 36,
+      "caption": "A black frame, shot 36.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 37,
+      "caption": "A black frame, shot 37.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 38,
+      "caption": "A black frame, shot 38.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 39,
+      "caption": "A black frame, shot 39.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 40,
+      "caption": "A black frame, shot 40.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 41,
+      "caption": "A black frame, shot 41.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 42,
+      "caption": "A black frame, shot 42.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 43,
+      "caption": "A black frame, shot 43.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 44,
+      "caption": "A black frame, shot 44.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 45,
+      "caption": "A black frame, shot 45.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 46,
+      "caption": "A black frame, shot 46.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 47,
+      "caption": "A black frame, shot 47.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 48,
+      "caption": "A black frame, shot 48.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    },
+    {
+      "index": 49,
+      "caption": "A black frame, shot 49.",
+      "on_screen_text": [
+        "PART 2"
+      ],
+      "entities": [],
+      "action": "nothing moves"
+    }
+  ]
+}

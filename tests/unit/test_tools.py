@@ -102,3 +102,18 @@ def test_mcp_server_lists_tools_and_reports_errors(tools):
     assert sorted(f"mcp__video__{t.name}" for t in listed.tools) == sorted(ALLOWED_TOOLS)
     assert bad.is_error and "at most 8" in bad.content[0].text
     assert [b.type for b in ok.content] == ["text", "image"]
+
+
+def test_list_shots_prefers_captions_and_filters_range(tools):
+    tools.workspace.write_json(
+        "shots.json",
+        {"shots": [{"index": i, "start_s": i * 5.0, "end_s": i * 5.0 + 5} for i in range(4)]},
+    )
+    early = tools.list_shots(4, 6)
+    assert [s["index"] for s in early["shots"]] == [0, 1] and "not ready" in early["note"]
+    tools.workspace.write_json(
+        "captions.json",
+        {"shots": [{"index": 3, "start_s": 15.0, "end_s": 20.0, "caption": "End."}]},
+    )
+    late = tools.list_shots(16)
+    assert late["shots"][0]["caption"] == "End." and "note" not in late

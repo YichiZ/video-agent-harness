@@ -10,6 +10,7 @@ sees them as `mcp__video__<name>`. Every tool returns JSON as text, except
 | `get_overview()` | `overview.json`, `meta.json` |
 | `search(query, k)` | `transcript.json` (case-insensitive; step 8 replaces it) |
 | `get_transcript(start, end)` | `transcript.json` |
+| `list_shots(start, end)` | `captions.json` (`shots.json` while captions are missing) |
 | `inspect(question, start, end, fps)` | Gemini, restricted to the range; cached in `inspect/` |
 | `get_frames(timestamps)` | the source video, through ffmpeg |
 
@@ -32,8 +33,10 @@ from typing import Any
 from claude_agent_sdk import McpSdkServerConfig, create_sdk_mcp_server, tool
 
 from server.config import Release, Settings
+from server.ingest.captions import CAPTIONS
 from server.ingest.overview import OVERVIEW, ensure_active, format_clock
 from server.ingest.probe import META
+from server.ingest.shots import SHOTS
 from server.ingest.transcribe import TRANSCRIPT
 from server.providers import JSON, VisionModel, get_vision_model
 from server.workspace import Workspace
@@ -151,6 +154,16 @@ class VideoTools:
             if seg["start"] < hi and seg["end"] > lo
         ]
         return {"start": lo, "end": hi, "segments": segments}
+
+    def list_shots(self, start: float | None = None, end: float | None = None) -> JSON:
+        lo, hi = self._range(start, end)
+        if self.workspace.path(CAPTIONS).exists():
+            shots, note = self._read(CAPTIONS)["shots"], None
+        else:
+            shots = [{**s, "time": format_clock(s["start_s"])} for s in self._read(SHOTS)["shots"]]
+            note = "captions are not ready yet; shots have times only"
+        shots = [s for s in shots if s["start_s"] < hi and s["end_s"] > lo]
+        return {"start": lo, "end": hi, "shots": shots, **({"note": note} if note else {})}
 
     def inspect(
         self,
@@ -274,6 +287,12 @@ def build_server(tools: VideoTools) -> McpSdkServerConfig:
             obj(start=start, end=end),
         )(wrap(lambda a: _text(tools.get_transcript(a.get("start"), a.get("end"))))),
         tool(
+            "list_shots",
+            "The shots between start and end seconds, each with a caption, on-screen text, "
+            "entities and action. On-screen text that is never spoken is only found here.",
+            obj(start=start, end=end),
+        )(wrap(lambda a: _text(tools.list_shots(a.get("start"), a.get("end"))))),
+        tool(
             "inspect",
             "Ask a vision model a question about what is seen or heard between start and end "
             "seconds. Keep the range tight; calls are limited.",
@@ -289,5 +308,5 @@ def build_server(tools: VideoTools) -> McpSdkServerConfig:
     return create_sdk_mcp_server(name=SERVER_NAME, tools=defs)
 
 
-TOOL_NAMES = ["get_overview", "search", "get_transcript", "inspect", "get_frames"]
+TOOL_NAMES = ["get_overview", "search", "get_transcript", "list_shots", "inspect", "get_frames"]
 ALLOWED_TOOLS = [f"mcp__{SERVER_NAME}__{name}" for name in TOOL_NAMES]
