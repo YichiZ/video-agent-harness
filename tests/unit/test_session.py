@@ -78,8 +78,8 @@ def test_skills_load_from_the_plugin_without_setting_sources(setup):
     options = build_options(VideoTools(ws, settings, release), settings, release)
     assert options.setting_sources == [] and options.skills == SKILLS
     assert options.plugins == [{"type": "local", "path": str(PLUGIN_DIR)}]
+    manifest = json.loads((PLUGIN_DIR / ".claude-plugin" / "plugin.json").read_text())
     for name in SKILLS:
         plugin, skill = name.split(":")
+        assert plugin == manifest["name"]
         assert (PLUGIN_DIR / "skills" / skill / "SKILL.md").is_file()
-    manifest = json.loads((PLUGIN_DIR / ".claude-plugin" / "plugin.json").read_text())
-    assert manifest["name"] == plugin
