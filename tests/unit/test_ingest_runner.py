@@ -33,3 +33,14 @@ def test_requires_are_included_and_skip_when_done(tmp_path, monkeypatch):
         ("b", "skipped"),
         ("c", "done"),
     ]
+
+
+def test_step_with_a_newer_input_is_not_done(tmp_path):
+    ws = Workspace(tmp_path)
+    step = Step(name="i", outputs=["out.json"], run=lambda ctx: None, inputs=["in.json"])
+    ws.write_json("out.json", {})
+    assert step.is_done(ws)  # a missing input never makes it stale
+    ws.write_json("in.json", {})
+    assert not step.is_done(ws)
+    ws.write_json("out.json", {})
+    assert step.is_done(ws)

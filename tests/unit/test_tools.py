@@ -150,3 +150,10 @@ def test_list_shots_prefers_matching_captions_and_filters_range(tools, monkeypat
 
     monkeypatch.setattr("server.agent.tools.MAX_SHOTS", 2)
     assert len(tools.list_shots()["shots"]) == 2 and "narrow" in tools.list_shots()["note"]
+
+
+def test_index_path_with_uri_characters(tmp_path):
+    path = tmp_path / "a#b%20c?" / index.INDEX
+    path.parent.mkdir()
+    index.build(path, SEGMENTS, SHOTS)
+    assert index.search(path, "vaccines", 5)[0]["start"] == 4.5

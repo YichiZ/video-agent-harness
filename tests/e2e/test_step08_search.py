@@ -116,3 +116,7 @@ def test_cuts_index(cli, test_media):
     assert search(cli, "elephant") == []
     again = cli("ingest", str(cuts), "--only", "index")
     assert "index: skipped" in again.stdout
+    rerun = cli("ingest", str(cuts), "--only", "captions", "--force")
+    assert "captions: done" in rerun.stdout
+    # A newer captions.json makes the index stale, so it is rebuilt.
+    assert "index: done" in cli("ingest", str(cuts), "--only", "index").stdout

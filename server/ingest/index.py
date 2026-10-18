@@ -79,7 +79,7 @@ def match_queries(query: str) -> list[str]:
 
 
 def search(path: Path, query: str, k: int) -> list[JSON]:
-    db = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    db = sqlite3.connect(f"{path.resolve().as_uri()}?mode=ro", uri=True)
     try:
         hits: dict[int, JSON] = {}
         for tier, match in enumerate(match_queries(query)):
@@ -87,7 +87,7 @@ def search(path: Path, query: str, k: int) -> list[JSON]:
                 break
             found = db.execute(
                 "SELECT rowid, -bm25(docs), text, on_screen, entities, kind, start, end, shot,"
-                " speaker FROM docs WHERE docs MATCH ? ORDER BY bm25(docs) LIMIT ?",
+                " speaker FROM docs WHERE docs MATCH ? ORDER BY bm25(docs), start LIMIT ?",
                 (match, k),
             ).fetchall()
             for rowid, score, text, on_screen, entities, kind, start, end, shot, speaker in found:
@@ -111,4 +111,10 @@ def run(ctx: StepContext) -> str:
     return f"{count} rows ({len(segments)} segments, {len(shots)} shots)"
 
 
-STEP = Step(name="index", outputs=[INDEX], run=run, requires=["transcribe", "captions"])
+STEP = Step(
+    name="index",
+    outputs=[INDEX],
+    run=run,
+    requires=["transcribe", "captions"],
+    inputs=[TRANSCRIPT, CAPTIONS],  # rebuilt after either is re-run
+)
