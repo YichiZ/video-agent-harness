@@ -121,6 +121,7 @@ class Ingest(threading.Thread):
         self._ctx = ctx
         self._out = out
         self._ready = threading.Event()
+        self._settled = threading.Event()  # ready, or a chat-ready step did not finish
         self._results: dict[str, ingest.StepResult] = {}
         self.error: Exception | None = None
 
@@ -134,19 +135,37 @@ class Ingest(threading.Thread):
             return
         if result.state != "skipped":
             self._out.print(f"{result.name}: {result.state}", style="dim")
-        if all(n in self._results and self._results[n].ok for n in ingest.CHAT_READY):
+        needed = [self._results.get(n) for n in ingest.CHAT_READY]
+        if all(r and r.ok for r in needed):
             self._ready.set()
+        if self._ready.is_set() or any(r and not r.ok for r in needed):
+            self._settled.set()
 
     def run(self) -> None:
         try:
             ingest.run_steps(self._ctx, on_result=self._report)
         except Exception as e:  # reported by the main thread
             self.error = e
+        finally:
+            self._settled.set()
 
     def wait_until_ready(self) -> bool:
-        while self.is_alive() and not self._ready.wait(0.1):
-            pass
+        self._settled.wait()
         return self._ready.is_set()
+
+    def finish(self, out: Console) -> None:
+        """Wait for the remaining steps. Ctrl-C cannot cut a running step short."""
+        while self.is_alive():
+            try:
+                self.join()
+            except KeyboardInterrupt:
+                out.print("Waiting for the running ingest steps to finish…", style="dim")
+
+
+def failure_text(background: Ingest) -> str:
+    if background.error:
+        return f"{type(background.error).__name__}: {background.error}"
+    return "; ".join(f"{r.name} {r.state} ({r.summary})" for r in background.failed)
 
 
 def run(args: argparse.Namespace) -> int:
@@ -171,17 +190,20 @@ def run(args: argparse.Namespace) -> int:
     ctx = ingest.StepContext(workspace=workspace, settings=settings, release=release)
     background = Ingest(ctx, out)
     background.start()
-    if not background.wait_until_ready():
-        background.join()
+    try:
+        ready = background.wait_until_ready()
+    except KeyboardInterrupt:
+        out.print()
+        background.finish(out)
+        return cli.EXIT_OK
+    if not ready:
+        background.finish(out)
         if isinstance(background.error, ingest.Rejected):
             if created:
                 workspace.remove()
             err.print(f"error: {video.name}: {background.error}")
             return cli.EXIT_BAD_INPUT
-        reason = background.error or "; ".join(
-            f"{r.name} {r.state} ({r.summary})" for r in background.failed
-        )
-        err.print(f"error: ingest failed: {reason}")
+        err.print(f"error: ingest failed: {failure_text(background)}")
         return cli.EXIT_STEP_FAILED
 
     try:
@@ -197,7 +219,10 @@ def run(args: argparse.Namespace) -> int:
     repl(session, out, auth.mode)
     if background.is_alive():
         out.print("Finishing ingest in the background…", style="dim")
-    background.join()
+    background.finish(out)
+    if background.error or background.failed:
+        err.print(f"error: ingest failed: {failure_text(background)}; see `ingest --retry`")
+        return cli.EXIT_STEP_FAILED
     return cli.EXIT_OK
 
 

@@ -23,6 +23,7 @@ from __future__ import annotations
 import hashlib
 import json
 import shutil
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -96,7 +97,7 @@ class Workspace:
     def write_json(self, name: str, data: Any) -> Path:
         """Write atomically, so a crash never leaves a half-written output."""
         path = self.path(name)
-        tmp = path.with_suffix(path.suffix + ".tmp")
+        tmp = path.with_suffix(f"{path.suffix}.{threading.get_ident()}.tmp")  # threads may race
         tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
         tmp.replace(path)
         return path

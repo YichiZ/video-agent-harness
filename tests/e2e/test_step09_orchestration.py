@@ -101,3 +101,14 @@ def test_medium_full_ingest_live(cli, videomme):
 @pytest.mark.live
 def test_chat_starts_before_captions_live(cli, videomme):
     check_chat_starts_early(cli, videomme("short"))
+
+
+def test_chat_reports_a_background_failure(cli, videomme, monkeypatch):
+    monkeypatch.setenv("HARNESS_FAKE_FAIL", "captions")
+    short = videomme("short")
+    child = spawn(cli, short)
+    child.sendline("/quit")
+    child.expect(pexpect.EOF)
+    child.close()
+    assert child.exitstatus == 3
+    assert "captions failed" in child.before and "--retry" in child.before
