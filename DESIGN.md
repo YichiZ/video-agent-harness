@@ -260,6 +260,8 @@ video-agent-harness/
 - **v1 scope:** Q&A only. Editing (phase 2) and audio (phase 3) stay on the roadmap but are out of v1.
 - **Length cap:** 60 minutes, rejected at upload by ffprobe.
 - **Language:** mainly English.
+- **Claude auth:** use `ANTHROPIC_API_KEY` when it is set. Otherwise fall back to the local Claude Code login, which uses the subscription. `max_budget_usd` applies only to API billing.
+- **Build order:** agent first. Milestone 1 is a CLI chat (see PLAN.md), and every step has an e2e test.
 - **Gemini model:** `gemini-3.8-flash` for everything (ingest captions, overview and `inspect`), with no escalation logic. It is the model Google's video docs use in their examples and supports agentic video processing, clipping and fps control.
   - It lives in `release.json` as `gemini_model`, not hard-coded. If `inspect` answers on hard questions (small on-screen text, fast action, counting) look weak in evals, switch it to `gemini-4-argon` (about 2.7× the price).
   - Caching: Flash supports explicit context caching, so the video can be cached once per session and repeat `inspect` calls read it at $0.075 per 1M tokens. Explicit caching goes through `generateContent` with `cached_content`, not the Interactions API.
@@ -282,7 +284,7 @@ video-agent-harness/
 These came out of research on 2026-10-18 and should be confirmed against the docs when we scaffold:
 - **ElevenLabs file limit:** the docs say both 3 GB and 5 GB. Plan for 3 GB.
 - **Gemini per-file limit:** the docs say both 2 GB and 20 GB. Plan for 2 GB.
-- **Gemini API surface:** the current docs centre on the Interactions API (`client.interactions.create`, `processing: {fps, start_offset, end_offset}`). Explicit context caching is not available there, so we rely on implicit caching and `previous_interaction_id`.
+- **Gemini API surface:** the current docs centre on the Interactions API (`client.interactions.create`, `processing: {fps, start_offset, end_offset}`). Explicit context caching is not available there, so cached `inspect` calls use `generateContent` with `cached_content`. Confirm the `caches.create` call shape for `gemini-3.8-flash`, because the caching page did not show it.
 - **SDK tool return values:** Python `@tool` drops `structuredContent`, so tools return JSON as text.
 
 ## Sources
