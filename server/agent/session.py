@@ -55,13 +55,15 @@ def build_options(
         system_prompt=system_prompt(release),
         tools=[],  # no built-in tools at all; only the video MCP server
         mcp_servers={SERVER_NAME: build_server(tools)},
+        strict_mcp_config=True,  # no MCP servers from the developer's config
         allowed_tools=ALLOWED_TOOLS,
         disallowed_tools=DISALLOWED_TOOLS,
         permission_mode="dontAsk",
         include_partial_messages=True,
         max_budget_usd=release.max_budget_usd,
         max_turns=release.max_turns,
-        env=claude_env(settings),
+        # ...nor their claude.ai connectors (Gmail, Calendar, ...).
+        env={**claude_env(settings), "ENABLE_CLAUDEAI_MCP_SERVERS": "false"},
         setting_sources=[],  # ignore the developer's own settings and CLAUDE.md
         resume=resume,
     )

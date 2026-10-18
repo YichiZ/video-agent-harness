@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 import pytest
 
@@ -25,7 +26,7 @@ def test_options_allow_only_video_tools(setup):
     assert options.tools == [] and options.allowed_tools == ALLOWED_TOOLS
     assert "Bash" in options.disallowed_tools and options.permission_mode == "dontAsk"
     assert options.cwd == str(ws.dir) and options.include_partial_messages
-    assert options.env == {} and options.setting_sources == []
+    assert "ANTHROPIC_API_KEY" not in options.env and options.setting_sources == []
     assert "[mm:ss]" in options.system_prompt
 
 
@@ -51,3 +52,22 @@ def test_ask_streams_events_and_stores_session(setup):
 def test_resume_needs_a_stored_session(setup):
     with pytest.raises(LookupError):
         ChatSession(*setup, resume=True, client=object())
+
+
+def test_options_shut_out_other_mcp_servers(setup):
+    ws, settings, release = setup
+    options = build_options(VideoTools(ws, settings, release), settings, release)
+    assert options.strict_mcp_config
+    assert options.env["ENABLE_CLAUDEAI_MCP_SERVERS"] == "false"
+
+
+@pytest.mark.parametrize("name", ["TbaCxIJ_VP4-chat", "TbaCxIJ_VP4-resume"])
+def test_recorded_sessions_only_had_video_tools(name):
+    data = json.loads((REPO_ROOT / f"tests/fixtures/agent/{name}.json").read_text())
+    init = data["turns"][0][0]
+    assert init["subtype"] == "init"
+    assert init["data"]["tools"] and all(
+        t.startswith("mcp__video__") for t in init["data"]["tools"]
+    )
+    assert [s["name"] for s in init["data"]["mcp_servers"]] == ["video"]
+    assert "/Users/" not in json.dumps(data)

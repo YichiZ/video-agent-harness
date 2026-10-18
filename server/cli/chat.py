@@ -44,7 +44,14 @@ def _args(data: dict | None) -> str:
 
 async def turn(session: ChatSession, prompt: str, out: Console, mode: AuthMode) -> None:
     loop = asyncio.get_running_loop()
-    loop.add_signal_handler(signal.SIGINT, lambda: loop.create_task(session.interrupt()))
+    pending: set[asyncio.Task] = set()
+
+    def on_sigint() -> None:
+        task = loop.create_task(session.interrupt())
+        pending.add(task)
+        task.add_done_callback(pending.discard)
+
+    loop.add_signal_handler(signal.SIGINT, on_sigint)
     at_line_start = True
     try:
         async for event in session.ask(prompt):
@@ -88,7 +95,12 @@ def repl(session: ChatSession, out: Console, mode: AuthMode) -> None:
             if prompt in QUIT:
                 break
             if prompt:
-                loop.run_until_complete(turn(session, prompt, out, mode))
+                try:
+                    loop.run_until_complete(turn(session, prompt, out, mode))
+                except KeyboardInterrupt:  # landed just after the turn's own handler came off
+                    out.print()
+                except Exception as e:  # keep the chat alive; the next turn may work
+                    out.print(f"\n[error: {type(e).__name__}: {e}]", style="red", markup=False)
     finally:
         loop.run_until_complete(session.disconnect())
         loop.close()
