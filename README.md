@@ -10,13 +10,14 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Status
 
-The scaffold and `doctor` (PLAN.md step 0) are in place. The agent CLI lands over steps 1–5.
+The scaffold, `doctor` and video probing (PLAN.md steps 0–1) are in place. The agent CLI lands over steps 2–5.
 
 ```
 uv sync
 cp .env.example .env    # add keys; ANTHROPIC_API_KEY is optional
 make doctor             # checks ffmpeg, release.json, keys and the Claude auth mode
 make test               # offline tests, no keys needed
+uv run python -m server.cli ingest video.mp4   # probe it into workspace/<id>/
 ```
 
 ## Planned layout

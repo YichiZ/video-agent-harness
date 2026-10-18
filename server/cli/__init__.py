@@ -23,7 +23,7 @@ import sys
 from collections.abc import Sequence
 
 # Subcommand modules, in help order. Later steps append "chat" and "tool".
-COMMANDS = ["doctor"]
+COMMANDS = ["doctor", "ingest"]
 
 EXIT_OK = 0
 EXIT_CONFIG = 1
