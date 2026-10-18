@@ -12,12 +12,14 @@ Each fake keeps a `calls` list so tests can assert what was (or was not) called.
 
 from __future__ import annotations
 
+import dataclasses
+import json
 from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from claude_agent_sdk import Message, ResultMessage
+from claude_agent_sdk import Message, ResultMessage, SystemMessage
 
 from server.providers import fixtures, sdk_codec
 from server.providers.base import JSON, AgentClient, RemoteFile, Transcriber, VisionModel
@@ -152,6 +154,20 @@ class ScriptedAgentClient:
         self.connected = False
 
 
+# The parts of the SDK's init message worth committing; the rest is machine-local
+# (paths, sockets, plugins, connectors).
+INIT_KEYS = ("type", "subtype", "session_id", "model", "tools", "permissionMode")
+
+
+def scrub(message: Message) -> Message:
+    if isinstance(message, SystemMessage) and message.subtype == "init":
+        data = {k: message.data[k] for k in INIT_KEYS if k in message.data}
+        servers = message.data.get("mcp_servers") or []
+        data["mcp_servers"] = [{"name": s.get("name"), "status": s.get("status")} for s in servers]
+        return dataclasses.replace(message, data=data)
+    return message
+
+
 class RecordingAgentClient:
     """Wraps a real client and writes every turn to `agent/<name>.json` on disconnect."""
 
@@ -169,7 +185,7 @@ class RecordingAgentClient:
 
     async def receive_response(self) -> AsyncIterator[Message]:
         async for message in self.inner.receive_response():
-            self.turns[-1].append(message)
+            self.turns[-1].append(scrub(message))
             yield message
 
     async def interrupt(self) -> None:
@@ -177,4 +193,7 @@ class RecordingAgentClient:
 
     async def disconnect(self) -> None:
         await self.inner.disconnect()
-        fixtures.write(self.path, {"turns": [sdk_codec.encode(t) for t in self.turns]})
+        turns = json.dumps([sdk_codec.encode(t) for t in self.turns], default=str)
+        # Tool results can carry local paths (the CLI's saved images); don't commit the home dir.
+        turns = turns.replace(str(Path.home()), "~")
+        fixtures.write(self.path, {"turns": json.loads(turns)})
