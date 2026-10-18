@@ -33,11 +33,11 @@ fi
 if need cuts.mp4; then
   # Each clip: Video-MME id, start second, fallback colour. Adjacent clips come
   # from different videos so every boundary is a hard cut. The start times are
-  # picked to avoid cuts inside a clip; check them with step 6 on the Mac.
+  # checked with step 6 to have no cuts inside a clip.
   clips=(
     "TbaCxIJ_VP4 20 red"
     "t6V9i8fFADI 60 green"
-    "Sm0lziolZyM 300 blue"
+    "Sm0lziolZyM 324 blue"
     "TbaCxIJ_VP4 60 yellow"
     "t6V9i8fFADI 240 magenta"
   )

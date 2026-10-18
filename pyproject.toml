@@ -11,6 +11,7 @@ dependencies = [
     "pydantic>=2.14.1",
     "python-dotenv>=1.2.4",
     "rich>=15.0.0",
+    "scenedetect[opencv-headless]>=0.7.2",
 ]
 
 [dependency-groups]
