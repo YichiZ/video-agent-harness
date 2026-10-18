@@ -42,6 +42,7 @@ STEP_MODULES = [
     "server.ingest.shots",
     "server.ingest.captions",
     "server.ingest.index",
+    "server.ingest.proxy",
 ]
 
 STATUS = "status.json"

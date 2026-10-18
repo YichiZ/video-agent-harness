@@ -7,6 +7,15 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "annotated-doc"
+version = "0.0.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/5a/8e/38aa427ed5402449e226975b649c5dc73ccadfefeb95e6aecb8f8ea4b6b6/annotated_doc-0.0.5.tar.gz", hash = "sha256:c7e58ce09192557605d8bbd92836d7e1d520ac9580096042c0bfd197efacf1bb", size = 10758, upload-time = "2026-07-28T13:50:58.129Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3e/30/e900b21425a860e195f32e37657aa1f7c7f2b1bfb26f03ca209b90933c06/annotated_doc-0.0.5-py3-none-any.whl", hash = "sha256:117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101", size = 5302, upload-time = "2026-07-28T13:50:57.239Z" },
+]
+
+[[package]]
 name = "annotated-types"
 version = "0.8.0"
 source = { registry = "https://pypi.org/simple" }
@@ -386,6 +395,23 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8d/fa/bd6ff602d6421ca92b4bdf3adbf58d6a7a090a5ce4dfd8f0aecd5fa59ff1/elevenlabs-2.73.1.tar.gz", hash = "sha256:7df65409de74022ae1af306e8b631cec59d04681cf8d0281e7e08fc707efb906", size = 872773, upload-time = "2026-10-17T14:15:35.056Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b0/06/2be212cb1d2c4118765463166221ef0bea3b82965c97632312025f852d77/elevenlabs-2.73.1-py3-none-any.whl", hash = "sha256:519c3c5a4aa3f53f3333d4d0f093498838f247134f3ded41d57ff5e08fcb271a", size = 2281826, upload-time = "2026-10-17T14:15:32.433Z" },
+]
+
+[[package]]
+name = "fastapi"
+version = "0.146.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "annotated-doc" },
+    { name = "opentelemetry-api" },
+    { name = "pydantic" },
+    { name = "starlette" },
+    { name = "typing-extensions" },
+    { name = "typing-inspection" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cd/5b/f3b4277844c3ce66c16f62670cd2a26236489aa97115d04182171ce714a9/fastapi-0.146.0.tar.gz", hash = "sha256:e96047fc353ff43f7fda069c3578a7d94902a762d9aca2e065f7f801abd91a49", size = 471622, upload-time = "2026-10-18T15:19:30.538Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/eb/7d/f96d4bd930d52f299583ea55266990480ec0db46d2c498df716a98474e87/fastapi-0.146.0-py3-none-any.whl", hash = "sha256:0eb9985a7d5bb11ce9a962d4b65e0cf1a2e13d6aca2e14da57bc526370e26748", size = 144702, upload-time = "2026-10-18T15:19:29.059Z" },
 ]
 
 [[package]]
@@ -1431,6 +1457,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "claude-agent-sdk" },
     { name = "elevenlabs" },
+    { name = "fastapi" },
     { name = "google-auth" },
     { name = "google-cloud-storage" },
     { name = "google-genai" },
@@ -1438,20 +1465,24 @@ dependencies = [
     { name = "python-dotenv" },
     { name = "rich" },
     { name = "scenedetect" },
+    { name = "uvicorn" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "httpx" },
     { name = "pexpect" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "ruff" },
+    { name = "websockets" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "claude-agent-sdk", specifier = ">=0.2.168" },
     { name = "elevenlabs", specifier = ">=2.73.1" },
+    { name = "fastapi", specifier = ">=0.146.0" },
     { name = "google-auth", specifier = ">=2.62" },
     { name = "google-cloud-storage", specifier = ">=3.13" },
     { name = "google-genai", specifier = ">=2.31.0" },
@@ -1459,14 +1490,17 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "rich", specifier = ">=15.0.0" },
     { name = "scenedetect", extras = ["opencv-headless"], specifier = ">=0.7.2" },
+    { name = "uvicorn", specifier = ">=0.54.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "httpx", specifier = ">=0.28.1" },
     { name = "pexpect", specifier = ">=4.9.0" },
     { name = "pytest", specifier = ">=8.4.0" },
     { name = "pytest-asyncio", specifier = ">=1.0.0" },
     { name = "ruff", specifier = ">=0.12.0" },
+    { name = "websockets", specifier = ">=16.1.1" },
 ]
 
 [[package]]
