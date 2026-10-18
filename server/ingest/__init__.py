@@ -30,6 +30,7 @@ STEP_MODULES = [
     "server.ingest.overview",
     "server.ingest.shots",
     "server.ingest.captions",
+    "server.ingest.index",
 ]
 
 

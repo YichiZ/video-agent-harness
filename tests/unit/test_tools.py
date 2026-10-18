@@ -7,6 +7,7 @@ from mcp import Client
 
 from server.agent.tools import ALLOWED_TOOLS, ToolError, VideoTools, build_server
 from server.config import Settings, load_release
+from server.ingest import index
 from server.providers.fakes import FakeVisionModel
 from server.workspace import Workspace
 
@@ -23,6 +24,14 @@ SEGMENTS = [
 ]
 
 
+SHOTS = [
+    {"index": 0, "start_s": 0.0, "end_s": 10.0, "caption": "A virus model.", "action": "spins",
+     "on_screen_text": ["SPIKE PROTEIN"], "entities": ["virus"]},
+    {"index": 1, "start_s": 10.0, "end_s": 20.0, "caption": "Cells divide.", "action": "",
+     "on_screen_text": ["American Express"], "entities": ["credit card"]},
+]  # fmt: skip
+
+
 @pytest.fixture
 def tools(tmp_path, monkeypatch):
     video = tmp_path / "clip.mp4"
@@ -34,6 +43,7 @@ def tools(tmp_path, monkeypatch):
     ws, _ = Workspace.for_video(tmp_path / "ws", video)
     ws.write_json("meta.json", {"duration_s": 20.0})
     ws.write_json("transcript.json", {"segments": SEGMENTS})
+    index.build(ws.path(index.INDEX), SEGMENTS, SHOTS)
     ws.write_json("overview.json", {"summary": "A test video.", "subjects": [], "chapters": []})
     (tmp_path / "gemini" / "clip").mkdir(parents=True)
     (tmp_path / "gemini" / "clip" / "inspect.json").write_text(
@@ -53,14 +63,33 @@ def test_overview_adds_duration(tools):
     assert tools.get_overview()["duration"] == "00:20"
 
 
-def test_search_ranks_phrase_then_time_and_respects_k(tools):
-    hits = tools.search("its spikes", k=2)["hits"]
-    assert [h["start"] for h in hits] == [0.5, 4.5]
-    assert hits[0]["text"] == "The virus attaches its spikes."
-    assert tools.search("SPIKES")["hits"][0]["time"] == "00:00"
+def test_search_ranks_phrase_then_all_words_then_any(tools):
+    phrase = tools.search("attaches its spikes")["hits"]
+    assert [h["text"] for h in phrase] == ["The virus attaches its spikes."]
+    both = tools.search("spikes vaccines")["hits"]  # every word, in any order
+    assert [h["start"] for h in both] == [4.5]
+    anyword = tools.search("spikes elephant")["hits"]  # nothing has both: any word
+    assert {(h["kind"], h["start"]) for h in anyword} == {
+        ("transcript", 0.5),
+        ("transcript", 4.5),
+        ("caption", 0.0),  # "SPIKE" stems alike
+    }
+    assert len(tools.search("spikes elephant", k=1)["hits"]) == 1
+
+    amex = tools.search("american express")["hits"]
+    assert [(h["kind"], h["shot"], h["time"]) for h in amex] == [("caption", 1, "00:10")]
+    assert amex[0]["on_screen_text"] == "American Express"
+    assert tools.search("copies")["hits"][0]["shot"] == 1  # a segment's shot
     assert tools.search("elephant")["hits"] == []
+    assert tools.search('"spikes" OR (*')["hits"]  # FTS5 syntax is never parsed
     with pytest.raises(ToolError):
         tools.search("  ")
+
+
+def test_search_without_index(tools):
+    tools.workspace.path(index.INDEX).unlink()
+    with pytest.raises(ToolError, match="index.sqlite is missing"):
+        tools.search("spikes")
 
 
 def test_transcript_range_overlaps_and_clamps(tools):

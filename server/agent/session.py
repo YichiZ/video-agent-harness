@@ -93,6 +93,7 @@ class ChatSession:
         *,
         resume: bool = False,
         client: AgentClient | None = None,
+        fixture: str | None = None,
     ):
         self.workspace = workspace
         self.tools = VideoTools(workspace, settings, release)
@@ -100,8 +101,9 @@ class ChatSession:
         if resume and self.session_id is None:
             raise LookupError("no earlier chat to resume for this video")
         options = build_options(self.tools, settings, release, resume=self.session_id)
-        media = fixtures.media_key(workspace.source)
-        fixture = f"{media}-{'resume' if resume else 'chat'}"
+        if fixture is None:
+            media = fixtures.media_key(workspace.source)
+            fixture = f"{media}-{'resume' if resume else 'chat'}"
         self.client = client or get_agent_client(settings, options, fixture=fixture)
 
     def stored_session_id(self) -> str | None:

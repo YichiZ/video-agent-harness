@@ -8,7 +8,7 @@ sees them as `mcp__video__<name>`. Every tool returns JSON as text, except
 | Tool | Reads |
 |---|---|
 | `get_overview()` | `overview.json`, `meta.json` |
-| `search(query, k)` | `transcript.json` (case-insensitive; step 8 replaces it) |
+| `search(query, k)` | `index.sqlite`: BM25 over transcript segments, captions and on-screen text |
 | `get_transcript(start, end)` | `transcript.json` |
 | `list_shots(start, end)` | `captions.json` (`shots.json` while captions are missing) |
 | `inspect(question, start, end, fps)` | Gemini, restricted to the range; cached in `inspect/` |
@@ -25,7 +25,6 @@ import asyncio
 import base64
 import hashlib
 import json
-import re
 import subprocess
 from dataclasses import dataclass, field
 from typing import Any
@@ -33,6 +32,7 @@ from typing import Any
 from claude_agent_sdk import McpSdkServerConfig, create_sdk_mcp_server, tool
 
 from server.config import Release, Settings
+from server.ingest import index
 from server.ingest.captions import CAPTIONS
 from server.ingest.overview import OVERVIEW, ensure_active, format_clock
 from server.ingest.probe import META
@@ -81,10 +81,6 @@ class ToolError(Exception):
     """A tool call the agent should fix or stop making. The message is shown to it."""
 
 
-def _words(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9']+", text.lower())
-
-
 @dataclass
 class VideoTools:
     workspace: Workspace
@@ -130,22 +126,15 @@ class VideoTools:
         }
 
     def search(self, query: str, k: int = DEFAULT_K) -> JSON:
-        """Rank segments by the share of query words they contain; an exact phrase wins."""
-        terms = set(_words(query))
-        if not terms:
+        if not index.match_queries(query):
             raise ToolError("search needs a query with at least one word")
-        phrase = " ".join(_words(query))
-        hits = []
-        for seg in self._read(TRANSCRIPT)["segments"]:
-            words = _words(seg["text"])
-            score = len(terms & set(words)) / len(terms) + (phrase in " ".join(words))
-            if score > 0:
-                hits.append((score, seg))
-        hits.sort(key=lambda h: (-h[0], h[1]["start"]))
-        return {
-            "query": query,
-            "hits": [{"score": round(s, 2), **self._segment(seg)} for s, seg in hits[: max(1, k)]],
-        }
+        path = self.workspace.path(index.INDEX)
+        if not path.exists():
+            raise ToolError(
+                f"{index.INDEX} is missing; ingest the video first, "
+                "or use get_transcript and list_shots meanwhile"
+            )
+        return {"query": query, "hits": index.search(path, query, max(1, k))}
 
     def get_transcript(self, start: float | None = None, end: float | None = None) -> JSON:
         lo, hi = self._range(start, end)
@@ -286,7 +275,9 @@ def build_server(tools: VideoTools) -> McpSdkServerConfig:
         )(wrap(lambda a: _text(tools.get_overview()))),
         tool(
             "search",
-            "Find transcript segments that mention the query words. Returns the best k hits.",
+            "Search what is said (transcript segments) and shown (shot captions, on-screen "
+            "text, entities) for the query words. Returns the best k hits, each with its kind, "
+            "time range and shot.",
             obj(["query"], query={"type": "string"}, k={"type": "integer", "minimum": 1}),
         )(wrap(lambda a: _text(tools.search(a["query"], a.get("k", DEFAULT_K))))),
         tool(
