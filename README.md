@@ -10,7 +10,7 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Status
 
-The project is at the design stage, and there is no runnable code yet. See [DESIGN.md](DESIGN.md) for the architecture, tool list, phases and open items.
+The project is at the design stage, and there is no runnable code yet. See [DESIGN.md](DESIGN.md) for the architecture and [PLAN.md](PLAN.md) for the step-by-step build and test plan.
 
 ## Planned layout
 
