@@ -102,6 +102,14 @@ def check_upload_and_proxy(base: str, video: Path) -> None:
     assert thumb.status_code == 200 and thumb.content[:2] == b"\xff\xd8"
 
 
+def first_status(ws) -> dict:
+    """The first `ingest_status` frame, after the `history` frame a connection starts with."""
+    frame = json.loads(ws.recv(timeout=10))
+    while frame["type"] != "ingest_status":
+        frame = json.loads(ws.recv(timeout=10))
+    return frame
+
+
 def ws_url(base: str) -> str:
     return base.replace("http://", "ws://") + "/chat"
 
@@ -110,7 +118,7 @@ def frames_until_result(ws, interrupt_after_text: bool = False) -> list[dict]:
     frames = []
     while True:
         frame = json.loads(ws.recv(timeout=600))
-        if frame["type"] == "ingest_status":
+        if frame["type"] in ("ingest_status", "history"):
             continue
         frames.append(frame)
         if interrupt_after_text and frame["type"] == "text_delta":
@@ -122,8 +130,8 @@ def frames_until_result(ws, interrupt_after_text: bool = False) -> list[dict]:
 
 def check_chat(base: str) -> None:
     with connect(ws_url(base)) as ws:
-        first = json.loads(ws.recv(timeout=10))
-        assert first["type"] == "ingest_status" and first["chat_ready"], first
+        first = first_status(ws)
+        assert first["chat_ready"], first
 
         ws.send(json.dumps({"type": "user_message", "text": GROUNDED}))
         frames = frames_until_result(ws)
@@ -145,7 +153,7 @@ def check_replace_and_refuse(base: str, video: Path) -> None:
     response = upload(base, video)
     assert response.status_code == 200, response.text
     with connect(ws_url(base)) as ws:
-        status = json.loads(ws.recv(timeout=10))
+        status = first_status(ws)
         assert status["video_id"] == video_id(video) and not status["chat_ready"], status
         ws.send(json.dumps({"type": "user_message", "text": "hello"}))
         frame = json.loads(ws.recv(timeout=10))

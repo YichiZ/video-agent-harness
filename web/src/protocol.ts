@@ -9,6 +9,27 @@ export interface Interrupt {
   type: "interrupt";
 }
 
+export interface ToolCall {
+  id: string | null;
+  name: string;
+  input: Record<string, unknown>;
+  result: string | null;
+  is_error: boolean;
+}
+
+export interface ChatTurn {
+  role: string;
+  text: string;
+  tools: ToolCall[];
+  interrupted: boolean;
+}
+
+export interface History {
+  type: "history";
+  video_id: string | null;
+  turns: ChatTurn[];
+}
+
 export interface TextDelta {
   type: "text_delta";
   text: string;
@@ -53,4 +74,4 @@ export interface ChatError {
 
 export type ClientFrame = UserMessage | Interrupt;
 
-export type ServerFrame = TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError;
+export type ServerFrame = History | TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError;

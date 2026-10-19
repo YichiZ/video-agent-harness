@@ -1,8 +1,9 @@
 """The `WS /chat` frames. `scripts/export_protocol.py` writes them to `web/src/protocol.ts`.
 
 Client to server: `UserMessage`, `Interrupt`.
-Server to client: `TextDelta`, `ToolUse`, `ToolResult`, `Result` (one per turn),
-`IngestStatus` (on connect and whenever `status.json` changes) and `ChatError`.
+Server to client: `History` (on connect: the chat so far, from `chat.json`),
+`TextDelta`, `ToolUse`, `ToolResult`, `Result` (one per turn), `IngestStatus`
+(on connect and whenever `status.json` changes) and `ChatError`.
 """
 
 from __future__ import annotations
@@ -60,11 +61,32 @@ class IngestStatus(BaseModel):
     """Why a failed or blocked step did not finish."""
 
 
+class ToolCall(BaseModel):
+    id: str | None
+    name: str
+    input: dict[str, Any]
+    result: str | None = None
+    is_error: bool = False
+
+
+class ChatTurn(BaseModel):
+    role: Literal["user", "assistant"]
+    text: str
+    tools: list[ToolCall] = []
+    interrupted: bool = False
+
+
+class History(BaseModel):
+    type: Literal["history"] = "history"
+    video_id: str | None
+    turns: list[ChatTurn]
+
+
 class ChatError(BaseModel):
     type: Literal["error"] = "error"
     message: str
 
 
 ClientFrame = Annotated[UserMessage | Interrupt, Field(discriminator="type")]
-ServerFrame = TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError
+ServerFrame = History | TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError
 client_frame = TypeAdapter(ClientFrame)
