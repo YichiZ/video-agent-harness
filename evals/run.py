@@ -5,6 +5,7 @@
 3. Score accuracy (overall, by task type and by length), citations
    (`evals.scoring`), cost and latency, and ask the same question straight to
    the Gemini model with the whole video and no agent, as a baseline.
+   If any video fails to ingest, the eval stops (exit 3) before asking anything.
 4. Write the scorecard to `evals/results/<release hash>-<prompt version>-<subset>.json`
    and exit 1 if the gate fails: accuracy below `ACCURACY_MIN` or fewer than
    `CITATION_MIN` of answers citing valid timestamps.
@@ -14,7 +15,7 @@ Each turn is a Langfuse trace when tracing is on (`server.tracing`); the scoreca
 keeps each question's trace id.
 
 Offline (`HARNESS_FAKE_PROVIDERS=1`) sessions replay
-`tests/fixtures/agent/<subset>/<prompt version>-<question id>.json` and the
+`tests/fixtures/agent/eval-<subset>/<prompt version>-<question id>.json` and the
 baseline replays `gemini/<video>/baseline-*.json`; a live run with
 `HARNESS_RECORD_FIXTURES=1` records them.
 """
@@ -60,23 +61,30 @@ def video_path(settings: Settings, video_id: str) -> Path:
     return settings.video_mme_dir / "videos" / "data" / f"{video_id}.mp4"
 
 
-def ingest_all(settings: Settings, release: Release, video_ids: set[str]) -> dict[str, Workspace]:
-    def one(video_id: str) -> tuple[str, Workspace]:
+def ingest_all(
+    settings: Settings, release: Release, video_ids: set[str]
+) -> tuple[dict[str, Workspace], dict[str, str]]:
+    """Ingest every video. Returns the workspaces and, per failed video, what failed."""
+
+    def one(video_id: str) -> tuple[str, Workspace, str | None]:
         workspace, _ = Workspace.for_video(settings.workspace_dir, video_path(settings, video_id))
         ctx = ingest.StepContext(workspace=workspace, settings=settings, release=release)
-        failed = ingest.failures(ingest.run_steps(ctx))
-        if failed:
-            print(f"  ingest {video_id}: " + ", ".join(f"{r.name} {r.state}" for r in failed))
+        try:
+            failed = ingest.failures(ingest.run_steps(ctx))
+        except Exception as e:  # Rejected, say
+            failed_text = f"{type(e).__name__}: {e}"
         else:
-            print(f"  ingest {video_id}: done")
-        return video_id, workspace
+            failed_text = "; ".join(f"{r.name} {r.state}: {r.summary}" for r in failed) or None
+        print(f"  ingest {video_id}: {failed_text or 'done'}")
+        return video_id, workspace, failed_text
 
     with ThreadPoolExecutor(INGESTS_IN_PARALLEL) as pool:
-        return dict(pool.map(one, sorted(video_ids)))
+        results = list(pool.map(one, sorted(video_ids)))
+    return {v: w for v, w, _ in results}, {v: f for v, _, f in results if f}
 
 
 async def ask(workspace: Workspace, settings: Settings, release: Release, subset: str, q: dict):
-    fixture = f"{subset}/{release.prompt_version}-{q['question_id']}"
+    fixture = f"eval-{subset}/{release.prompt_version}-{q['question_id']}"
     session = ChatSession(workspace, settings, release, fixture=fixture)
     started = time.monotonic()
     text, result = [], None
@@ -168,7 +176,12 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     print(f"eval {args.subset}: {len(questions)} questions, prompt {release.prompt_version}")
-    workspaces = ingest_all(settings, release, {q["videoID"] for q in questions})
+    workspaces, failed = ingest_all(settings, release, {q["videoID"] for q in questions})
+    if failed:  # scoring an agent on a half-ingested video measures the ingest, not the agent
+        print(f"error: ingest failed for {len(failed)} video(s); rerun after fixing (it is cached)")
+        for video_id, why in sorted(failed.items()):
+            print(f"  {video_id}: {why[:300]}")
+        return 3
     rows = asyncio.run(ask_all(workspaces, settings, release, args.subset, questions))
     if not args.no_baseline:
         for row, q in zip(rows, questions, strict=True):

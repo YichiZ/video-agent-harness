@@ -1,0 +1,550 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+          "uuid": "d80bc0c5-2459-4d95-b397-16794d9a3eb0"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8c1117a7-532f-4d07-ab9f-369e9b79deda",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAk6qpf3cijQRY9CGKsh",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1130,
+              "cache_read_input_tokens": 1727,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1130
+              },
+              "output_tokens": 3,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6cd8a727-9dd3-4a93-bae9-5f0f0db03be5",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c5ae61a1-457d-4431-9d6d-8840dd40f554",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "429d6c47-2c9e-4912-a0f0-c71f80c4bfd6",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSqwUKEAgSGAI4AUIIdGhpbmtpbmcSDNB61Xd/upgXPaJmeBoMfcz63GetK4V39bd8IjAyvXs/PX+1LBg2apHHTwDxkQFnhnQeV8s2t8ExouoK9bX2KT/lzOlmreqKvDVaIc8qyASbXm5EYYMoetK4Gzg0sjf7es0pPvYnSj4BvNlHNWLkR8FFkpH/gC4JnpR8A0DA5rOr+b/ygl0NV1onF7cY1rmEVMKCjLG7Q76I7BbZobgCJyHUfqPobG3fLXit/pfaga8n6jGwRSbWrkrHB5Re1hJXUUV5Txj52JMWbzz5VAwOLmpRqWkEHAUvqykZMiRbjwnOrZTW8k23HjizP6uYqQcmXOe0SRiIUmR8Dnirq+N+kRBAE1U4TLhylmwxDi1D+l2NGosTXf7gpu6DniFgx2Yuq3eiFrvfi6U7z58DcxoFc+ARYR8bLvpLxtk/VwdoPPPuxUz4PB4kTas565mMGn96GVQDsn7IN9pPJYjXNlX26fO7VrWcQ906ZEoDbpcYGgAOv/d/q4Agj++Bt8RxmdZtUuV8WjA1+hDZjoYYSI+XarKEun3lNPFvFwGTqF+bHDf9bNKyIA5l0FRASoBnE04K/tJrtfvQzi1YJ4b6FNZkGxdWhwcXQqKe3uMSi7Ffziw8ksJ7i+9MNXFsNA5Y/TquKCvReHiLRCc248pEuSZwweIuq7W9sZa5X8RacB7CdhpsQUbgAgTwoXb41GmOn6t6PFWIMorZ55dfRZJxghZEx1+LoInqPCbUzwbaBhK4o81MH15KzjbEqk1vEqRyFKV4MLoS1LE17i3W8SR85Ee6AWDAErV+zaL7s0UsadcMXwbmDTf+MCcavtckAdUaA7L0/nChowpB0CxwIZ1Z8iz6njCMHWCZrxSXzmjJYEzdMcoWhbMthhWEchgB"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSqwUKEAgSGAI4AUIIdGhpbmtpbmcSDNB61Xd/upgXPaJmeBoMfcz63GetK4V39bd8IjAyvXs/PX+1LBg2apHHTwDxkQFnhnQeV8s2t8ExouoK9bX2KT/lzOlmreqKvDVaIc8qyASbXm5EYYMoetK4Gzg0sjf7es0pPvYnSj4BvNlHNWLkR8FFkpH/gC4JnpR8A0DA5rOr+b/ygl0NV1onF7cY1rmEVMKCjLG7Q76I7BbZobgCJyHUfqPobG3fLXit/pfaga8n6jGwRSbWrkrHB5Re1hJXUUV5Txj52JMWbzz5VAwOLmpRqWkEHAUvqykZMiRbjwnOrZTW8k23HjizP6uYqQcmXOe0SRiIUmR8Dnirq+N+kRBAE1U4TLhylmwxDi1D+l2NGosTXf7gpu6DniFgx2Yuq3eiFrvfi6U7z58DcxoFc+ARYR8bLvpLxtk/VwdoPPPuxUz4PB4kTas565mMGn96GVQDsn7IN9pPJYjXNlX26fO7VrWcQ906ZEoDbpcYGgAOv/d/q4Agj++Bt8RxmdZtUuV8WjA1+hDZjoYYSI+XarKEun3lNPFvFwGTqF+bHDf9bNKyIA5l0FRASoBnE04K/tJrtfvQzi1YJ4b6FNZkGxdWhwcXQqKe3uMSi7Ffziw8ksJ7i+9MNXFsNA5Y/TquKCvReHiLRCc248pEuSZwweIuq7W9sZa5X8RacB7CdhpsQUbgAgTwoXb41GmOn6t6PFWIMorZ55dfRZJxghZEx1+LoInqPCbUzwbaBhK4o81MH15KzjbEqk1vEqRyFKV4MLoS1LE17i3W8SR85Ee6AWDAErV+zaL7s0UsadcMXwbmDTf+MCcavtckAdUaA7L0/nChowpB0CxwIZ1Z8iz6njCMHWCZrxSXzmjJYEzdMcoWhbMthhWEchgB"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1130,
+          "cache_read_input_tokens": 1727,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1130
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk6qpf3cijQRY9CGKsh",
+        "stop_reason": null,
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "uuid": "48414af7-5871-4256-a9aa-29e7bfd49d00"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "de2f48b5-b23d-44a5-ba2f-31e47ea66762",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f6dc922c-dfa1-4264-9e4d-67f0b195c648",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "71f84632-6d2f-42a1-9aab-6a4271f19dbd",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "I did"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a99322a0-3614-4b9f-acf5-5d99c1c4bcab",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "n't wat"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "60314352-6734-4c66-a6d7-404ffd19627b",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ch the video or use"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fcac6b84-3a24-43a3-9eff-e8f0291fd078",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " any tools,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c40c3eda-e996-46a0-97e3-fa8cdee6392f",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " as"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9768e870-0e56-4900-bc45-e5fd0c3780ab",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " instructed, so this is a"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d57e44c5-33e9-4093-88c2-bdf912e64611",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " guess. I picked Co"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "19c19a26-1b64-40a8-992b-ffbb05eb1105",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ca-Cola because its"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "67186cfe-9f0d-423a-97c0-1eb889fc78dc",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " bran"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "caab358d-8582-4f94-9471-2df9da128d07",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ding often"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "80842b05-3147-441f-b0db-57759b26fbdf",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " shows up on"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "07016462-3ad2-4ec5-9bdd-a18a0a32073a",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " screen without being named"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3ea401b3-8fc3-4ec5-adf9-ed61549103c1",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ".\n\nAnswer: A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "I didn't watch the video or use any tools, as instructed, so this is a guess. I picked Coca-Cola because its branding often shows up on screen without being named.\n\nAnswer: A"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1130,
+          "cache_read_input_tokens": 1727,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1130
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk6qpf3cijQRY9CGKsh",
+        "stop_reason": null,
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "uuid": "2e231f4b-4f89-4106-9c44-106a509a0e3c"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b196f637-2e92-49d6-87ab-58a67b0cb31b",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f1291922-5d90-459a-94e2-2a4e9fe1f7ab",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1130,
+            "cache_read_input_tokens": 1727,
+            "output_tokens": 94,
+            "output_tokens_details": {
+              "thinking_tokens": 35
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 94,
+                "cache_read_input_tokens": 1727,
+                "cache_creation_input_tokens": 1130,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1130
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c9d315b8-fd6a-4fac-9dd1-807869629b3e",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "eecc2985-6a1e-4418-847a-c6faa3c4e9dd",
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064"
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 2154,
+        "duration_api_ms": 2132,
+        "is_error": false,
+        "num_turns": 1,
+        "session_id": "38927d39-39ec-4568-9203-7d6e4a0ee064",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.0112734,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1130,
+          "cache_read_input_tokens": 1727,
+          "output_tokens": 94,
+          "output_tokens_details": {
+            "thinking_tokens": 35
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1130,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 94,
+              "cache_read_input_tokens": 1727,
+              "cache_creation_input_tokens": 1130,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1130
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "I didn't watch the video or use any tools, as instructed, so this is a guess. I picked Coca-Cola because its branding often shows up on screen without being named.\n\nAnswer: A",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 94,
+            "cacheReadInputTokens": 1727,
+            "cacheCreationInputTokens": 1130,
+            "webSearchRequests": 0,
+            "costUSD": 0.0112734,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 35,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "2ac5ab22-c12e-4438-86ce-2d955b2d0bea",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

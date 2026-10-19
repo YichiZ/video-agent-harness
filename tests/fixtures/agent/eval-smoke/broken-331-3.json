@@ -1,0 +1,743 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+          "uuid": "1aa17cb4-7d53-4f1c-bedb-22e5a14f1665"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "089dc78f-11d8-409d-9c12-df700cf4843b",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAk74mX3vC4iZPLHNwmA",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1145,
+              "cache_read_input_tokens": 1782,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1145
+              },
+              "output_tokens": 4,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3a718fa1-2286-4cb2-a480-4ec41525023d",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "thinking_tokens",
+        "data": {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "estimated_tokens": 50,
+          "estimated_tokens_delta": 50,
+          "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+          "uuid": "f00bb34a-8ae9-4108-9894-091dc024f73f"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "073ebd3a-0040-4b50-b115-9a3d54f1bb34",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": 50
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9d583686-d4fd-480c-a4dd-41c3dd7aae57",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "thinking_tokens",
+        "data": {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "estimated_tokens": 210,
+          "estimated_tokens_delta": 160,
+          "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+          "uuid": "3e406cd0-7afb-42fa-b3cd-8ebebd50916f"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a51bb965-a8b5-4a8e-b217-2af959e9f21c",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSvgYKEAgSGAI4AUIIdGhpbmtpbmcSDD8+lsLbWiccrHY+8BoM9XDmQLl7SBI8GpswIjAwxW3VQ77CjCQ+EuhZuP+4xqSufxCDo+Ljh5onlOxEX/82uaZPNEC/ELRzodz85y0q2wVX5468meE7QK/jAypsfO9gRb+p7mwd3BYjlcS6mbBzGWtpylXxB19LS75E4nrTg/U1RlSOYG9HXKheauGhya1E5+Hyu6aHKYkQP9nJG6vtMX/m6FLjBZhczAatj9WJyXD8lWKSs9mawtEVxjR7tpExvIcSLyTlNUI40JrU2QlmI3iuM8DnArlpKdb+bb0CCR9CyKm4XRbTNBKYRjW1+I3mzDhhkXpaD6ugBaHz/h3KHmC7PS3dOjSIcb8U12UCMoviCTHkoscRiyaubBr2EnldXwEVH48r9xeGAjtdd4xE+KRS4NqOxqyoe1DA3Gr0cGNOp9T7eKdU91F2hJUk4N2s4/+ICi79O5dy2YMgVOBcDh1erFXtJwzqOkXY7IPAHi0mF5n5yVpil+7PSCaG1lR8UoR/l02eJVEcKk6d1vznjWFohzzNXSujWR9ky+CWHbGgdBmJmJOMGNMtm7vGHew4m8xzswearFv2eJG0oX9pFI9Pkaj9FNkbHrWqK7HjyguyOtDgsA6UgMJNuGAubILpFbMfmb9gee4QA4UsmqYBT7NZ4ciEgI+g+1jD60tpvrhMPX3PG4RudFAktvvmMSpnthgWN1V0E5bPpMIQ9g6Lawhf1D3bjzfAN+lMl23kglklRa1nl9dl1vVFVy98SENXXfnETe3Q1Frddz8mneS7zPVAw6MNZ7seudUR8EzD6RWq7gxqs5FEe9dOMCvlsXV57TIo+WJe3MRXZKfsVeYD2FRgfhuLqSxmBBG+byhnLzMab4GyBLc1L/Pb9soPPgvqxIcisdfyxU+sOHXMj2k3v/pfrv6z7HFqfhs3XTixQ/ejkQbEchwyCzwTQsWxLcSUKLRQ4Q61ITkJDa4IwlDZFmHbdz0ESFfy7YdThwVjHFYiinJiGH4LYIHi7dSVB9TcnC851MqVVZOTEZujp8GwuwdN6JbdAaxvQPq9F09zf5VlH2ZF1A2p1kOvhRgB"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSvgYKEAgSGAI4AUIIdGhpbmtpbmcSDD8+lsLbWiccrHY+8BoM9XDmQLl7SBI8GpswIjAwxW3VQ77CjCQ+EuhZuP+4xqSufxCDo+Ljh5onlOxEX/82uaZPNEC/ELRzodz85y0q2wVX5468meE7QK/jAypsfO9gRb+p7mwd3BYjlcS6mbBzGWtpylXxB19LS75E4nrTg/U1RlSOYG9HXKheauGhya1E5+Hyu6aHKYkQP9nJG6vtMX/m6FLjBZhczAatj9WJyXD8lWKSs9mawtEVxjR7tpExvIcSLyTlNUI40JrU2QlmI3iuM8DnArlpKdb+bb0CCR9CyKm4XRbTNBKYRjW1+I3mzDhhkXpaD6ugBaHz/h3KHmC7PS3dOjSIcb8U12UCMoviCTHkoscRiyaubBr2EnldXwEVH48r9xeGAjtdd4xE+KRS4NqOxqyoe1DA3Gr0cGNOp9T7eKdU91F2hJUk4N2s4/+ICi79O5dy2YMgVOBcDh1erFXtJwzqOkXY7IPAHi0mF5n5yVpil+7PSCaG1lR8UoR/l02eJVEcKk6d1vznjWFohzzNXSujWR9ky+CWHbGgdBmJmJOMGNMtm7vGHew4m8xzswearFv2eJG0oX9pFI9Pkaj9FNkbHrWqK7HjyguyOtDgsA6UgMJNuGAubILpFbMfmb9gee4QA4UsmqYBT7NZ4ciEgI+g+1jD60tpvrhMPX3PG4RudFAktvvmMSpnthgWN1V0E5bPpMIQ9g6Lawhf1D3bjzfAN+lMl23kglklRa1nl9dl1vVFVy98SENXXfnETe3Q1Frddz8mneS7zPVAw6MNZ7seudUR8EzD6RWq7gxqs5FEe9dOMCvlsXV57TIo+WJe3MRXZKfsVeYD2FRgfhuLqSxmBBG+byhnLzMab4GyBLc1L/Pb9soPPgvqxIcisdfyxU+sOHXMj2k3v/pfrv6z7HFqfhs3XTixQ/ejkQbEchwyCzwTQsWxLcSUKLRQ4Q61ITkJDa4IwlDZFmHbdz0ESFfy7YdThwVjHFYiinJiGH4LYIHi7dSVB9TcnC851MqVVZOTEZujp8GwuwdN6JbdAaxvQPq9F09zf5VlH2ZF1A2p1kOvhRgB"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1145,
+          "cache_read_input_tokens": 1782,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1145
+          },
+          "output_tokens": 4,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk74mX3vC4iZPLHNwmA",
+        "stop_reason": null,
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "uuid": "9eb11d6c-9df1-4cd0-8561-c885033524d2"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "39558a82-8a34-44f3-9a78-6fcb17d81f20",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3c929cbc-dba6-4853-9348-6f2f1f74d967",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2216a90b-30f6-4356-ac73-690ce805845c",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "I cou"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f57167f3-fa82-434b-9f41-1ae7866b78cf",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ldn't check this"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "27fc049b-4629-454c-8a82-56e7bd60307f",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " against"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "31d8f9f0-a6b5-4ebf-a042-6547ccf6b6f5",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " the video, because"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d7493e0e-bad4-489f-a472-972dfc11ce8a",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " my"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "02f300ee-c11b-43b1-9bd9-ad2f79a5e26e",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " instructions here"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a4fb0502-76ef-4f1a-996d-9664c2e840f0",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " were to answer without using"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fcf685c5-096b-4b2f-bbd6-f865138f22b9",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " any tools. My answ"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c2d22a8b-1a96-4847-b6af-12c1af35939c",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "er is an"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8743934f-fc36-4669-b4d3-a860bbe7e3c7",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " educated guess.\n\nMor"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "21f12096-2507-4c5a-acfc-5792fba2cfaa",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ris Pearl is"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "46366120-20d1-47ff-9028-f55e0dd65e1c",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " a millionaire, not a"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "039a6769-7622-4e36-8912-491841a2a22a",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " billionaire, which"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c2497148-d45e-4bc3-8646-fdea77bbbcc7",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " rules out options A and D."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ae72eeb9-526a-465d-9d95-7605cc739264",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " That leaves B and"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dcbfb522-0b03-402a-8940-702bb2de9105",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " C. Vide"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6d3c2bf5-9851-4a6a-9fee-d8eb812776bd",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "os on"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f1ea2313-da6d-4e81-af1c-50e8cb0d9cf5",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " ta"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2c7bc030-c4a3-477d-98fd-729a348f600d",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "xing the"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6cf24100-147e-41f0-b0f4-fb6aa3a1ddff",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " wealthy usually go"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7753e09c-94bd-40d7-bbdd-7d27a19188b5",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " Buffett, then"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b57891ed-cd67-4041-b73d-9bd5d8107e5e",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " Bezos, then Mus"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4e77aa13-1a72-4fab-b38c-2f2b9bfa3d56",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "k, so I picked B."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e614e44d-5229-497e-bda8-acdd934c4c2a",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nAnswer: B"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "I couldn't check this against the video, because my instructions here were to answer without using any tools. My answer is an educated guess.\n\nMorris Pearl is a millionaire, not a billionaire, which rules out options A and D. That leaves B and C. Videos on taxing the wealthy usually go Buffett, then Bezos, then Musk, so I picked B.\n\nAnswer: B"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1145,
+          "cache_read_input_tokens": 1782,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1145
+          },
+          "output_tokens": 4,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk74mX3vC4iZPLHNwmA",
+        "stop_reason": null,
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "uuid": "ce912024-1938-4498-8a87-ec4571eea4de"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8938ca10-550f-4d82-a094-8ace20086b21",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2863c463-4d3d-4503-b1c4-f6a7dd53999c",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1145,
+            "cache_read_input_tokens": 1782,
+            "output_tokens": 213,
+            "output_tokens_details": {
+              "thinking_tokens": 92
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 213,
+                "cache_read_input_tokens": 1782,
+                "cache_creation_input_tokens": 1145,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1145
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "02d87e82-dccd-44e4-a1c2-d81c46e50bf6",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "09abe3a5-27a3-4918-916c-e8c09cecfe53",
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd"
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 4044,
+        "duration_api_ms": 4019,
+        "is_error": false,
+        "num_turns": 1,
+        "session_id": "8cf76241-e814-4750-9dc7-e0f3141c69dd",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.013784399999999999,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1145,
+          "cache_read_input_tokens": 1782,
+          "output_tokens": 213,
+          "output_tokens_details": {
+            "thinking_tokens": 92
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1145,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 213,
+              "cache_read_input_tokens": 1782,
+              "cache_creation_input_tokens": 1145,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1145
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "I couldn't check this against the video, because my instructions here were to answer without using any tools. My answer is an educated guess.\n\nMorris Pearl is a millionaire, not a billionaire, which rules out options A and D. That leaves B and C. Videos on taxing the wealthy usually go Buffett, then Bezos, then Musk, so I picked B.\n\nAnswer: B",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 213,
+            "cacheReadInputTokens": 1782,
+            "cacheCreationInputTokens": 1145,
+            "webSearchRequests": 0,
+            "costUSD": 0.013784399999999999,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 92,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "707b12f3-146d-48bb-9f73-7582e50899d4",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

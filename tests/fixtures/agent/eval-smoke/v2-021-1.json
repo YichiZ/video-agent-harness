@@ -1,0 +1,1179 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+          "uuid": "daa40cbd-8f20-4cbc-8e9b-3629e7b4623b"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6406e9a0-e540-42fc-aa54-93fed011492a",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjkamxutZFosHW6iFq9",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1102,
+              "cache_read_input_tokens": 2571,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1102
+              },
+              "output_tokens": 24,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6f3f6144-34f7-47be-a9b6-168e076b3cd8",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_019sZR3uvqdzjghcKa4RvGXN",
+            "name": "mcp__video__get_overview",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a3b5271d-af98-4427-90cb-80f65d6fe7ed",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_019sZR3uvqdzjghcKa4RvGXN",
+            "name": "mcp__video__get_overview",
+            "input": {}
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1102,
+          "cache_read_input_tokens": 2571,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1102
+          },
+          "output_tokens": 24,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjkamxutZFosHW6iFq9",
+        "stop_reason": null,
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "uuid": "202e69d7-aaf2-4e99-ae51-596344b1adb9"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fba17398-79c4-478c-b09f-da1bf7ce2bb4",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "44756733-6f54-4481-a2d6-2432fbace978",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1102,
+            "cache_read_input_tokens": 2571,
+            "output_tokens": 33,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 33,
+                "cache_read_input_tokens": 2571,
+                "cache_creation_input_tokens": 1102,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1102
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3af83d9f-0fe9-4cd8-962b-909d097b4d2f",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.02,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "241c3ae8-c5b3-4bed-8212-bdf926d87245",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79"
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_019sZR3uvqdzjghcKa4RvGXN",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"duration_s\": 83.894, \"duration\": \"01:24\", \"summary\": \"This educational animation illustrates the scientific mechanism behind how mRNA COVID-19 vaccines protect the body. It shows how the vaccine prompts human cells to generate harmless viral spike proteins, triggering the immune system to produce antibodies that neutralize future viral threats.\", \"subjects\": [{\"name\": \"Coronavirus\", \"kind\": \"other\", \"description\": \"Graphic illustration of the COVID-19 virus with outer spike proteins.\", \"first_seen\": \"00:01\"}, {\"name\": \"mRNA Vaccine\", \"kind\": \"object\", \"description\": \"A syringe containing messenger RNA lipid nanoparticles designed to instruct cells.\", \"first_seen\": \"00:19\"}, {\"name\": \"Antibodies\", \"kind\": \"other\", \"description\": \"Y-shaped immune system proteins that bind to coronavirus spike proteins to neutralize the virus.\", \"first_seen\": \"00:43\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"00:19\", \"title\": \"Viral Spikes as a Target\", \"summary\": \"Explains how the COVID-19 virus binds to host cells using spike proteins, creating a key target for vaccines.\"}, {\"start\": \"00:19\", \"end\": \"00:45\", \"title\": \"mRNA Vaccine Function\", \"summary\": \"Shows how the mRNA vaccine directs cells to produce harmless spike proteins, alerting the immune system.\"}, {\"start\": \"00:45\", \"end\": \"01:02\", \"title\": \"Neutralizing the Virus\", \"summary\": \"Demonstrates how generated antibodies surround and bind to the coronavirus spikes, neutralizing the infection.\"}, {\"start\": \"01:02\", \"end\": \"01:24\", \"title\": \"Safety and Conclusion\", \"summary\": \"Summarizes the rigorous study and safety of mRNA vaccines, followed by production credits.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "c7ee8355-e06d-44a6-bfed-bdfb202e1fe9",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"duration_s\": 83.894, \"duration\": \"01:24\", \"summary\": \"This educational animation illustrates the scientific mechanism behind how mRNA COVID-19 vaccines protect the body. It shows how the vaccine prompts human cells to generate harmless viral spike proteins, triggering the immune system to produce antibodies that neutralize future viral threats.\", \"subjects\": [{\"name\": \"Coronavirus\", \"kind\": \"other\", \"description\": \"Graphic illustration of the COVID-19 virus with outer spike proteins.\", \"first_seen\": \"00:01\"}, {\"name\": \"mRNA Vaccine\", \"kind\": \"object\", \"description\": \"A syringe containing messenger RNA lipid nanoparticles designed to instruct cells.\", \"first_seen\": \"00:19\"}, {\"name\": \"Antibodies\", \"kind\": \"other\", \"description\": \"Y-shaped immune system proteins that bind to coronavirus spike proteins to neutralize the virus.\", \"first_seen\": \"00:43\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"00:19\", \"title\": \"Viral Spikes as a Target\", \"summary\": \"Explains how the COVID-19 virus binds to host cells using spike proteins, creating a key target for vaccines.\"}, {\"start\": \"00:19\", \"end\": \"00:45\", \"title\": \"mRNA Vaccine Function\", \"summary\": \"Shows how the mRNA vaccine directs cells to produce harmless spike proteins, alerting the immune system.\"}, {\"start\": \"00:45\", \"end\": \"01:02\", \"title\": \"Neutralizing the Virus\", \"summary\": \"Demonstrates how generated antibodies surround and bind to the coronavirus spikes, neutralizing the infection.\"}, {\"start\": \"01:02\", \"end\": \"01:24\", \"title\": \"Safety and Conclusion\", \"summary\": \"Summarizes the rigorous study and safety of mRNA vaccines, followed by production credits.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+          "uuid": "6c7f55d7-82d8-44ad-a076-09bd3ea0d18a"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "89394720-25df-4760-9aed-a571be596584",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjkkReUrVb9fvcjEqC5",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 728,
+              "cache_read_input_tokens": 3673,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 728
+              },
+              "output_tokens": 10,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e2225eed-fc09-4350-ae51-a010f9305eb3",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e2fc080b-369d-4dd3-b2b0-587272d89f3e",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0ae4a756-bb85-48f4-a448-2fb8df2f371e",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSvwUKEAgSGAI4AUIIdGhpbmtpbmcSDIT2cHiRJKL2WulSQBoMV3juKe+xqz7j3mpoIjAGzkHkpJwqdbYCEO58VL7gWSj7HAT5se4kM9kjXgkgGrcwZUgRcyUjXV0TlHGEzDsq3ARVS8HcVSOLLT277adrgVyv9uCza8HwzA9z85zJpLlYD8Edk/YAc4BqZquO4TBShfG9q6hoyP2EyixeKPY+SZwah0ge3EVj1FkWZN7fD6IkPC6rmbOyKSMBPyON9ozd0NQavokURk8Jx3pBrpJlKT+2BspK5lMQlyiXQHmvSgKq65hHPY9vf2laMXEmi1iR9vXvky1if84TjI/5BZjrHVnuTnyrxt1yhpUdEPwFLlHlK1l9Pahfbuw0Ic2Q3MZ3OJnSZnVOPBe+/g6WjNkIcvgAlpRl9la5asECGuo332MaU+too3VxeGazWl2Vuz5+yQlUH8BZaQyLyBg1+UDzFfZEjM/SKXrWEEx9xWKR157ovqO2Ta/laOP+H9eKvB8DfPD2uqN3ZX+O9xoc1YS6cGVW3IpqKxbvD12MYUOQ1FFXKm0rNpMUE1DHOZqgbkjaJhmSqpw4VkFIbgbX6QNs8bm/I0G4NHTB/IXSnia89pFnSSoAfpcMSdldq7Xy59BHM85+SnwnA3T6R+Unwpw1uu/yLl9cK9YCEYFftRF28xOPu/jHtTT4IyUoTyhu0c9S4WefN3p3wO2XghE6nM/AEf9NATvB5xuIO2qeFLYJIL2h3LXitrkVLPcYLZkdd6i8ZGohQpvuSu1s4R7hPvDCF2nL8PpcSU1UecT6KqSpqj9mAcmpzoG9ZGaqxzE9whyWp1OonFxNWyvAXwBbaPO7lweKLUMuvOhyZL80xSsOtqjxp8uaUcXmvzcALPYEaDcgxhh39BeNMZrzirCP+2TAHKdk+4mPrFsrcIUhXMcCGAE="
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSvwUKEAgSGAI4AUIIdGhpbmtpbmcSDIT2cHiRJKL2WulSQBoMV3juKe+xqz7j3mpoIjAGzkHkpJwqdbYCEO58VL7gWSj7HAT5se4kM9kjXgkgGrcwZUgRcyUjXV0TlHGEzDsq3ARVS8HcVSOLLT277adrgVyv9uCza8HwzA9z85zJpLlYD8Edk/YAc4BqZquO4TBShfG9q6hoyP2EyixeKPY+SZwah0ge3EVj1FkWZN7fD6IkPC6rmbOyKSMBPyON9ozd0NQavokURk8Jx3pBrpJlKT+2BspK5lMQlyiXQHmvSgKq65hHPY9vf2laMXEmi1iR9vXvky1if84TjI/5BZjrHVnuTnyrxt1yhpUdEPwFLlHlK1l9Pahfbuw0Ic2Q3MZ3OJnSZnVOPBe+/g6WjNkIcvgAlpRl9la5asECGuo332MaU+too3VxeGazWl2Vuz5+yQlUH8BZaQyLyBg1+UDzFfZEjM/SKXrWEEx9xWKR157ovqO2Ta/laOP+H9eKvB8DfPD2uqN3ZX+O9xoc1YS6cGVW3IpqKxbvD12MYUOQ1FFXKm0rNpMUE1DHOZqgbkjaJhmSqpw4VkFIbgbX6QNs8bm/I0G4NHTB/IXSnia89pFnSSoAfpcMSdldq7Xy59BHM85+SnwnA3T6R+Unwpw1uu/yLl9cK9YCEYFftRF28xOPu/jHtTT4IyUoTyhu0c9S4WefN3p3wO2XghE6nM/AEf9NATvB5xuIO2qeFLYJIL2h3LXitrkVLPcYLZkdd6i8ZGohQpvuSu1s4R7hPvDCF2nL8PpcSU1UecT6KqSpqj9mAcmpzoG9ZGaqxzE9whyWp1OonFxNWyvAXwBbaPO7lweKLUMuvOhyZL80xSsOtqjxp8uaUcXmvzcALPYEaDcgxhh39BeNMZrzirCP+2TAHKdk+4mPrFsrcIUhXMcCGAE="
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 728,
+          "cache_read_input_tokens": 3673,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 728
+          },
+          "output_tokens": 10,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjkkReUrVb9fvcjEqC5",
+        "stop_reason": null,
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "uuid": "d1ebe780-917d-4cf5-8e2d-dd209e915bfb"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1c9547d4-aec5-4fe7-929c-4f937ebfb267",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "082ac641-1779-4a3c-bfbf-81fb8c315e2d",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4573239e-0bbc-4e37-b52b-a6774ce980af",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "The video expl"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "33c53c93-161a-4689-8c29-b538aa1ee4c4",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ains how mRNA v"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5cca996f-f1f9-4dea-9005-84d3a356272b",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "accines work,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0badb338-d991-4ed0-9a88-99f4db9658b2",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " so the answer is A."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d9cbc6a7-f988-48c1-a4b7-af356d3b42ed",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\n- **"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "676be5ea-8b1d-48f9-b8e8-25b7395a0186",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "[00:00–00:19"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "bdd55fa8-d273-4318-a69b-56e547fb27bc",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "]** It shows how the CO"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "bc5b9238-b63d-4c77-b2b7-534afcdace0c",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "VID-19 virus u"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7ba671e1-8f30-40d9-b424-d82d36b5338e",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ses its"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4c98f9df-0fba-47dd-94e8-c40a51df6f84",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " spike proteins to attach"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "99e84e97-458f-436a-b1f6-d815d6834b8e",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " to human"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e6deb6c7-78e8-4300-86d5-134b3ee10695",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " cells. That"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a0122dde-6e33-4447-84ff-7daf33dd8f4e",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " makes the spikes the target"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "58db49b5-c076-4686-9535-1d3f5c36ce40",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " for a"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "94007194-61b6-4198-9deb-525a68277098",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " vaccine.\n- **"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5f3975c2-dcc7-4ad3-91fd-9fc3c9b584cb",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "[00:19–00:45"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "13c94ad2-99d4-4a67-8e95-2fb536480da0",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "]** The m"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5006f4e1-ec3a-4a20-bb45-946faba6b8b2",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "RNA vaccine t"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b33a8d14-aff8-4a0f-9dd0-fb7cedef2708",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ells cells to make harmless"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8d8452f1-a4b4-4c69-a868-0f9de03ff4d6",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " spike proteins, which al"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8cc2fbb0-c52d-496c-8224-3c0d74f5dc40",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "erts the immune system."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9d55225e-ecbe-4a91-9210-81f49b20d73c",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n- **[00:45–01"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ce0bcaf9-a74c-4229-9069-082b71cd4ba3",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ":02]** The antibod"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5f6c5b82-85b5-4631-96d8-cc5918acf61c",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ies the body"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c903cf35-38dd-4879-990f-678dc9e305ac",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " makes then"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d1360eb2-ec93-4d6c-90bf-cba9dbeef281",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " bind to the vir"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6458b208-8f22-4553-99f8-e6571d52e284",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "us's spikes and neut"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "32c5a184-fac8-4aa7-81f3-d548f2c7e6e2",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ralize it.\n- **["
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3cf4e7bc-5af4-44ec-92aa-b6cc5fce87a7",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "01:02–01:24]"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ad24817f-48c3-48a4-9fdb-6d17dee0e59d",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "** It closes with a short note"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9cccd6c4-c4fa-42ec-9631-71d079d3a8c8",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " that the"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "adabe8ff-90ff-4998-a064-65888a9e7df4",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " vaccines have been car"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c14e2654-5aec-41b2-a671-9fa04b44d7ee",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "efully studied and are safe"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a88e78b6-03fa-4054-a7b6-3fa91f66516a",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ", then the credits.\n\nThe"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c9f89e75-ba8c-4bbd-8295-fbf92f236756",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " video doesn't cover how"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "eeb2b94f-4eb8-4e3b-b445-7470c4e99da3",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " the vaccines are produ"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b9c44fb1-9bea-4501-82ee-91cf0e641ded",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ced, their"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b84f01ff-d8a3-408d-a608-5aba0b83882f",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " market, or their side effects."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9e5970bc-1553-426b-ac82-33417763f2d0",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " This com"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cdfa001f-48e7-4111-a639-aae9015b6b7f",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "es from the video's ch"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "561922a0-7c57-4aa3-bf85-3f37ee817f53",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "apter summaries; I did"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "de96a442-058f-40e8-869e-e70d93153b03",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "n't check individ"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "13fc35e1-dbf3-4258-ad7f-7b0b1084c46f",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ual frames.\n\nAnswer"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c1545a46-690a-42a7-9e6e-ae5406a8edf3",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ": A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "The video explains how mRNA vaccines work, so the answer is A.\n\n- **[00:00–00:19]** It shows how the COVID-19 virus uses its spike proteins to attach to human cells. That makes the spikes the target for a vaccine.\n- **[00:19–00:45]** The mRNA vaccine tells cells to make harmless spike proteins, which alerts the immune system.\n- **[00:45–01:02]** The antibodies the body makes then bind to the virus's spikes and neutralize it.\n- **[01:02–01:24]** It closes with a short note that the vaccines have been carefully studied and are safe, then the credits.\n\nThe video doesn't cover how the vaccines are produced, their market, or their side effects. This comes from the video's chapter summaries; I didn't check individual frames.\n\nAnswer: A"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 728,
+          "cache_read_input_tokens": 3673,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 728
+          },
+          "output_tokens": 10,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjkkReUrVb9fvcjEqC5",
+        "stop_reason": null,
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "uuid": "7f8b4f1a-9475-420a-88cb-4355e1a0e87c"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f1fd358a-9779-4ba5-8d34-7d85ac430fd5",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "994f1a0a-e8da-419d-9941-3ea64b3025e3",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 728,
+            "cache_read_input_tokens": 3673,
+            "output_tokens": 304,
+            "output_tokens_details": {
+              "thinking_tokens": 35
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 304,
+                "cache_read_input_tokens": 3673,
+                "cache_creation_input_tokens": 728,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 728
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e78f8676-2a9d-422d-95bd-23f2fe8d562f",
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 6707,
+        "duration_api_ms": 6667,
+        "is_error": false,
+        "num_turns": 2,
+        "session_id": "241c050e-9e26-4005-b7a9-5330ebc20a79",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.0226448,
+        "usage": {
+          "input_tokens": 4,
+          "cache_creation_input_tokens": 1830,
+          "cache_read_input_tokens": 6244,
+          "output_tokens": 337,
+          "output_tokens_details": {
+            "thinking_tokens": 35
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1830,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 304,
+              "cache_read_input_tokens": 3673,
+              "cache_creation_input_tokens": 728,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 728
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "The video explains how mRNA vaccines work, so the answer is A.\n\n- **[00:00–00:19]** It shows how the COVID-19 virus uses its spike proteins to attach to human cells. That makes the spikes the target for a vaccine.\n- **[00:19–00:45]** The mRNA vaccine tells cells to make harmless spike proteins, which alerts the immune system.\n- **[00:45–01:02]** The antibodies the body makes then bind to the virus's spikes and neutralize it.\n- **[01:02–01:24]** It closes with a short note that the vaccines have been carefully studied and are safe, then the credits.\n\nThe video doesn't cover how the vaccines are produced, their market, or their side effects. This comes from the video's chapter summaries; I didn't check individual frames.\n\nAnswer: A",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 4,
+            "outputTokens": 337,
+            "cacheReadInputTokens": 6244,
+            "cacheCreationInputTokens": 1830,
+            "webSearchRequests": 0,
+            "costUSD": 0.0226448,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 35,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "6d6b9b87-498b-4efa-acf1-d45192ad20f4",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

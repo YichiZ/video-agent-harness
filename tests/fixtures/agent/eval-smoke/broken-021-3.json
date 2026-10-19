@@ -1,0 +1,494 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+          "uuid": "7f85455c-9202-4d9b-93d5-421a20b91bee"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4ed8d54a-fe17-4bc6-8788-4f69e5d530d6",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAk6sPu7M9PsgbxU6eBq",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1122,
+              "cache_read_input_tokens": 1727,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1122
+              },
+              "output_tokens": 5,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d58b8871-3bc8-4705-a9e2-ed16b146fc06",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fb33d118-f3f5-400a-9595-b6090790ce94",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7086448a-5622-4c98-8022-1084c9d59310",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSogUKEAgSGAI4AUIIdGhpbmtpbmcSDAhRnkXQhwLFkI1PTBoMtS49m6aFRpO7EQ8qIjDCstmUgzYmXz82KwA04PlXCOriEpIM9idvGyP8D6j8UNDO6amfktALrNjlUNVg+owqvwQEFnPXJ4zaeHo/dlWHcdyldJGJ8pnXnof0+kdBt6NFKNrHaoywLk0UMQcjTEY2+VT7pVlRfILies5Ue5N3H1lDsrD2vpYpUhljK4Mkse+kmlVrKuDLnD6WS+m+TySBmrCHW9qJDY2GfTd3ay8BoDnIEeJNmOGgNQZW2p8y2KfTk3Lac9Nbkq/ZHWIXB6nnCxvzr8LUQWbchhO1D1Xw75AGWIuel8KHdx6lFao00GnrLEmiNHsdBQM9rhGR4aOpTB07IJ8Lq60emyDW1XfkMn14Z2EXeafEENm7JUvAuzC8F2Gn2r1IfkjmIera6S1VUad2+7dKp4MA285si39dd5aTEOCwDPVUKLGufrM1R7LzvF5Xopmt4A4kNdWDZywtYxqmDBb+gWBfFSppPx2mgExcR08YEeh/bfH3K/HdiRgM5GdOOk6I8McaHPbd+O1o4edGA1r8kSVZ10uiDYMlB8dfjmJH6b2sZIQTsgNANxkznmMxEneei8hiue6HGMtUHvQR6D/mrdqYJZZrwAg+RAafFyHzXWr+DD5YE3ZvyqdwsUTjZ10FpYVKYhvRbPM2Vn8oX+0JMMlgJdryGIeEg5nLFEE8nC/oqxnk3aUz2GaOy5ikQFWqfYdaFxz4ihYGHSR8KjOYoF6LuYNCzZXrlsJ/aauyVAgCdeSMtL9gQtzVOzXVH+qMp/gbGIHXsxIKqXBecWE6WZ0MZBXuER/KgYd+jF/CS5XQuJ1tGFApzFI+w8a7U43pa6jeIJe3AumImBgB"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSogUKEAgSGAI4AUIIdGhpbmtpbmcSDAhRnkXQhwLFkI1PTBoMtS49m6aFRpO7EQ8qIjDCstmUgzYmXz82KwA04PlXCOriEpIM9idvGyP8D6j8UNDO6amfktALrNjlUNVg+owqvwQEFnPXJ4zaeHo/dlWHcdyldJGJ8pnXnof0+kdBt6NFKNrHaoywLk0UMQcjTEY2+VT7pVlRfILies5Ue5N3H1lDsrD2vpYpUhljK4Mkse+kmlVrKuDLnD6WS+m+TySBmrCHW9qJDY2GfTd3ay8BoDnIEeJNmOGgNQZW2p8y2KfTk3Lac9Nbkq/ZHWIXB6nnCxvzr8LUQWbchhO1D1Xw75AGWIuel8KHdx6lFao00GnrLEmiNHsdBQM9rhGR4aOpTB07IJ8Lq60emyDW1XfkMn14Z2EXeafEENm7JUvAuzC8F2Gn2r1IfkjmIera6S1VUad2+7dKp4MA285si39dd5aTEOCwDPVUKLGufrM1R7LzvF5Xopmt4A4kNdWDZywtYxqmDBb+gWBfFSppPx2mgExcR08YEeh/bfH3K/HdiRgM5GdOOk6I8McaHPbd+O1o4edGA1r8kSVZ10uiDYMlB8dfjmJH6b2sZIQTsgNANxkznmMxEneei8hiue6HGMtUHvQR6D/mrdqYJZZrwAg+RAafFyHzXWr+DD5YE3ZvyqdwsUTjZ10FpYVKYhvRbPM2Vn8oX+0JMMlgJdryGIeEg5nLFEE8nC/oqxnk3aUz2GaOy5ikQFWqfYdaFxz4ihYGHSR8KjOYoF6LuYNCzZXrlsJ/aauyVAgCdeSMtL9gQtzVOzXVH+qMp/gbGIHXsxIKqXBecWE6WZ0MZBXuER/KgYd+jF/CS5XQuJ1tGFApzFI+w8a7U43pa6jeIJe3AumImBgB"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1122,
+          "cache_read_input_tokens": 1727,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1122
+          },
+          "output_tokens": 5,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk6sPu7M9PsgbxU6eBq",
+        "stop_reason": null,
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "uuid": "140ff37f-a2e1-4bf4-ae73-57b57311062e"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c4d0359f-4cb7-4100-b670-54764b607f4e",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a121b7df-4491-441e-aaee-733e0452cd18",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f6a5509e-207f-44eb-9efe-d20992758d0f",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "I couldn't check"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "894f848e-422e-499b-aa42-9746c4217d50",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " this"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3f2dd061-cc6a-49ce-917c-4477487ad549",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ", because I was told not to use"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "941a4d47-e6aa-4bcd-8118-5750ab2371b7",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " any tools or look at the video"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "460d911a-e283-499e-b6c7-3ec8af7d6a71",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "04712ec8-787b-4231-8357-85c8923bdfa5",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " Yellow is my best guess"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d3a95c7f-e8c2-4319-87e4-97d03efbf9dd",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ", not something"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9dc709c7-eecb-4f22-8b2c-f98459306faf",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " I saw."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "46b1588a-96b0-414a-96c3-b40b42745e03",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nAnswer: B"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "I couldn't check this, because I was told not to use any tools or look at the video. Yellow is my best guess, not something I saw.\n\nAnswer: B"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1122,
+          "cache_read_input_tokens": 1727,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1122
+          },
+          "output_tokens": 5,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk6sPu7M9PsgbxU6eBq",
+        "stop_reason": null,
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "uuid": "1ae2ff48-5c6c-4dbd-9161-565777d11137"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "365df8e7-c6bc-457a-9705-1ed14399fbc2",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ac42eb74-7392-4eaf-9caa-cf35b66caffb",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1122,
+            "cache_read_input_tokens": 1727,
+            "output_tokens": 77,
+            "output_tokens_details": {
+              "thinking_tokens": 29
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 77,
+                "cache_read_input_tokens": 1727,
+                "cache_creation_input_tokens": 1122,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1122
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "71dfab20-ddf2-4dbc-8e9f-3f05223d2345",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "4f9e86da-ea6d-4c28-a19e-411ca4a37054",
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4"
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 2976,
+        "duration_api_ms": 2952,
+        "is_error": false,
+        "num_turns": 1,
+        "session_id": "fea52fd4-3cfe-4a60-ad31-df4beaf34fb4",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.0108694,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1122,
+          "cache_read_input_tokens": 1727,
+          "output_tokens": 77,
+          "output_tokens_details": {
+            "thinking_tokens": 29
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1122,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 77,
+              "cache_read_input_tokens": 1727,
+              "cache_creation_input_tokens": 1122,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1122
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "I couldn't check this, because I was told not to use any tools or look at the video. Yellow is my best guess, not something I saw.\n\nAnswer: B",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 77,
+            "cacheReadInputTokens": 1727,
+            "cacheCreationInputTokens": 1122,
+            "webSearchRequests": 0,
+            "costUSD": 0.0108694,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 29,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "1d017cfe-4b10-4ba7-a290-dcf43190abfb",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

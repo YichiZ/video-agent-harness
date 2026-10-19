@@ -1,0 +1,1488 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+          "uuid": "f9d951f8-e87c-4731-9aa3-d12f022c4e70"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b439e5ed-3ada-4538-a20a-bb3c570d8f4f",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjm8qYLF2vYKkhyYPak",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1145,
+              "cache_read_input_tokens": 2571,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1145
+              },
+              "output_tokens": 25,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c6138450-af07-494f-b92c-6e610aeb0370",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01KdhxbBV6DhJbq62omNHd2k",
+            "name": "mcp__video__get_overview",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fef33f33-7099-46e1-ba2e-eeac3f53fa84",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01KdhxbBV6DhJbq62omNHd2k",
+            "name": "mcp__video__get_overview",
+            "input": {}
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1145,
+          "cache_read_input_tokens": 2571,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1145
+          },
+          "output_tokens": 25,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjm8qYLF2vYKkhyYPak",
+        "stop_reason": null,
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "uuid": "4020d6bb-d198-48c8-8aa3-706dfda464f4"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3cb29838-aac2-48c6-adfa-79fa515a7fff",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "210e8819-a160-4ecc-830a-24b7607a3887",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01PBySj3Z8ddTrZLEi85vJLn",
+            "name": "mcp__video__search",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "473dcc25-02b2-486c-a2f6-aeec407f4b2e",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4e586267-8d9a-4574-a7ed-00b63ca77dd3",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"query\": \"Buffett Bezos"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8510e19b-73fe-4c07-a43c-cc7456fbf849",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": " Musk Mor"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "590eef47-8cbe-4f9b-a7d9-fecc24eff24b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "ris Pearl"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01KdhxbBV6DhJbq62omNHd2k",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"duration_s\": 366.875, \"duration\": \"06:07\", \"summary\": \"This video examines how the ultra-wealthy in the United States pay lower tax rates than average wage earners. Through examples like Warren Buffett and former Wall Street executive Morris Pearl, it explains how wealth generated from stocks and assets is shielded through lower capital gains taxes and loopholes like the 'stepped-up basis'. It also discusses proposed policy solutions, such as raising capital gains taxes to bridge the wealth gap.\", \"subjects\": [{\"name\": \"Warren Buffett\", \"kind\": \"person\", \"description\": \"Billionaire investor and CEO of Berkshire Hathaway who famously noted he pays a lower tax rate than his secretary.\", \"first_seen\": \"00:01\"}, {\"name\": \"Berkshire Hathaway\", \"kind\": \"organization\", \"description\": \"The multinational conglomerate holding company led by Warren Buffett.\", \"first_seen\": \"00:07\"}, {\"name\": \"Morris Pearl\", \"kind\": \"person\", \"description\": \"Former BlackRock managing director and chair of the Patriotic Millionaires advocating for higher taxes on the wealthy.\", \"first_seen\": \"01:36\"}, {\"name\": \"Jeff Bezos\", \"kind\": \"person\", \"description\": \"Founder of Amazon whose immense wealth is tied mostly to unsold company stock.\", \"first_seen\": \"03:16\"}, {\"name\": \"Elon Musk\", \"kind\": \"person\", \"description\": \"Billionaire entrepreneur who borrows against stock assets to fund lifestyle without triggering taxable income.\", \"first_seen\": \"03:40\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"01:35\", \"title\": \"Why Warren Buffett Pays Less in Taxes\", \"summary\": \"The video introduces Warren Buffett's wealth and highlights how capital gains tax rates allow billionaires to pay lower effective tax rates than salaried workers.\"}, {\"start\": \"01:35\", \"end\": \"03:55\", \"title\": \"Income vs. Capital Gains\", \"summary\": \"Morris Pearl explains how wealthy individuals live off untaxed stock growth and how capital gains are taxed far lower than labor income.\"}, {\"start\": \"03:55\", \"end\": \"04:45\", \"title\": \"The 'Buy, Borrow, Die' Loophole\", \"summary\": \"The stepped-up basis loophole is explained, detailing how inherited stock eliminates taxable gains built up over a lifetime.\"}, {\"start\": \"04:45\", \"end\": \"06:07\", \"title\": \"Proposals to Fix the Tax System\", \"summary\": \"The video outlines President Biden's proposals to close tax loopholes and raise capital gains taxes on high earners.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "0b3b87a5-ff0a-4c75-a09d-807f81fb2064",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"duration_s\": 366.875, \"duration\": \"06:07\", \"summary\": \"This video examines how the ultra-wealthy in the United States pay lower tax rates than average wage earners. Through examples like Warren Buffett and former Wall Street executive Morris Pearl, it explains how wealth generated from stocks and assets is shielded through lower capital gains taxes and loopholes like the 'stepped-up basis'. It also discusses proposed policy solutions, such as raising capital gains taxes to bridge the wealth gap.\", \"subjects\": [{\"name\": \"Warren Buffett\", \"kind\": \"person\", \"description\": \"Billionaire investor and CEO of Berkshire Hathaway who famously noted he pays a lower tax rate than his secretary.\", \"first_seen\": \"00:01\"}, {\"name\": \"Berkshire Hathaway\", \"kind\": \"organization\", \"description\": \"The multinational conglomerate holding company led by Warren Buffett.\", \"first_seen\": \"00:07\"}, {\"name\": \"Morris Pearl\", \"kind\": \"person\", \"description\": \"Former BlackRock managing director and chair of the Patriotic Millionaires advocating for higher taxes on the wealthy.\", \"first_seen\": \"01:36\"}, {\"name\": \"Jeff Bezos\", \"kind\": \"person\", \"description\": \"Founder of Amazon whose immense wealth is tied mostly to unsold company stock.\", \"first_seen\": \"03:16\"}, {\"name\": \"Elon Musk\", \"kind\": \"person\", \"description\": \"Billionaire entrepreneur who borrows against stock assets to fund lifestyle without triggering taxable income.\", \"first_seen\": \"03:40\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"01:35\", \"title\": \"Why Warren Buffett Pays Less in Taxes\", \"summary\": \"The video introduces Warren Buffett's wealth and highlights how capital gains tax rates allow billionaires to pay lower effective tax rates than salaried workers.\"}, {\"start\": \"01:35\", \"end\": \"03:55\", \"title\": \"Income vs. Capital Gains\", \"summary\": \"Morris Pearl explains how wealthy individuals live off untaxed stock growth and how capital gains are taxed far lower than labor income.\"}, {\"start\": \"03:55\", \"end\": \"04:45\", \"title\": \"The 'Buy, Borrow, Die' Loophole\", \"summary\": \"The stepped-up basis loophole is explained, detailing how inherited stock eliminates taxable gains built up over a lifetime.\"}, {\"start\": \"04:45\", \"end\": \"06:07\", \"title\": \"Proposals to Fix the Tax System\", \"summary\": \"The video outlines President Biden's proposals to close tax loopholes and raise capital gains taxes on high earners.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d368e62d-b347-4fe3-8392-716b22e66462",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "\", \"k\": 15"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e69a3e9c-fb60-4a25-854a-cf95c5264044",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01PBySj3Z8ddTrZLEi85vJLn",
+            "name": "mcp__video__search",
+            "input": {
+              "query": "Buffett Bezos Musk Morris Pearl",
+              "k": 15
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1145,
+          "cache_read_input_tokens": 2571,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1145
+          },
+          "output_tokens": 25,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjm8qYLF2vYKkhyYPak",
+        "stop_reason": null,
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "uuid": "36148c3b-a8b3-49ba-b4a8-167d54ab1199"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "be70b1e5-b25f-4a0c-8b4c-4f3cdbab9235",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01PBySj3Z8ddTrZLEi85vJLn",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"query\": \"Buffett Bezos Musk Morris Pearl\", \"hits\": [{\"kind\": \"caption\", \"start\": 231.106, \"end\": 235.318, \"time\": \"03:51\", \"shot\": 19, \"score\": 7.43, \"text\": \"Morris Pearl summarizing the financial status of billionaires. Morris Pearl speaks on camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 154.154, \"end\": 157.949, \"time\": \"02:34\", \"shot\": 13, \"score\": 7.36, \"text\": \"Morris Pearl discussing recent stock sales and tax amounts. Morris Pearl speaks on screen.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 320.57, \"end\": 330.288, \"time\": \"05:21\", \"shot\": 23, \"score\": 7.36, \"text\": \"Morris Pearl discussing alternative tax reforms like wealth taxes. Morris Pearl gestures while talking.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 96.388, \"end\": 115.115, \"time\": \"01:36\", \"shot\": 9, \"score\": 7.28, \"text\": \"Morris Pearl speaking on a video call about his taxes. Morris Pearl gestures while talking to the camera.\", \"on_screen_text\": \"Vox | Morris Pearl | Former BlackRock executive | millionaire\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 121.288, \"end\": 128.879, \"time\": \"02:01\", \"shot\": 11, \"score\": 7.16, \"text\": \"Morris Pearl continuing to speak about taxation of the middle class. Morris Pearl talks facing the camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 342.05, \"end\": 349.474, \"time\": \"05:42\", \"shot\": 25, \"score\": 7.09, \"text\": \"Morris Pearl concluding his remarks about economic inequality. Morris Pearl gestures with both hands as he finishes talking.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 183.684, \"end\": 195.779, \"time\": \"03:04\", \"shot\": 16, \"score\": 7.03, \"text\": \"Morris Pearl talking about portfolio gains and the lack of tax on unsold assets. Morris Pearl addresses the camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 213.442, \"end\": 231.106, \"time\": \"03:33\", \"shot\": 18, \"score\": 5.2, \"text\": \"Graphic illustrating how Elon Musk leverages stock for bank loans without selling. Stacks of cash emerge from a bank icon beside Elon Musk.\", \"on_screen_text\": \"Vox | worth | taxable | Elon Musk | Net worth: $185 billion | as of July 1, 2021 | BANK | not taxed\", \"entities\": \"Elon Musk | Bank illustration | Stock pyramid\"}, {\"kind\": \"caption\", \"start\": 195.779, \"end\": 213.442, \"time\": \"03:16\", \"shot\": 17, \"score\": 4.22, \"text\": \"An animation depicting Jeff Bezos with his untaxed stock wealth pyramid. A single stock certificate is pulled from the pyramid and marked as sold.\", \"on_screen_text\": \"Vox | Jeff Bezos | Net worth: $199 billion | as of July 1, 2021 | STOCK | SOLD | CAPITAL GAINS TAX\", \"entities\": \"Jeff Bezos | Stock certificate pyramid\"}, {\"kind\": \"transcript\", \"start\": 219.82, \"end\": 225.04, \"time\": \"03:40\", \"shot\": 18, \"score\": 3.97, \"text\": \"Some billionaires, like Elon Musk, are able to get loans against their stocks and live off of that.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"transcript\", \"start\": 173.76, \"end\": 182.34, \"time\": \"02:54\", \"shot\": 14, \"score\": 3.52, \"text\": \"People like Morris or Buffett are worth so much money because of the stock that they hold, but it's not tangible, spendable, taxable money.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"transcript\", \"start\": 196.22, \"end\": 203.32, \"time\": \"03:16\", \"shot\": 17, \"score\": 3.45, \"text\": \"Amazon's Jeff Bezos, the richest man in America, thanks mostly to his Amazon stock, pays almost nothing in taxes.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"caption\", \"start\": 115.115, \"end\": 121.288, \"time\": \"01:55\", \"shot\": 10, \"score\": 3.34, \"text\": \"A billboard truck driving in front of the US Capitol advocating for taxing the rich. A truck displaying Jeff Bezos's picture drives past the Capitol.\", \"on_screen_text\": \"Vox | tax me if you can! | taxtherich.com | pro-tax billboard paid for by his group, Patriotic Millionaires\", \"entities\": \"Jeff Bezos billboard | Patriotic Millionaires truck | US Capitol\"}, {\"kind\": \"transcript\", \"start\": 102.7, \"end\": 103.44, \"time\": \"01:43\", \"shot\": 9, \"score\": 3.12, \"text\": \"This is Morris.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"caption\", \"start\": 68.735, \"end\": 70.862, \"time\": \"01:09\", \"shot\": 7, \"score\": 2.44, \"text\": \"Warren Buffett interviewed on television about wealthy taxes. Buffett gestures with his hands while speaking.\", \"on_screen_text\": \"Vox | The wealthy are definitely undertaxed. | CNBC\", \"entities\": \"Warren Buffett\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "9b84cecf-0d7f-4b28-894a-dd72d8ee4e73",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"query\": \"Buffett Bezos Musk Morris Pearl\", \"hits\": [{\"kind\": \"caption\", \"start\": 231.106, \"end\": 235.318, \"time\": \"03:51\", \"shot\": 19, \"score\": 7.43, \"text\": \"Morris Pearl summarizing the financial status of billionaires. Morris Pearl speaks on camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 154.154, \"end\": 157.949, \"time\": \"02:34\", \"shot\": 13, \"score\": 7.36, \"text\": \"Morris Pearl discussing recent stock sales and tax amounts. Morris Pearl speaks on screen.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 320.57, \"end\": 330.288, \"time\": \"05:21\", \"shot\": 23, \"score\": 7.36, \"text\": \"Morris Pearl discussing alternative tax reforms like wealth taxes. Morris Pearl gestures while talking.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 96.388, \"end\": 115.115, \"time\": \"01:36\", \"shot\": 9, \"score\": 7.28, \"text\": \"Morris Pearl speaking on a video call about his taxes. Morris Pearl gestures while talking to the camera.\", \"on_screen_text\": \"Vox | Morris Pearl | Former BlackRock executive | millionaire\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 121.288, \"end\": 128.879, \"time\": \"02:01\", \"shot\": 11, \"score\": 7.16, \"text\": \"Morris Pearl continuing to speak about taxation of the middle class. Morris Pearl talks facing the camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 342.05, \"end\": 349.474, \"time\": \"05:42\", \"shot\": 25, \"score\": 7.09, \"text\": \"Morris Pearl concluding his remarks about economic inequality. Morris Pearl gestures with both hands as he finishes talking.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 183.684, \"end\": 195.779, \"time\": \"03:04\", \"shot\": 16, \"score\": 7.03, \"text\": \"Morris Pearl talking about portfolio gains and the lack of tax on unsold assets. Morris Pearl addresses the camera.\", \"on_screen_text\": \"Vox\", \"entities\": \"Morris Pearl\"}, {\"kind\": \"caption\", \"start\": 213.442, \"end\": 231.106, \"time\": \"03:33\", \"shot\": 18, \"score\": 5.2, \"text\": \"Graphic illustrating how Elon Musk leverages stock for bank loans without selling. Stacks of cash emerge from a bank icon beside Elon Musk.\", \"on_screen_text\": \"Vox | worth | taxable | Elon Musk | Net worth: $185 billion | as of July 1, 2021 | BANK | not taxed\", \"entities\": \"Elon Musk | Bank illustration | Stock pyramid\"}, {\"kind\": \"caption\", \"start\": 195.779, \"end\": 213.442, \"time\": \"03:16\", \"shot\": 17, \"score\": 4.22, \"text\": \"An animation depicting Jeff Bezos with his untaxed stock wealth pyramid. A single stock certificate is pulled from the pyramid and marked as sold.\", \"on_screen_text\": \"Vox | Jeff Bezos | Net worth: $199 billion | as of July 1, 2021 | STOCK | SOLD | CAPITAL GAINS TAX\", \"entities\": \"Jeff Bezos | Stock certificate pyramid\"}, {\"kind\": \"transcript\", \"start\": 219.82, \"end\": 225.04, \"time\": \"03:40\", \"shot\": 18, \"score\": 3.97, \"text\": \"Some billionaires, like Elon Musk, are able to get loans against their stocks and live off of that.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"transcript\", \"start\": 173.76, \"end\": 182.34, \"time\": \"02:54\", \"shot\": 14, \"score\": 3.52, \"text\": \"People like Morris or Buffett are worth so much money because of the stock that they hold, but it's not tangible, spendable, taxable money.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"transcript\", \"start\": 196.22, \"end\": 203.32, \"time\": \"03:16\", \"shot\": 17, \"score\": 3.45, \"text\": \"Amazon's Jeff Bezos, the richest man in America, thanks mostly to his Amazon stock, pays almost nothing in taxes.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"caption\", \"start\": 115.115, \"end\": 121.288, \"time\": \"01:55\", \"shot\": 10, \"score\": 3.34, \"text\": \"A billboard truck driving in front of the US Capitol advocating for taxing the rich. A truck displaying Jeff Bezos's picture drives past the Capitol.\", \"on_screen_text\": \"Vox | tax me if you can! | taxtherich.com | pro-tax billboard paid for by his group, Patriotic Millionaires\", \"entities\": \"Jeff Bezos billboard | Patriotic Millionaires truck | US Capitol\"}, {\"kind\": \"transcript\", \"start\": 102.7, \"end\": 103.44, \"time\": \"01:43\", \"shot\": 9, \"score\": 3.12, \"text\": \"This is Morris.\", \"speaker\": \"speaker_0\"}, {\"kind\": \"caption\", \"start\": 68.735, \"end\": 70.862, \"time\": \"01:09\", \"shot\": 7, \"score\": 2.44, \"text\": \"Warren Buffett interviewed on television about wealthy taxes. Buffett gestures with his hands while speaking.\", \"on_screen_text\": \"Vox | The wealthy are definitely undertaxed. | CNBC\", \"entities\": \"Warren Buffett\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "172f5796-c545-4891-9208-cea26877ecb6",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1145,
+            "cache_read_input_tokens": 2571,
+            "output_tokens": 119,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 119,
+                "cache_read_input_tokens": 2571,
+                "cache_creation_input_tokens": 1145,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1145
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4b835e72-4f08-4a63-b175-f0f5796ed8a4",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "024b1564-8938-4ee7-9c3c-c1d8547c372b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236"
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+          "uuid": "a1d53cd0-a797-4afb-a593-20ab405a0d3f"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "89ea5888-a711-4eeb-bcc1-c44885a3e7c8",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjmJsmp9CfcSzzRTERt",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 3174,
+              "cache_read_input_tokens": 3716,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 3174
+              },
+              "output_tokens": 3,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "48d9778d-a7a7-44a3-bfae-944b600d24f4",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "thinking_tokens",
+        "data": {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "estimated_tokens": 50,
+          "estimated_tokens_delta": 50,
+          "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+          "uuid": "7b1cc701-19f2-46d2-b09c-3a091a676d2f"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "741bb994-67a7-49be-b56a-6505b8f6f293",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": 50
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3057ac6c-1b41-42a7-985e-89710766f021",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "thinking_tokens",
+        "data": {
+          "type": "system",
+          "subtype": "thinking_tokens",
+          "estimated_tokens": 195,
+          "estimated_tokens_delta": 145,
+          "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+          "uuid": "3990800d-8bb8-47a3-a8db-607d2193e941"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "85124000-89a7-4073-9958-06884b8a2547",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSgwYKEAgSGAI4AUIIdGhpbmtpbmcSDHssWcUynbFvQ2MUKBoMsiyjRXGi7QpU7YV0IjDXyDbeJ7fI8gUWh21SgIkK+wMI2HSoBjANkS/cWsOwZX0J+v9KZ8RveUdci+Fz0AoqoAVCL2Jg/3VzP4N3GzHHhkg1HgNCwqlU3f0xLInBX0fK9AiryUoj99BxGYkeWd/tDLbe65u1eOkgFLXwoWx7fQXlYUsessP83s3UjA9YbrgtspKEbIWsxdxbprbmvw6dXO0zF2ANbmY3jFIvclOGXmrbhOkCYeumayhlMDTrfS7YKgwOaljVaO0q3SBOfML5xolOHFpZvfuVg5jwoJI5d7e2W1tg96lMUjANugsdqJ3CskuVdHdG9kaFQT6S+ffO840/vEnbHBzTwXdw3+3CIOD+IJS9Z2TDbf0x6A7mjO4zcr0WTpVrbRj+lElbbzHdFTS4s/WMPtqdTzrtl621/kricGQQOqdh4BUAI3YcevCZkYbdCc6MjwqHtkm/FazWaynvxUcKvhnL/VRYgfWha5JqdH+TuoW9pVZl1iaU/C+mLOaMSmvSOOxHZ1+5nGEa1LnOSSkMe2N4gQ5KHeyENzdaTACgp1+bo5wfUJ2HW8lSm3DtmaIHZI9v3vMQ6susJtWawQmEBbhIuOur2tzRp2FYHwBHyCZWRUAeCZzLT9QclHCokZNZMWiyoEgLqJj4OXys0hngtiq6Wi/2p/rJKPzPoLuqCKx8N5toCZQkoaYth22G8AhzEcT5SR1BHA6Wh3YgP/hDP+7EsjnBUPttCfFrXugBr2qNcErTrVor/qvTWe2CeYP/Rj+RP+048GYds/QDXY58Rxx0uKMw3/aMHA4grXY+utcrflC8/mSwuA23CoNXMrJ+DHS542wANpEOm7Mq4PAZ5rLNaGvpTzAcVoye8XKIjtOkjqEWxOHusn1WmEiCzI1LVuKtXf3Wqn1OwiTpvkoxZAvldYiPU33TlkrI1MX8qA0zGkxjpqfXXB3pNiE+QtSQ++t/cxqliEx19gUYAQ=="
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSgwYKEAgSGAI4AUIIdGhpbmtpbmcSDHssWcUynbFvQ2MUKBoMsiyjRXGi7QpU7YV0IjDXyDbeJ7fI8gUWh21SgIkK+wMI2HSoBjANkS/cWsOwZX0J+v9KZ8RveUdci+Fz0AoqoAVCL2Jg/3VzP4N3GzHHhkg1HgNCwqlU3f0xLInBX0fK9AiryUoj99BxGYkeWd/tDLbe65u1eOkgFLXwoWx7fQXlYUsessP83s3UjA9YbrgtspKEbIWsxdxbprbmvw6dXO0zF2ANbmY3jFIvclOGXmrbhOkCYeumayhlMDTrfS7YKgwOaljVaO0q3SBOfML5xolOHFpZvfuVg5jwoJI5d7e2W1tg96lMUjANugsdqJ3CskuVdHdG9kaFQT6S+ffO840/vEnbHBzTwXdw3+3CIOD+IJS9Z2TDbf0x6A7mjO4zcr0WTpVrbRj+lElbbzHdFTS4s/WMPtqdTzrtl621/kricGQQOqdh4BUAI3YcevCZkYbdCc6MjwqHtkm/FazWaynvxUcKvhnL/VRYgfWha5JqdH+TuoW9pVZl1iaU/C+mLOaMSmvSOOxHZ1+5nGEa1LnOSSkMe2N4gQ5KHeyENzdaTACgp1+bo5wfUJ2HW8lSm3DtmaIHZI9v3vMQ6susJtWawQmEBbhIuOur2tzRp2FYHwBHyCZWRUAeCZzLT9QclHCokZNZMWiyoEgLqJj4OXys0hngtiq6Wi/2p/rJKPzPoLuqCKx8N5toCZQkoaYth22G8AhzEcT5SR1BHA6Wh3YgP/hDP+7EsjnBUPttCfFrXugBr2qNcErTrVor/qvTWe2CeYP/Rj+RP+048GYds/QDXY58Rxx0uKMw3/aMHA4grXY+utcrflC8/mSwuA23CoNXMrJ+DHS542wANpEOm7Mq4PAZ5rLNaGvpTzAcVoye8XKIjtOkjqEWxOHusn1WmEiCzI1LVuKtXf3Wqn1OwiTpvkoxZAvldYiPU33TlkrI1MX8qA0zGkxjpqfXXB3pNiE+QtSQ++t/cxqliEx19gUYAQ=="
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 3174,
+          "cache_read_input_tokens": 3716,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3174
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjmJsmp9CfcSzzRTERt",
+        "stop_reason": null,
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "uuid": "1e173949-12de-4999-b987-419b7be3156a"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "35ac0697-769c-4d00-b940-21f539302aa9",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ab6aa814-f693-413c-a20d-8f2eae774920",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "976162cb-ac7c-4901-ad2a-7440b8cd06ec",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "The billiona"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f8da605d-1040-40a0-9a30-ea299a9ae26d",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ires appear in this"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b4506a6a-0b2f-4fee-9b8f-98ff39a9ae2d",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " order: Warren Buff"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2de73821-1cb3-44be-9bb5-1fe3eba1a0c7",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ett, then"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cfabf898-1302-4067-b88b-4175b0989d46",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " Jeff Bezos"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ec706189-6dbe-4400-8367-94a6de99888a",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ", then Elon Musk"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cc889bfc-c03b-4da4-b335-0596f6e32061",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " ("
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f0231cbd-2f46-43cb-a46e-a307b2b6d67f",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "option B).\n\n- **War"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c702cff1-cff0-4950-8f87-99c22865951e",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ren Buffett** is first"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "391659f5-7798-4019-98d9-f01d90ed31e5",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ed814786-65f6-4b08-840d-677dedf12d59",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " He is intro"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fbd20fcc-1bd4-4af1-a11f-41f9fe96a790",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "duced at"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "72db299a-bae1-4b3a-9be3-644b990f0712",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " the start ["
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3fb2bdf2-69b0-42c7-a687-fa40ad387566",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "00:01], and a"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "773f1a00-c69d-448f-b199-6b5f79c00f08",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " T"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "05b582e8-90a5-4bc2-b114-2dc747041d2f",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "V interview cl"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5dcbaa25-e094-4ab1-9b93-41be0485368b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ip of him foll"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e647d57e-4452-44f9-89db-6f7b0356d87d",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ows [01:09].\n-"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0b87203e-02b9-4899-8c14-f97e7c97df56",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " **Jeff Bez"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ab49acd0-bf7e-4e21-afac-20cb9198885b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "os** is second"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c94785c5-9f5e-47f7-9b33-8d8ec7c71f0b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ". His face is"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3253048d-b649-4469-a241-e1f427f8ace4",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " on a billboard truck at"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dce0a4a2-66a2-46c1-98bd-cf3d74d58fb7",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " [01:55]"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d75ebb0b-5905-4f2b-aa80-53e06ab1b19b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ". His main seg"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "52a1687f-271a-4347-805a-8fc8f58a3a18",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ment is an animation show"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "79ee1df7-a260-4fa4-9302-9a97eddd4710",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ing his net worth of $199"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a94b7232-b595-4150-a9a0-e79283ab9a32",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " billion, alm"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d9d54ce4-f33d-4449-b9a0-85648522e602",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ost all in stock he"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fbe136c0-b5c6-4aad-a8b8-4da81a21f257",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " h"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7f8ee6a7-c19d-467b-8a03-c9f7602a55db",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "asn't sold [03:"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b6a88603-207d-4d81-9218-74898d61d605",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "16–03:33].\n-"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "51553e21-487f-4cf6-a710-b40bfe165bc5",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " **Elon Musk**"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5a0385fa-5856-4cc9-9dc0-07523b33f51e",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " is third. A graphic sh"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "58804e52-99ad-47ab-8f83-2f530af444c0",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ows him"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7b8c2b44-3810-423a-833d-40b964102075",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " borrowing against his stock"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "25a0ff01-aee7-407a-8749-f330a2f6a249",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " inst"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cf80d83e-dbee-4915-a728-d041835504bb",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ead of selling it [03:"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b61231a9-76b1-4512-bf2e-c81c1243fc52",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "33–03:51]."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ee783756-60dd-43fd-99ce-4dd7377b4513",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nMorris Pearl, who"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1469a3b5-6a37-4060-8433-3818545c340b",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " first"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "80fea54e-3951-4393-8def-cb8cda009070",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " appears at [01:36],"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "409dd792-5e25-4071-bbf0-7c6526de13f9",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " is a former BlackRock"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6ecf73c2-f552-4da1-b1e4-a98ae76c800c",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " executive."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6a0a21cb-42d9-4d22-bd7a-1a113faa40a4",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " The on"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ac6cceb7-51d9-4a5a-b026-892988ab38e3",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "-screen ca"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "53e95b16-fe22-4317-ace8-8e90dca99db2",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ption calls him a \"million"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8eb5139f-7ec2-4b49-af0e-067d228ec7ce",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "aire\","
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6981326c-a402-4479-bc22-41ae2f5ac119",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " not a billionaire,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b082e733-6e61-4064-b029-1bfed9cc258c",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " so options A and D don"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ec2b2511-3049-42e0-90d1-4dfc2c662e40",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "'t fit.\n\nAnswer"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c1469012-11f1-4b26-8dbc-b56466bc8e14",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": ": B"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "The billionaires appear in this order: Warren Buffett, then Jeff Bezos, then Elon Musk (option B).\n\n- **Warren Buffett** is first. He is introduced at the start [00:01], and a TV interview clip of him follows [01:09].\n- **Jeff Bezos** is second. His face is on a billboard truck at [01:55]. His main segment is an animation showing his net worth of $199 billion, almost all in stock he hasn't sold [03:16–03:33].\n- **Elon Musk** is third. A graphic shows him borrowing against his stock instead of selling it [03:33–03:51].\n\nMorris Pearl, who first appears at [01:36], is a former BlackRock executive. The on-screen caption calls him a \"millionaire\", not a billionaire, so options A and D don't fit.\n\nAnswer: B"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 3174,
+          "cache_read_input_tokens": 3716,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3174
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjmJsmp9CfcSzzRTERt",
+        "stop_reason": null,
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "uuid": "46cb7da4-c153-4c74-9ed1-5eac2039f13a"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e8164753-dc49-4b64-a0ee-653f0ca26495",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9824ce35-b7d0-4b27-9523-7152d1087223",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3174,
+            "cache_read_input_tokens": 3716,
+            "output_tokens": 343,
+            "output_tokens_details": {
+              "thinking_tokens": 69
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 343,
+                "cache_read_input_tokens": 3716,
+                "cache_creation_input_tokens": 3174,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 3174
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c3584b55-e164-4d85-beac-3810fdedde3d",
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 11707,
+        "duration_api_ms": 11680,
+        "is_error": false,
+        "num_turns": 3,
+        "session_id": "8f992a57-43bb-4ea4-8fcc-616a949f6236",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.045065400000000005,
+        "usage": {
+          "input_tokens": 4,
+          "cache_creation_input_tokens": 4319,
+          "cache_read_input_tokens": 6287,
+          "output_tokens": 462,
+          "output_tokens_details": {
+            "thinking_tokens": 69
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 4319,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 343,
+              "cache_read_input_tokens": 3716,
+              "cache_creation_input_tokens": 3174,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 3174
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "The billionaires appear in this order: Warren Buffett, then Jeff Bezos, then Elon Musk (option B).\n\n- **Warren Buffett** is first. He is introduced at the start [00:01], and a TV interview clip of him follows [01:09].\n- **Jeff Bezos** is second. His face is on a billboard truck at [01:55]. His main segment is an animation showing his net worth of $199 billion, almost all in stock he hasn't sold [03:16–03:33].\n- **Elon Musk** is third. A graphic shows him borrowing against his stock instead of selling it [03:33–03:51].\n\nMorris Pearl, who first appears at [01:36], is a former BlackRock executive. The on-screen caption calls him a \"millionaire\", not a billionaire, so options A and D don't fit.\n\nAnswer: B",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 4,
+            "outputTokens": 462,
+            "cacheReadInputTokens": 6287,
+            "cacheCreationInputTokens": 4319,
+            "webSearchRequests": 0,
+            "costUSD": 0.045065400000000005,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 69,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "3efcc6ac-7230-4b86-89da-846e05d25f3e",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

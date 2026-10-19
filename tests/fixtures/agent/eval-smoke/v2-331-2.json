@@ -1,0 +1,1637 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+          "uuid": "364c2ffd-0b4b-4ed9-962a-688033bea7d6"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6ae9fd4b-168d-411b-9e3a-a8faeb591231",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjm1BQPoewwBYxfiuDo",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1182,
+              "cache_read_input_tokens": 2571,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1182
+              },
+              "output_tokens": 8,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4440071d-249e-44f7-909d-d218ca6e2fb2",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ab3d53ec-bb08-4766-a0a9-b948ba7adb19",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b93c0e5d-f8b0-4e0c-816b-bcc87eeda6af",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSoQUKEAgSGAI4AUIIdGhpbmtpbmcSDAvwY8vZ+6OW6pn3lBoM72f7u8gXsho2tNPCIjBigoImLPOa7RcFbMbr1REcDdzeAuReX7foW8hxn/uDglowaWsSl3m5rEeeFWNJpzAqvgRtnnjSPP7JxzSvmX/pIbKg1CMnVH8jtqGqBZ6J1BsTNehCRh0dbirHKbOnJQ4mNw++DuGUo4R6UACnAedA12pWiY5siKvEqsGufuBoP2/D7gw06pBN53WKHILLeSpjokhDnH3ygwXwp+oD1Knn0WtpmCXdLsl52XJkdwwsqwMQ8Qwzwp6YxbbeTq+JlyVN4b5byAupyMQotlpjn17tx1msNxpIIVrL29Z8eQzPd7tJ1bpadz3SpRXxQmKRQLcVsi8FZm9zo3h9Qzg/YS087Tv34iSCvz1EbMI1SbHza5g9nI0jtUT0oO7ZteZ9a3H7WxP917oV0n5S3+GquIhJOUNjF0NYUeG1GBmiezy/jfSOoPmmBTJluDlEAifExOWEdxxfayJ79Elyx2Hx9fwOB0Qiw2EZbH7lVRpWnyLxc6sR02U575qCNfis+oY1oo2bZ1qd2Rdo0OLC4oCqFdrTrHR5FW8YM3ct+/E9XgVDNTLpEpbPoPmaphbSF4IcgpTUo1FeAQ0geMARgVd2d/aWassLDIYfHrlwCJ9MNMy7uILN9QaI8TQfvwd7tN+Jax8AgXMgiEh99t26DPXlfO3SFWRYVCLuQrpmixON4o6mKwtGoeyQacZo6vbLi8sFjiw11D4nMndgyUrpG9vco/MJG3iP19G9+y8SXGq9r6icbK4bj9fz+E6vrpraOEsXdlQgMBMf/hToL4q328zLdzV823FGL/rOvRkJxxLA5Xrpg2MmbhoIRizDEtIa6pTIHU9XGAE="
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSoQUKEAgSGAI4AUIIdGhpbmtpbmcSDAvwY8vZ+6OW6pn3lBoM72f7u8gXsho2tNPCIjBigoImLPOa7RcFbMbr1REcDdzeAuReX7foW8hxn/uDglowaWsSl3m5rEeeFWNJpzAqvgRtnnjSPP7JxzSvmX/pIbKg1CMnVH8jtqGqBZ6J1BsTNehCRh0dbirHKbOnJQ4mNw++DuGUo4R6UACnAedA12pWiY5siKvEqsGufuBoP2/D7gw06pBN53WKHILLeSpjokhDnH3ygwXwp+oD1Knn0WtpmCXdLsl52XJkdwwsqwMQ8Qwzwp6YxbbeTq+JlyVN4b5byAupyMQotlpjn17tx1msNxpIIVrL29Z8eQzPd7tJ1bpadz3SpRXxQmKRQLcVsi8FZm9zo3h9Qzg/YS087Tv34iSCvz1EbMI1SbHza5g9nI0jtUT0oO7ZteZ9a3H7WxP917oV0n5S3+GquIhJOUNjF0NYUeG1GBmiezy/jfSOoPmmBTJluDlEAifExOWEdxxfayJ79Elyx2Hx9fwOB0Qiw2EZbH7lVRpWnyLxc6sR02U575qCNfis+oY1oo2bZ1qd2Rdo0OLC4oCqFdrTrHR5FW8YM3ct+/E9XgVDNTLpEpbPoPmaphbSF4IcgpTUo1FeAQ0geMARgVd2d/aWassLDIYfHrlwCJ9MNMy7uILN9QaI8TQfvwd7tN+Jax8AgXMgiEh99t26DPXlfO3SFWRYVCLuQrpmixON4o6mKwtGoeyQacZo6vbLi8sFjiw11D4nMndgyUrpG9vco/MJG3iP19G9+y8SXGq9r6icbK4bj9fz+E6vrpraOEsXdlQgMBMf/hToL4q328zLdzV823FGL/rOvRkJxxLA5Xrpg2MmbhoIRizDEtIa6pTIHU9XGAE="
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1182,
+          "cache_read_input_tokens": 2571,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1182
+          },
+          "output_tokens": 8,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjm1BQPoewwBYxfiuDo",
+        "stop_reason": null,
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "uuid": "3a85ee28-3509-4235-ab24-4bd8dc58871a"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "922d451c-6923-4b17-a67c-a2f6309a1b94",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "44976dc3-8bee-42fe-8f9d-15e875773bf1",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01KNYMezENHe7QMvuCEj6KDz",
+            "name": "mcp__video__search",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dfc16745-b685-4e46-92c2-786e20c3eb8b",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5caa38c0-e20f-4ff4-9e67-4a81f374e977",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"query\": \"step-up in basis"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9619aebc-8497-4b10-9d3c-d074fe334f1d",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "\", \"k\": 5"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "71aee2bd-449e-4d34-a877-8b66ae64458c",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01KNYMezENHe7QMvuCEj6KDz",
+            "name": "mcp__video__search",
+            "input": {
+              "query": "step-up in basis",
+              "k": 5
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1182,
+          "cache_read_input_tokens": 2571,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1182
+          },
+          "output_tokens": 8,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjm1BQPoewwBYxfiuDo",
+        "stop_reason": null,
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "uuid": "6f1c3f6f-65ce-4b88-91e3-00c2b29b236c"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "30390858-c07f-4f02-86b5-1ca6b44516b5",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8d0c1c31-f2b1-4462-93a9-21771a047bd5",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1182,
+            "cache_read_input_tokens": 2571,
+            "output_tokens": 112,
+            "output_tokens_details": {
+              "thinking_tokens": 34
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 112,
+                "cache_read_input_tokens": 2571,
+                "cache_creation_input_tokens": 1182,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1182
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d0e37458-068e-4620-9f26-43db29013516",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.02,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "625ae6df-62b9-4f71-8299-4d7489312fb6",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23"
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01KNYMezENHe7QMvuCEj6KDz",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"query\": \"step-up in basis\", \"hits\": [{\"kind\": \"transcript\", \"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"shot\": 20, \"score\": 11.93, \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\", \"speaker\": \"speaker_0\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "30d13b10-caf3-47f8-89c7-6ddaa4240324",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"query\": \"step-up in basis\", \"hits\": [{\"kind\": \"transcript\", \"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"shot\": 20, \"score\": 11.93, \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\", \"speaker\": \"speaker_0\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+          "uuid": "532ba83b-a308-498d-b9c3-efd987fc6b75"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "61782cd1-ed4f-44d9-8e49-cb7f4ba9c81c",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjmJYBmwwosSPsWLAGD",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 289,
+              "cache_read_input_tokens": 3753,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 289
+              },
+              "output_tokens": 24,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "63902bd1-1196-43f9-98a8-8cd7fa234e02",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_019uG6yZkAe1m61tQiyTuqrw",
+            "name": "mcp__video__get_transcript",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "42260a5c-2159-4c63-926f-0755ad176c6d",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "56af852c-0af7-4158-b65b-91bfd5c8d93d",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"start\": 236"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0474a0cf-80f4-479d-b563-9c6b6e3e5206",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ", \"end\": 290"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d50528af-6da1-4b0a-92a2-d04b0745779f",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_019uG6yZkAe1m61tQiyTuqrw",
+            "name": "mcp__video__get_transcript",
+            "input": {
+              "start": 236,
+              "end": 290
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 289,
+          "cache_read_input_tokens": 3753,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 289
+          },
+          "output_tokens": 24,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjmJYBmwwosSPsWLAGD",
+        "stop_reason": null,
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "uuid": "3df0c63f-c327-4dac-910d-e4a18c0b73bc"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e8a73d3c-284b-4743-8062-7c713b96e2b2",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ebdd1548-c7f6-4160-9060-b732fb362e35",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 289,
+            "cache_read_input_tokens": 3753,
+            "output_tokens": 76,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 76,
+                "cache_read_input_tokens": 3753,
+                "cache_creation_input_tokens": 289,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 289
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "553157bc-6596-4127-944c-cb4b776d05fe",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "38cdaf28-c613-423a-bf70-ea3ee15d26a8",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23"
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_019uG6yZkAe1m61tQiyTuqrw",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"start\": 236.0, \"end\": 290.0, \"segments\": [{\"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"start\": 242.46, \"end\": 251.42, \"time\": \"04:02\", \"speaker\": \"speaker_0\", \"text\": \"If, hypothetically, Warren Buffett were to sell his stock, he'd have to pay capital gains taxes based on his profit, so the cost of the stock minus the original investment.\"}, {\"start\": 252.1, \"end\": 262.64, \"time\": \"04:12\", \"speaker\": \"speaker_0\", \"text\": \"But if he holds off selling his entire life, when he dies, whoever inherits the stock and then sells it would only have to pay taxes on what they earned after they inherited it,\"}, {\"start\": 263.52, \"end\": 266.24, \"time\": \"04:24\", \"speaker\": \"speaker_0\", \"text\": \"leaving all those original gains untaxed.\"}, {\"start\": 267.2, \"end\": 273.2, \"time\": \"04:27\", \"speaker\": \"speaker_0\", \"text\": \"It's part of what's called buy, borrow, die, and it's one way the richest families avoid paying taxes.\"}, {\"start\": 274.02, \"end\": 283.92, \"time\": \"04:34\", \"speaker\": \"speaker_0\", \"text\": \"It's this system and the fact that most taxable capital gains are going to the top 1% that lawmakers see changing the capital gains tax as an easy way to tax the rich.\"}, {\"start\": 285.22, \"end\": 296.72, \"time\": \"04:45\", \"speaker\": \"speaker_0\", \"text\": \"President Biden has proposed closing that stepped-up loophole and increasing the maximum tax rate from 20% to 39.6%, but just for people making more than a million dollars a year.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "3ff6664b-574e-4284-9d9e-24418a10f702",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"start\": 236.0, \"end\": 290.0, \"segments\": [{\"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"start\": 242.46, \"end\": 251.42, \"time\": \"04:02\", \"speaker\": \"speaker_0\", \"text\": \"If, hypothetically, Warren Buffett were to sell his stock, he'd have to pay capital gains taxes based on his profit, so the cost of the stock minus the original investment.\"}, {\"start\": 252.1, \"end\": 262.64, \"time\": \"04:12\", \"speaker\": \"speaker_0\", \"text\": \"But if he holds off selling his entire life, when he dies, whoever inherits the stock and then sells it would only have to pay taxes on what they earned after they inherited it,\"}, {\"start\": 263.52, \"end\": 266.24, \"time\": \"04:24\", \"speaker\": \"speaker_0\", \"text\": \"leaving all those original gains untaxed.\"}, {\"start\": 267.2, \"end\": 273.2, \"time\": \"04:27\", \"speaker\": \"speaker_0\", \"text\": \"It's part of what's called buy, borrow, die, and it's one way the richest families avoid paying taxes.\"}, {\"start\": 274.02, \"end\": 283.92, \"time\": \"04:34\", \"speaker\": \"speaker_0\", \"text\": \"It's this system and the fact that most taxable capital gains are going to the top 1% that lawmakers see changing the capital gains tax as an easy way to tax the rich.\"}, {\"start\": 285.22, \"end\": 296.72, \"time\": \"04:45\", \"speaker\": \"speaker_0\", \"text\": \"President Biden has proposed closing that stepped-up loophole and increasing the maximum tax rate from 20% to 39.6%, but just for people making more than a million dollars a year.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+          "uuid": "e219ce3c-03f6-4563-844e-d2b857e0c9be"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ec1756b3-cc8f-4b4f-a933-a2af8afa1b47",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAjmTF4MPxo52fPAqLv4",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 760,
+              "cache_read_input_tokens": 4042,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 760
+              },
+              "output_tokens": 302,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2cd41568-31b0-4aac-b9bc-cc4102a4a1a6",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fbb2c1bc-8720-4294-9d8d-a967a7f70ca3",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "John would"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "85972cd5-0987-4f99-86fe-f35cdfb09ca5",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " pay **"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8b7aa913-8231-4f48-996f-6e4b28110228",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "$4.5"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ec9fddfe-e9d2-4f93-87a1-cdda155481d2",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " per share** ("
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "239cf4c8-5304-442d-91cf-8bc4e9e80aeb",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "option A).\n\n**"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "109c3ea8-2458-448f-a5c6-aa0ca60c3e60",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "The rule in the video:"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "bc6e31f4-3526-4953-bafe-7cd4ab910481",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "** The video"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "815edd63-550c-425c-a0c8-8b0d293621c6",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " calls the stepped-up"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "29d38ce7-dff0-418e-b58a-7682506c3970",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " basis \"a big loophole"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5ec8b082-58be-43b1-9b58-aa8d19bc6873",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " in capital gains taxes"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "414fc96c-c9c0-4a33-866d-daad54338697",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "\" [03:56]. When"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "176354cc-2cd4-41e3-8ccf-f8085bd50bf9",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " someone hol"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d4fb66bf-6cfe-423c-974c-159af40866e9",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ds st"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "35b0a7ec-5f91-487d-ac04-e9eb4ff2d2ca",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ock until they die, the person who"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "98f51db9-9282-46bb-a5d9-00fc4572cd9d",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " inherits it \"would only have"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9d2b7148-fa50-4818-a43e-358022716f25",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " to pay taxes on what"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5d514da5-775e-4ab2-a1b9-caf149b88e77",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " they earned after they inherited"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5923ce34-5eb2-42b5-8b46-97314bc6ce4c",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " it\""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c620fe7b-5553-4286-b2e2-56e6de18e5c9",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " [04:12]"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c87386a4-1130-4b9d-9992-b9c403d66c78",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": ". That"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2859fef2-0ec2-4997-a2ad-68a644656f25",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " leaves \"all those original g"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "695c0f6f-4388-4cf5-8071-ef5b757fc619",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ains untaxed\" [04"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e20ea43f-3927-4f71-8a9a-3732ed506719",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": ":24].\n\n**"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "46f8aa8c-6f31-4ced-8b3f-a556430fa451",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Applying it:"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d61da424-6ac4-49ac-850b-f82f3240b2db",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "**\n1. The c"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ce9b062e-5a7a-4d6f-92ea-8320929e8dd5",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ost basis ste"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c4e36738-78ff-47e1-bfe3-320ced3e755b",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ps up to the value when Em"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4903d2ab-6d6e-409e-ae5b-2fd4b97de010",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ily died, which is $150 "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4b78b525-ee04-4dd4-b2e4-059c781c95ff",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "per share."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d189a389-e69e-4e4b-a348-ee48ecdf8766",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Her $50 purchase price"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c408f1f7-1807-4597-881b-c7fd73e991bc",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " no longer coun"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "600e4a00-4c6b-4093-896e-f052eb26c759",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ts.\n2. John's ta"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "33bf1c03-edb4-4829-8aa7-9305d2a237ba",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "xable gain is $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "82c4f390-9761-41a4-91cd-7d08dbae326b",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "180 − $150 = $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f8845852-b294-4677-ae24-e859726fde75",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "30 per share.\n3."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f8281511-eb91-4180-a0f9-bfeb46dc7137",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " The tax is $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "59ed0f4f-a807-471d-ac26-a84f53446a1b",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "30 × 15% = $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "38151c7e-2c94-4c5e-8782-86448f926350",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "4.5 per share."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d8eba106-4522-4b33-9cb0-b793ad8d346d",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nThe $100"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8983ef97-6e64-43aa-83d3-3383bee39261",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " per"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "18300431-d676-4acb-9826-b5be00d4ff46",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " share"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "19b29ff2-6f91-413c-8d04-70d94ccfc790",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Emily gained while she held"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "318da4f1-2059-418e-bcaa-3e7d24adc5e4",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " the stock "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f4ccba65-03f1-4ed1-b796-7c60ca6b9e19",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "($50 →"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "44c719b3-4f06-48ed-adbb-6b1ecef71125",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " $150) is never taxed"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fe3ce8b3-f077-4dee-a6b7-888dbb72be75",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": ". Without the step-up,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "da1e0bc2-573d-4b95-9cb7-be76b3500948",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " John"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7255ae25-cbd3-4c8c-bb5c-5fcb85ae11ff",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " would ow"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "909accc4-6778-40ce-9821-e4cdab75d8e7",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "e "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "665a2749-7750-4f3a-a0e1-1e0035a0bf93",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "($180 − $50) ×"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "748e349e-f337-4bea-a30b-24b48c7b723a",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " 15% = $19.5"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "bfe111d2-06fc-44b0-8131-900d4f74622f",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " per share, which is option C"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "82b3502c-e57a-44e1-82d1-976c1c71c33b",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "54352061-02a8-4469-937e-8a7e6d41e518",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nAnswer: A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "John would pay **$4.5 per share** (option A).\n\n**The rule in the video:** The video calls the stepped-up basis \"a big loophole in capital gains taxes\" [03:56]. When someone holds stock until they die, the person who inherits it \"would only have to pay taxes on what they earned after they inherited it\" [04:12]. That leaves \"all those original gains untaxed\" [04:24].\n\n**Applying it:**\n1. The cost basis steps up to the value when Emily died, which is $150 per share. Her $50 purchase price no longer counts.\n2. John's taxable gain is $180 − $150 = $30 per share.\n3. The tax is $30 × 15% = $4.5 per share.\n\nThe $100 per share Emily gained while she held the stock ($50 → $150) is never taxed. Without the step-up, John would owe ($180 − $50) × 15% = $19.5 per share, which is option C.\n\nAnswer: A"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 760,
+          "cache_read_input_tokens": 4042,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 760
+          },
+          "output_tokens": 302,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAjmTF4MPxo52fPAqLv4",
+        "stop_reason": null,
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "uuid": "d27df333-dc8f-4444-99da-4a838416e694"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fa39f0c8-4718-4957-88b0-c12bf69ddda6",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9c46f295-e20b-4816-a15f-383667c93da1",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 760,
+            "cache_read_input_tokens": 4042,
+            "output_tokens": 302,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 302,
+                "cache_read_input_tokens": 4042,
+                "cache_creation_input_tokens": 760,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 760
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a44eece5-bb45-4fff-820b-72a6f6b5de2c",
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 10079,
+        "duration_api_ms": 10040,
+        "is_error": false,
+        "num_turns": 3,
+        "session_id": "00fe7147-7929-4f37-a389-969e370b2a23",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.029745200000000003,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 2231,
+          "cache_read_input_tokens": 10366,
+          "output_tokens": 490,
+          "output_tokens_details": {
+            "thinking_tokens": 34
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 2231,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 302,
+              "cache_read_input_tokens": 4042,
+              "cache_creation_input_tokens": 760,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 760
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "John would pay **$4.5 per share** (option A).\n\n**The rule in the video:** The video calls the stepped-up basis \"a big loophole in capital gains taxes\" [03:56]. When someone holds stock until they die, the person who inherits it \"would only have to pay taxes on what they earned after they inherited it\" [04:12]. That leaves \"all those original gains untaxed\" [04:24].\n\n**Applying it:**\n1. The cost basis steps up to the value when Emily died, which is $150 per share. Her $50 purchase price no longer counts.\n2. John's taxable gain is $180 − $150 = $30 per share.\n3. The tax is $30 × 15% = $4.5 per share.\n\nThe $100 per share Emily gained while she held the stock ($50 → $150) is never taxed. Without the step-up, John would owe ($180 − $50) × 15% = $19.5 per share, which is option C.\n\nAnswer: A",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 6,
+            "outputTokens": 490,
+            "cacheReadInputTokens": 10366,
+            "cacheCreationInputTokens": 2231,
+            "webSearchRequests": 0,
+            "costUSD": 0.029745200000000003,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 34,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "6b54a081-2ddf-43d1-9c0d-90c8f43f3e60",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}
