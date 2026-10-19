@@ -3,6 +3,8 @@ import { parseChips } from "../lib/chips";
 import { useChat } from "../lib/useChat";
 import type { ChatTurn, ToolCall } from "../protocol";
 
+const PIN_PX = 40; // this close to the bottom counts as "at the bottom"
+
 interface Props {
   videoId: string | null;
   chatReady: boolean;
@@ -72,25 +74,33 @@ function Turn({ turn, onSeek }: { turn: ChatTurn; onSeek: (t: number) => void })
 export default function Chat({ videoId, chatReady, onSeek }: Props) {
   const chat = useChat();
   const [draft, setDraft] = useState("");
-  const end = useRef<HTMLDivElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+  const pinned = useRef(true); // follow new text only while the reader is at the bottom
   const last = chat.turns[chat.turns.length - 1];
 
   useEffect(() => {
-    end.current?.scrollIntoView({ block: "end" }); // braces: Chrome returns a promise here
+    const el = list.current;
+    if (el && pinned.current) el.scrollTop = el.scrollHeight;
   }, [chat.turns.length, last?.text]);
+
+  function onScroll() {
+    const el = list.current!;
+    pinned.current = el.scrollHeight - el.scrollTop - el.clientHeight < PIN_PX;
+  }
 
   const canSend = chatReady && chat.connected && !chat.running;
   function submit(e: FormEvent) {
     e.preventDefault();
     const text = draft.trim();
     if (!text || !canSend) return;
+    pinned.current = true;
     chat.send(text);
     setDraft("");
   }
 
   return (
     <aside className="flex min-h-0 flex-col rounded-lg border border-neutral-800" aria-label="chat">
-      <div className="flex-1 space-y-3 overflow-y-auto p-3 text-sm">
+      <div ref={list} onScroll={onScroll} className="flex-1 space-y-3 overflow-y-auto p-3 text-sm">
         {chat.turns.length === 0 && (
           <p className="text-neutral-500">
             {!videoId
@@ -104,7 +114,6 @@ export default function Chat({ videoId, chatReady, onSeek }: Props) {
           <Turn key={i} turn={turn} onSeek={onSeek} />
         ))}
         {chat.error && <p className="text-rose-400" role="alert">{chat.error}</p>}
-        <div ref={end} />
       </div>
       <form onSubmit={submit} className="flex gap-2 border-t border-neutral-800 p-2">
         <input

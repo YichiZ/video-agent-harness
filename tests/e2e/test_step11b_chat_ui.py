@@ -2,10 +2,11 @@
 
 On `short` (Video-MME, skips in CI): the step 5 question streams in, its first
 timestamp chip seeks the player to within 0.5 s, a tool row expands to show its
-input, Stop ends the second answer, and after a reload the history is still
-there; uploading the same video again clears the chat. Offline the agent replays
-`TbaCxIJ_VP4-chat.json` (whose first two turns are these two questions); live it is
-the real agent through the whole stack.
+input, scrolling up during the second answer stays put, Stop ends that answer,
+and after a reload the history is still there; uploading the same video again
+clears the chat. Offline the agent replays `TbaCxIJ_VP4-chat.json` (whose first
+two turns are these two questions); live it is the real agent through the whole
+stack.
 On `cuts.mp4` (everywhere) the input stays disabled until the video is chat-ready.
 """
 
@@ -20,6 +21,8 @@ from tests.e2e.test_step11a_ui import drop, player_time, wait_all_done
 
 CHIP_TOLERANCE_S = 0.5
 ANSWER_TIMEOUT_MS = 600_000
+SCROLL_SETTLE_MS = 1000
+CHAT_LIST = 'aside[aria-label="chat"] > div'
 
 
 def ask(page, question: str) -> None:
@@ -27,6 +30,16 @@ def ask(page, question: str) -> None:
     expect(box).to_be_enabled(timeout=ANSWER_TIMEOUT_MS)
     box.fill(question)
     box.press("Enter")
+
+
+def check_scroll_holds(page) -> None:
+    """Scrolled up while an answer streams, the chat stays put instead of snapping to the end."""
+    scrollable = "e => e.scrollHeight > e.clientHeight"
+    assert page.locator(CHAT_LIST).evaluate(scrollable)
+    page.locator('aside[aria-label="chat"]').hover()
+    page.mouse.wheel(0, -100_000)
+    page.wait_for_timeout(SCROLL_SETTLE_MS)  # several more deltas arrive meanwhile
+    assert page.locator(CHAT_LIST).evaluate("e => e.scrollTop") == 0
 
 
 def check_chat(page, base: str, video) -> None:
@@ -60,6 +73,9 @@ def check_chat(page, base: str, video) -> None:
     stop = page.get_by_role("button", name="Stop")
     second = page.locator('[data-role="assistant"]').last
     expect(second).not_to_have_text("", timeout=ANSWER_TIMEOUT_MS)
+    # past the tool calls: answer text is streaming
+    expect(second.locator(":scope > p")).not_to_have_text("", timeout=ANSWER_TIMEOUT_MS)
+    check_scroll_holds(page)
     stop.click()
     expect(page.get_by_text("(stopped)")).to_be_visible(timeout=ANSWER_TIMEOUT_MS)
     expect(page.get_by_role("button", name="Send")).to_be_visible()
