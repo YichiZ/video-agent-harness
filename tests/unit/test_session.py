@@ -83,3 +83,9 @@ def test_skills_load_from_the_plugin_without_setting_sources(setup):
         plugin, skill = name.split(":")
         assert plugin == manifest["name"]
         assert (PLUGIN_DIR / "skills" / skill / "SKILL.md").is_file()
+
+
+def test_options_allow_large_frame_results(setup):
+    ws, settings, release = setup
+    options = build_options(VideoTools(ws, settings, release), settings, release)
+    assert options.max_buffer_size >= 8 * 1024 * 1024  # 8 frames at 720p, base64
