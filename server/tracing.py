@@ -11,7 +11,9 @@ session id.
 Tracing is on when `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are set (in
 the environment or `.env`; `LANGFUSE_BASE_URL` picks the region), and off with
 fake providers. Otherwise every call is a no-op, and a tracing failure is
-logged, never raised: a trace is never worth a failed answer.
+logged, never raised: a trace is never worth a failed answer. Traces carry the
+prompts, answers and tool inputs and outputs (transcript and caption text) as they
+are; `ChatSession.disconnect()` flushes them.
 """
 
 from __future__ import annotations

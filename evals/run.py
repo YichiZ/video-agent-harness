@@ -96,8 +96,7 @@ async def ask(workspace: Workspace, settings: Settings, release: Release, subset
             elif event.kind == "result":
                 result = event.result
     finally:
-        await session.disconnect()
-        session.tracer.flush()
+        await session.disconnect()  # also flushes the trace
     return {
         "text": "".join(text),
         "cost_usd": result.total_cost_usd if result else None,
