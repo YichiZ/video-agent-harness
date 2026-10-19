@@ -40,6 +40,9 @@ from server.tracing import Tracer, Turn
 from server.workspace import Workspace
 
 SESSION = "session.json"
+# Largest message the SDK will read from the CLI. A `get_frames` result with 8 JPEGs at
+# 720p is several MB of base64, and the SDK's 1 MB default ends the turn with an error.
+MAX_BUFFER_BYTES = 32 * 1024 * 1024
 PROMPT_DIR = Path(__file__).resolve().parent
 # The Skills ship as a local plugin rather than in `.claude/skills/`, so loading them
 # needs no `setting_sources` and the repo's CLAUDE.md and settings stay out.
@@ -74,6 +77,7 @@ def build_options(
         include_partial_messages=True,
         max_budget_usd=release.max_budget_usd,
         max_turns=release.max_turns,
+        max_buffer_size=MAX_BUFFER_BYTES,  # 8 frames at 720p overflow the 1 MB default
         # ...nor their claude.ai connectors (Gmail, Calendar, ...).
         env={**claude_env(settings), "ENABLE_CLAUDEAI_MCP_SERVERS": "false"},
         setting_sources=[],  # ignore the developer's own settings and CLAUDE.md
