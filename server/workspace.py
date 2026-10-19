@@ -17,6 +17,7 @@ tool reads and writes only inside its workspace. Files, by the step that writes 
 | `status.json` | 9 |
 | `proxy.mp4`, `thumbs/<shot>.jpg` | 10: the player's 720p copy, shot thumbnails |
 | `session.json` | 5 |
+| `chat.json` | 11b: the server's chat history, replayed after a page reload |
 """
 
 from __future__ import annotations

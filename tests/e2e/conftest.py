@@ -105,5 +105,6 @@ def page(web_dist):
             pytest.skip(f"Google Chrome not available to Playwright: {e.message.splitlines()[0]}")
         page = browser.new_page()
         page.on("dialog", lambda dialog: dialog.accept())
+        page.on("pageerror", lambda e: print("PAGEERROR", e))
         yield page
         browser.close()

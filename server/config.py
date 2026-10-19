@@ -26,6 +26,7 @@ Environment variables the harness reads:
 | `HARNESS_RECORD_FIXTURES` | `1` records real provider responses into the fixtures dir |
 | `LANGFUSE_PUBLIC_KEY`, `_SECRET_KEY`, `_BASE_URL` | Langfuse tracing (step 13); off when unset |
 | `HARNESS_FAKE_FAIL`, `HARNESS_FAKE_SLOW` | Fake providers only: steps that fail or are slow |
+| `HARNESS_FAKE_STREAM_DELAY` | Fake agent only: seconds between replayed text deltas |
 """
 
 from __future__ import annotations
