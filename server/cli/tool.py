@@ -69,7 +69,9 @@ def run(args: argparse.Namespace) -> int:
         workspace, _ = Workspace.for_video(settings.workspace_dir, video)
         ctx = ingest.StepContext(workspace=workspace, settings=settings, release=release)
         try:
-            ingest.run_steps(ctx, ["transcribe", "overview"])
+            needs = {"list_shots": ["captions"], "search": ["index"]}
+            steps = needs.get(args.name, ["transcribe", "overview"])
+            ingest.run_steps(ctx, steps)
         except Exception as e:
             err.print(f"error: ingest failed: {type(e).__name__}: {e}")
             return cli.EXIT_STEP_FAILED

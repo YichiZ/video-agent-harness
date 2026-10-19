@@ -4,12 +4,12 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 6 and 12 of [PLAN.md](PLAN.md) are in place: M1, the agent chat CLI, plus shot detection. Commands:
+Steps 0 to 8 and 12 of [PLAN.md](PLAN.md) are in place: M1, the agent chat CLI, plus shot detection, per-shot captions, the search index, prompt v2 and the Skills. Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
 make doctor                              # tools, release.json, keys, Claude auth mode
-uv run python -m server.cli ingest <video> [--only probe|transcribe|overview|shots] [--force]
+uv run python -m server.cli ingest <video> [--only probe|transcribe|overview|shots|captions|index] [--force]
 uv run python -m server.cli tool <name> '<json args>' [--video <video>]   # call one agent tool
 make chat VIDEO=<video>                  # streaming terminal chat (`server.cli chat <video> --resume` continues)
 make test                                # unit + offline e2e tests, no keys needed

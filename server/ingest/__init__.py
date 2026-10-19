@@ -29,6 +29,8 @@ STEP_MODULES = [
     "server.ingest.transcribe",
     "server.ingest.overview",
     "server.ingest.shots",
+    "server.ingest.captions",
+    "server.ingest.index",
 ]
 
 
@@ -52,8 +54,16 @@ class Step:
     requires: list[str] = field(default_factory=list)
     """Names of steps whose outputs this step reads."""
 
+    inputs: list[str] = field(default_factory=list)
+    """Files this step reads; if one is newer than an output, the step is not done."""
+
     def is_done(self, workspace: Workspace) -> bool:
-        return all(workspace.path(name).exists() for name in self.outputs)
+        outputs = [workspace.path(name) for name in self.outputs]
+        if not all(p.exists() for p in outputs):
+            return False
+        built = min(p.stat().st_mtime for p in outputs)
+        inputs = [workspace.path(name) for name in self.inputs]
+        return all(not p.exists() or p.stat().st_mtime <= built for p in inputs)
 
 
 @dataclass(frozen=True)

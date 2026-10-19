@@ -21,12 +21,13 @@ def tool(cli, name: str, args: dict, *extra: str, **kw):
 
 
 def check_short_tools(cli, short) -> None:
-    hit = tool(cli, "search", {"query": "spikes"}, "--video", str(short))
+    hit = tool(cli, "search", {"query": "spikes", "k": 10}, "--video", str(short))
     assert hit.returncode == 0, hit.stdout + hit.stderr
-    first = json.loads(hit.stdout)["hits"][0]
-    # The plan said 00:01-00:10; the real transcript starts this sentence at 0.2 s.
-    assert 0 <= first["start"] <= 10, first
-    assert "spikes" in first["text"].lower()
+    hits = [h for h in json.loads(hit.stdout)["hits"] if h["kind"] == "transcript"]
+    assert all("spike" in h["text"].lower() for h in hits), hits
+    # The plan said 00:01-00:10; the real transcript starts this sentence at 0.2 s. BM25
+    # ranks shorter segments higher, so it need not be the first hit.
+    assert any(0 <= h["start"] <= 10 for h in hits), hits
 
     transcript = json.loads(tool(cli, "get_transcript", {"start": 0, "end": 10}).stdout)
     assert transcript["segments"]
@@ -63,7 +64,9 @@ def test_cuts_tools_and_limits(cli, test_media, tmp_path):
     overview = tool(cli, "get_overview", {}, "--video", cuts)
     assert overview.returncode == 0, overview.stdout + overview.stderr
     assert json.loads(overview.stdout)["duration"] == "00:20"
-    assert json.loads(tool(cli, "search", {"query": "anything"}).stdout)["hits"] == []  # no audio
+    assert (
+        json.loads(tool(cli, "search", {"query": "anything"}, "--video", cuts).stdout)["hits"] == []
+    )
 
     nine = tool(cli, "get_frames", {"timestamps": list(range(9))})
     assert nine.returncode == 2 and "at most 8 timestamps" in nine.stderr

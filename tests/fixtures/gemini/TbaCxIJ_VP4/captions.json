@@ -1,0 +1,66 @@
+{
+  "shots": [
+    {
+      "index": 0,
+      "caption": "An animation introduces the title question 'How does an mRNA vaccine work?' as coronavirus particles float into view across the screen.",
+      "on_screen_text": [
+        "HOW DOES AN mRNA VACCINE WORK?"
+      ],
+      "entities": [
+        "coronavirus particle"
+      ],
+      "action": "Displaying the title text as coronavirus illustrations enter and multiply across the background."
+    },
+    {
+      "index": 1,
+      "caption": "An animation illustrates how a coronavirus attaches to a cell, followed by a syringe introducing an mRNA molecule into a cell.",
+      "on_screen_text": [
+        "VIRUS",
+        "CELL",
+        "mRNA"
+      ],
+      "entities": [
+        "coronavirus",
+        "host cell",
+        "syringe",
+        "mRNA"
+      ],
+      "action": "Demonstrating viral attachment to a cell and subsequent delivery of mRNA into a cell using an animated syringe."
+    },
+    {
+      "index": 2,
+      "caption": "The animation shows the cell producing harmless COVID spikes, which trigger an immune cell to generate specific antibodies.",
+      "on_screen_text": [
+        "COVID SPIKES",
+        "IMMUNE CELL",
+        "ANTIBODIES"
+      ],
+      "entities": [
+        "COVID spikes",
+        "immune cell",
+        "antibodies",
+        "coronavirus"
+      ],
+      "action": "Depicting spike protein production and immune cell activation leading to antibody generation."
+    },
+    {
+      "index": 3,
+      "caption": "Antibodies cluster around and neutralize the coronavirus, concluding with credits and institutional attribution.",
+      "on_screen_text": [
+        "Research provided by Barry Bloom Harvard T.H. Chan School of Public Health",
+        "KEEP HARVARD HEALTHY",
+        "PRODUCED BY JUSTIN SAGLIO",
+        "Music Courtesy of APM Music"
+      ],
+      "entities": [
+        "coronavirus",
+        "antibodies",
+        "Barry Bloom",
+        "Harvard T.H. Chan School of Public Health",
+        "Justin Saglio",
+        "APM Music"
+      ],
+      "action": "Illustrating antibody neutralization of the virus followed by closing credit title cards."
+    }
+  ]
+}
