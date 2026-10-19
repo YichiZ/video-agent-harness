@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+import time
 from collections import Counter
 
 import pytest
@@ -82,9 +83,15 @@ def langfuse_roots(trace_ids: list[str]) -> dict[str, list[str]]:
         public_key=s.langfuse_public_key, secret_key=s.langfuse_secret_key,
         base_url=s.langfuse_base_url,
     )  # fmt: skip
-    return {
-        tid: [o.name for o in lf.api.observations.get_many(trace_id=tid).data] for tid in trace_ids
-    }
+    deadline = time.monotonic() + 120  # Langfuse ingests asynchronously
+    while True:
+        roots = {
+            tid: [o.name for o in lf.api.observations.get_many(trace_id=tid).data]
+            for tid in trace_ids
+        }
+        if all("chat-turn" in names for names in roots.values()) or time.monotonic() > deadline:
+            return roots
+        time.sleep(5)
 
 
 @pytest.mark.live
