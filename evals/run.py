@@ -10,7 +10,9 @@
    and exit 1 if the gate fails: accuracy below `ACCURACY_MIN` or fewer than
    `CITATION_MIN` of answers citing valid timestamps.
 
-`--prompt-version broken` (`server/agent/prompt.broken.md`) checks that the gate fails.
+`--lengths short,medium` keeps only those video lengths (a partial run, named so in
+its scorecard). `--prompt-version broken` (`server/agent/prompt.broken.md`) checks that
+the gate fails.
 Each turn is a Langfuse trace when tracing is on (`server.tracing`); the scorecard
 keeps each question's trace id.
 
@@ -158,6 +160,10 @@ async def ask_all(workspaces, settings, release, subset, questions) -> list[dict
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--subset", choices=list(SUBSETS), default="full")
+    parser.add_argument(
+        "--lengths",
+        help="comma-separated video lengths to keep (short, medium, long); default all",
+    )
     parser.add_argument("--prompt-version", help="override release.json's prompt_version")
     parser.add_argument("--no-baseline", action="store_true", help="skip the Gemini baseline")
     parser.add_argument("--out", type=Path, help="scorecard path (default: evals/results/)")
@@ -167,6 +173,14 @@ def main(argv: list[str] | None = None) -> int:
     if args.prompt_version:
         release = release.model_copy(update={"prompt_version": args.prompt_version})
     questions = load_questions(SUBSETS[args.subset])
+    name = args.subset
+    if args.lengths:  # a partial run gets its own scorecard name
+        lengths = {x.strip() for x in args.lengths.split(",") if x.strip()}
+        questions = [q for q in questions if q["duration"] in lengths]
+        name = f"{args.subset}-{'-'.join(sorted(lengths))}"
+        if not questions:
+            print(f"error: no {args.subset} questions with lengths {sorted(lengths)}")
+            return 2
     missing = sorted(
         {q["videoID"] for q in questions if not video_path(settings, q["videoID"]).is_file()}
     )
@@ -190,12 +204,12 @@ def main(argv: list[str] | None = None) -> int:
     card = {
         "release": version,
         "prompt_version": release.prompt_version,
-        "subset": args.subset,
+        "subset": name,
         "models": {"agent": release.agent_model, "vision": release.gemini_model},
         **scoring.summarize(rows, ACCURACY_MIN, CITATION_MIN),
         "questions": rows,
     }
-    out = args.out or RESULTS / f"{version}-{release.prompt_version}-{args.subset}.json"
+    out = args.out or RESULTS / f"{version}-{release.prompt_version}-{name}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(card, indent=2, ensure_ascii=False) + "\n")
     gate = card["gate"]
