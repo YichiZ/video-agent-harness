@@ -25,7 +25,9 @@ from claude_agent_sdk import (
     StreamEvent,
     SystemMessage,
     TextBlock,
+    ToolResultBlock,
     ToolUseBlock,
+    UserMessage,
 )
 
 from server.agent.tools import ALLOWED_TOOLS, SERVER_NAME, VideoTools, build_server
@@ -81,14 +83,18 @@ class Event:
     """One thing to show while a turn streams.
 
     `kind` is "text" (a streamed text delta), "tool" (a tool call; `text` is the
-    tool name without the `mcp__video__` prefix and `input` its arguments), or
-    "result" (the turn ended; `result` holds the SDK's `ResultMessage`).
+    tool name without the `mcp__video__` prefix and `input` its arguments),
+    "tool_result" (`text` is the result's text, `is_error` set on failure), or
+    "result" (the turn ended; `result` holds the SDK's `ResultMessage`). Tool
+    calls and their results share `id`.
     """
 
     kind: str
     text: str = ""
     input: dict | None = None
     result: ResultMessage | None = None
+    id: str | None = None
+    is_error: bool = False
 
 
 class ChatSession:
@@ -114,9 +120,17 @@ class ChatSession:
         self.client = client or get_agent_client(settings, options, fixture=fixture)
 
     def stored_session_id(self) -> str | None:
-        if not self.workspace.path(SESSION).exists():
+        return self._stored(self.workspace)
+
+    @staticmethod
+    def _stored(workspace: Workspace) -> str | None:
+        if not workspace.path(SESSION).exists():
             return None
-        return self.workspace.read_json(SESSION).get("session_id")
+        return workspace.read_json(SESSION).get("session_id")
+
+    @classmethod
+    def has_stored_session(cls, workspace: Workspace) -> bool:
+        return cls._stored(workspace) is not None
 
     def _remember(self, session_id: str | None) -> None:
         if session_id and session_id != self.session_id:
@@ -147,10 +161,29 @@ class ChatSession:
                 for block in message.content:
                     if isinstance(block, ToolUseBlock):
                         name = block.name.removeprefix(f"mcp__{SERVER_NAME}__")
-                        yield Event("tool", name, input=block.input)
+                        yield Event("tool", name, input=block.input, id=block.id)
                     elif isinstance(block, TextBlock) and not streamed:
                         yield Event("text", block.text)
                 streamed = False
+            elif isinstance(message, UserMessage) and message.parent_tool_use_id is None:
+                for block in message.content if isinstance(message.content, list) else []:
+                    if isinstance(block, ToolResultBlock):
+                        yield Event(
+                            "tool_result",
+                            _result_text(block.content),
+                            id=block.tool_use_id,
+                            is_error=bool(block.is_error),
+                        )
             elif isinstance(message, ResultMessage):
                 self._remember(message.session_id)
                 yield Event("result", result=message)
+
+
+def _result_text(content: str | list | None) -> str:
+    if isinstance(content, str):
+        return content
+    return "\n".join(
+        part.get("text", f"[{part.get('type')}]")
+        for part in content or []
+        if isinstance(part, dict)
+    )

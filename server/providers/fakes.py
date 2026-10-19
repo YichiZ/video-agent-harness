@@ -12,6 +12,7 @@ Each fake keeps a `calls` list so tests can assert what was (or was not) called.
 
 from __future__ import annotations
 
+import asyncio
 import dataclasses
 import json
 from collections.abc import AsyncIterator
@@ -19,10 +20,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from claude_agent_sdk import Message, ResultMessage, SystemMessage
+from claude_agent_sdk import Message, ResultMessage, StreamEvent, SystemMessage
 
 from server.providers import fixtures, sdk_codec
 from server.providers.base import JSON, AgentClient, RemoteFile, Transcriber, VisionModel
+
+STREAM_DELAY_S = 0.01  # between replayed text deltas, so an interrupt can land mid-turn
 
 
 class FakeTranscriber:
@@ -143,6 +146,8 @@ class ScriptedAgentClient:
         for message in pending:
             if self.interrupted and not isinstance(message, ResultMessage):
                 continue
+            if isinstance(message, StreamEvent):
+                await asyncio.sleep(STREAM_DELAY_S)  # stream like the real thing
             yield message
             if isinstance(message, ResultMessage):
                 return

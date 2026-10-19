@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "claude-agent-sdk>=0.2.168",
     "elevenlabs>=2.73.1",
+    "fastapi>=0.146.0",
     "google-auth>=2.62",
     "google-cloud-storage>=3.13",
     "google-genai>=2.31.0",
@@ -14,14 +15,18 @@ dependencies = [
     "python-dotenv>=1.2.4",
     "rich>=15.0.0",
     "scenedetect[opencv-headless]>=0.7.2",
+    "uvicorn>=0.54.0",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "pexpect>=4.9.0",
+    "playwright>=1.64.0",
     "pytest>=8.4.0",
     "pytest-asyncio>=1.0.0",
     "ruff>=0.12.0",
+    "websockets>=16.1.1",
 ]
 
 [tool.uv]
