@@ -1,7 +1,9 @@
 """`chat <video> [--resume]`: a streaming terminal chat with the agent about one video.
 
-It first runs any ingest steps that are still missing, then prints a banner with
-the Claude auth mode and the models, and opens a REPL:
+It starts any ingest steps that are still missing and opens the chat as soon as
+the video is chat-ready (`ingest.CHAT_READY`); the other steps finish in the
+background, and quitting waits for them. Then it prints a banner with the Claude
+auth mode and the models, and opens a REPL:
 
 - Answer text streams as it is generated; each tool call is one dim line.
 - Each turn ends with its cost (API-key mode) or its turn count (subscription).
@@ -17,6 +19,7 @@ import asyncio
 import json
 import signal
 import sys
+import threading
 from pathlib import Path
 
 from rich.console import Console
@@ -106,6 +109,65 @@ def repl(session: ChatSession, out: Console, mode: AuthMode) -> None:
         loop.close()
 
 
+class Ingest(threading.Thread):
+    """Runs the ingest in a thread and says when the video is chat-ready.
+
+    Until then each finished step prints a dim line; after it the chat owns the
+    terminal, so later steps only update `status.json`.
+    """
+
+    def __init__(self, ctx: ingest.StepContext, out: Console):
+        super().__init__(name="ingest")
+        self._ctx = ctx
+        self._out = out
+        self._ready = threading.Event()
+        self._settled = threading.Event()  # ready, or a chat-ready step did not finish
+        self._results: dict[str, ingest.StepResult] = {}
+        self.error: Exception | None = None
+
+    @property
+    def failed(self) -> list[ingest.StepResult]:
+        return ingest.failures(self._results.values())
+
+    def _report(self, result: ingest.StepResult) -> None:
+        self._results = {**self._results, result.name: result}
+        if self._ready.is_set():
+            return
+        if result.state != "skipped":
+            self._out.print(f"{result.name}: {result.state}", style="dim")
+        needed = [self._results.get(n) for n in ingest.CHAT_READY]
+        if all(r and r.ok for r in needed):
+            self._ready.set()
+        if self._ready.is_set() or any(r and not r.ok for r in needed):
+            self._settled.set()
+
+    def run(self) -> None:
+        try:
+            ingest.run_steps(self._ctx, on_result=self._report)
+        except Exception as e:  # reported by the main thread
+            self.error = e
+        finally:
+            self._settled.set()
+
+    def wait_until_ready(self) -> bool:
+        self._settled.wait()
+        return self._ready.is_set()
+
+    def finish(self, out: Console) -> None:
+        """Wait for the remaining steps. Ctrl-C cannot cut a running step short."""
+        while self.is_alive():
+            try:
+                self.join()
+            except KeyboardInterrupt:
+                out.print("Waiting for the running ingest steps to finish…", style="dim")
+
+
+def failure_text(background: Ingest) -> str:
+    if background.error:
+        return f"{type(background.error).__name__}: {background.error}"
+    return "; ".join(f"{r.name} {r.state} ({r.summary})" for r in background.failed)
+
+
 def run(args: argparse.Namespace) -> int:
     out = Console(soft_wrap=True, highlight=False)
     err = Console(stderr=True, soft_wrap=True, highlight=False, markup=False)
@@ -126,20 +188,22 @@ def run(args: argparse.Namespace) -> int:
 
     workspace, created = Workspace.for_video(settings.workspace_dir, video)
     ctx = ingest.StepContext(workspace=workspace, settings=settings, release=release)
-
-    def report(result: ingest.StepResult) -> None:
-        if result.state == "done":
-            out.print(f"{result.name}: done", style="dim")
-
+    background = Ingest(ctx, out)
+    background.start()
     try:
-        ingest.run_steps(ctx, on_result=report)
-    except ingest.Rejected as e:
-        if created:
-            workspace.remove()
-        err.print(f"error: {video.name}: {e}")
-        return cli.EXIT_BAD_INPUT
-    except Exception as e:
-        err.print(f"error: ingest failed: {type(e).__name__}: {e}")
+        ready = background.wait_until_ready()
+    except KeyboardInterrupt:
+        out.print()
+        background.finish(out)
+        return cli.EXIT_OK
+    if not ready:
+        background.finish(out)
+        if isinstance(background.error, ingest.Rejected):
+            if created:
+                workspace.remove()
+            err.print(f"error: {video.name}: {background.error}")
+            return cli.EXIT_BAD_INPUT
+        err.print(f"error: ingest failed: {failure_text(background)}")
         return cli.EXIT_STEP_FAILED
 
     try:
@@ -153,6 +217,12 @@ def run(args: argparse.Namespace) -> int:
     )
     out.print("Ask about the video. Ctrl-C interrupts an answer; /quit exits.", style="dim")
     repl(session, out, auth.mode)
+    if background.is_alive():
+        out.print("Finishing ingest in the background…", style="dim")
+    background.finish(out)
+    if background.error or background.failed:
+        err.print(f"error: ingest failed: {failure_text(background)}; see `ingest --retry`")
+        return cli.EXIT_STEP_FAILED
     return cli.EXIT_OK
 
 
