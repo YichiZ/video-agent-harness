@@ -8,6 +8,10 @@ and requests reference it by its `gs://` URI. GCS objects do not expire.
 The model id comes from `release.gemini_model`. Requests that pass `start`, `end`
 or `fps` send them as the video part's `VideoMetadata`, so Gemini only looks at
 that range.
+
+Vertex's shared quota answers 429 under load (a 60-minute video's captions are
+several large calls), so requests retry 429 and 5xx with exponential backoff
+(`RETRY`).
 """
 
 from __future__ import annotations
@@ -32,6 +36,11 @@ def _offset(seconds: float) -> str:
     return f"{seconds:.3f}s"
 
 
+RETRY = types.HttpRetryOptions(
+    attempts=6, initial_delay=2.0, max_delay=60.0, http_status_codes=[408, 429, 500, 502, 503, 504]
+)
+
+
 class GeminiVisionModel:
     def __init__(self, settings: Settings, release: Release):
         from server.providers import ProviderUnavailable
@@ -51,6 +60,7 @@ class GeminiVisionModel:
                 vertexai=True,
                 project=settings.google_cloud_project,
                 location=settings.google_cloud_location,
+                http_options=types.HttpOptions(retry_options=RETRY),
             )
             gcs = storage.Client(project=settings.google_cloud_project)
         except DefaultCredentialsError as e:
