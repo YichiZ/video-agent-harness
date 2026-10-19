@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from server.agent.session import ChatSession, build_options
+from server.agent.session import PLUGIN_DIR, SKILLS, ChatSession, build_options
 from server.agent.tools import ALLOWED_TOOLS, VideoTools
 from server.config import REPO_ROOT, Settings, load_release
 from server.providers.fakes import ScriptedAgentClient
@@ -23,7 +23,7 @@ def setup(tmp_path, monkeypatch):
 def test_options_allow_only_video_tools(setup):
     ws, settings, release = setup
     options = build_options(VideoTools(ws, settings, release), settings, release)
-    assert options.tools == [] and options.allowed_tools == ALLOWED_TOOLS
+    assert options.tools == ["Skill"] and options.allowed_tools == ALLOWED_TOOLS
     assert "Bash" in options.disallowed_tools and options.permission_mode == "dontAsk"
     assert options.cwd == str(ws.dir) and options.include_partial_messages
     assert "ANTHROPIC_API_KEY" not in options.env and options.setting_sources == []
@@ -71,3 +71,15 @@ def test_recorded_sessions_only_had_video_tools(name):
     )
     assert [s["name"] for s in init["data"]["mcp_servers"]] == ["video"]
     assert "/Users/" not in json.dumps(data)
+
+
+def test_skills_load_from_the_plugin_without_setting_sources(setup):
+    ws, settings, release = setup
+    options = build_options(VideoTools(ws, settings, release), settings, release)
+    assert options.setting_sources == [] and options.skills == SKILLS
+    assert options.plugins == [{"type": "local", "path": str(PLUGIN_DIR)}]
+    manifest = json.loads((PLUGIN_DIR / ".claude-plugin" / "plugin.json").read_text())
+    for name in SKILLS:
+        plugin, skill = name.split(":")
+        assert plugin == manifest["name"]
+        assert (PLUGIN_DIR / "skills" / skill / "SKILL.md").is_file()

@@ -1,0 +1,1448 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+          "uuid": "d1f1d0d7-ace7-410d-851d-9c07c475b8dc"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "21569b6b-5e2c-4ba8-8da2-69c30e5cff09",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAWzpNugS2kq7GDfwQns",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 863,
+              "cache_read_input_tokens": 2346,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 863
+              },
+              "output_tokens": 24,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "14139a1c-861e-4273-a716-408c9f98f88b",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01UChnzqjZbGJpHhZvW9eAxL",
+            "name": "mcp__video__get_overview",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c4364c61-14d7-44c0-8c2d-36a13f6d201f",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01UChnzqjZbGJpHhZvW9eAxL",
+            "name": "mcp__video__get_overview",
+            "input": {}
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 863,
+          "cache_read_input_tokens": 2346,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 863
+          },
+          "output_tokens": 24,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWzpNugS2kq7GDfwQns",
+        "stop_reason": null,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "uuid": "0957fa7a-c123-4bab-b0cf-2d7a0fdda6fc"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c8ab30b5-5eed-4a06-bead-98ffd8b3a854",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6e8c14a1-53e4-4d72-ae08-b4c511bdce51",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_012SPniZcpNbjKnN1edUiibd",
+            "name": "mcp__video__search",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2fad76dc-57dd-4350-b11b-b41dbfa62630",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "52f7c9ad-0ea6-4b13-b353-a95f38441e27",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"query\": \"Coca"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3deff512-7933-4929-a06a-d6cfd04cbf4f",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "-Cola"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8624faf4-c3fe-4e6d-9fa4-c4b240c7967a",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": " Apple Dairy Que"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "555403cb-9d1a-4991-b382-15dada7692fe",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "en American Express"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01UChnzqjZbGJpHhZvW9eAxL",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"duration_s\": 366.875, \"duration\": \"06:07\", \"summary\": \"This video examines how the American tax system enables billionaires to pay significantly lower tax rates than middle-class workers. Through examples like Warren Buffett and former Wall Street executive Morris Pearl, it explains the difference between income tax and capital gains tax, alongside loopholes like the 'stepped-up basis'. It also discusses proposed policy reforms aimed at taxing capital gains more heavily to reduce economic disparity.\", \"subjects\": [{\"name\": \"Warren Buffett\", \"kind\": \"person\", \"description\": \"Billionaire investor and CEO of Berkshire Hathaway who famously noted he pays lower tax rates than his secretary.\", \"first_seen\": \"00:02\"}, {\"name\": \"Morris Pearl\", \"kind\": \"person\", \"description\": \"Former BlackRock executive and member of Patriotic Millionaires who advocates for higher taxes on the wealthy.\", \"first_seen\": \"01:36\"}, {\"name\": \"Jeff Bezos\", \"kind\": \"person\", \"description\": \"Founder of Amazon whose wealth primarily resides in untaxed company stock.\", \"first_seen\": \"03:16\"}, {\"name\": \"Elon Musk\", \"kind\": \"person\", \"description\": \"Billionaire entrepreneur who utilizes bank loans against stock to avoid taxable income realization.\", \"first_seen\": \"03:40\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"01:34\", \"title\": \"The Billionaire Tax Disparity\", \"summary\": \"Warren Buffett's stock-based fortune illustrates why wealthy individuals often face lower overall tax rates than regular wage earners.\"}, {\"start\": \"01:35\", \"end\": \"03:55\", \"title\": \"Income vs. Capital Gains\", \"summary\": \"Former finance executive Morris Pearl explains how untaxed stock gains and low capital gains rates benefit the rich over wage laborers.\"}, {\"start\": \"03:56\", \"end\": \"05:49\", \"title\": \"The Stepped-Up Basis Loophole and Reforms\", \"summary\": \"The video outlines the 'buy, borrow, die' strategy, inherited tax exemptions, and Joe Biden's proposal to increase capital gains taxes.\"}, {\"start\": \"05:50\", \"end\": \"06:07\", \"title\": \"Credits\", \"summary\": \"Closing credits roll for the Vox production team and sources cited.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "d9b4af27-d844-4e66-a9ed-0b3749b9400a",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"duration_s\": 366.875, \"duration\": \"06:07\", \"summary\": \"This video examines how the American tax system enables billionaires to pay significantly lower tax rates than middle-class workers. Through examples like Warren Buffett and former Wall Street executive Morris Pearl, it explains the difference between income tax and capital gains tax, alongside loopholes like the 'stepped-up basis'. It also discusses proposed policy reforms aimed at taxing capital gains more heavily to reduce economic disparity.\", \"subjects\": [{\"name\": \"Warren Buffett\", \"kind\": \"person\", \"description\": \"Billionaire investor and CEO of Berkshire Hathaway who famously noted he pays lower tax rates than his secretary.\", \"first_seen\": \"00:02\"}, {\"name\": \"Morris Pearl\", \"kind\": \"person\", \"description\": \"Former BlackRock executive and member of Patriotic Millionaires who advocates for higher taxes on the wealthy.\", \"first_seen\": \"01:36\"}, {\"name\": \"Jeff Bezos\", \"kind\": \"person\", \"description\": \"Founder of Amazon whose wealth primarily resides in untaxed company stock.\", \"first_seen\": \"03:16\"}, {\"name\": \"Elon Musk\", \"kind\": \"person\", \"description\": \"Billionaire entrepreneur who utilizes bank loans against stock to avoid taxable income realization.\", \"first_seen\": \"03:40\"}], \"chapters\": [{\"start\": \"00:00\", \"end\": \"01:34\", \"title\": \"The Billionaire Tax Disparity\", \"summary\": \"Warren Buffett's stock-based fortune illustrates why wealthy individuals often face lower overall tax rates than regular wage earners.\"}, {\"start\": \"01:35\", \"end\": \"03:55\", \"title\": \"Income vs. Capital Gains\", \"summary\": \"Former finance executive Morris Pearl explains how untaxed stock gains and low capital gains rates benefit the rich over wage laborers.\"}, {\"start\": \"03:56\", \"end\": \"05:49\", \"title\": \"The Stepped-Up Basis Loophole and Reforms\", \"summary\": \"The video outlines the 'buy, borrow, die' strategy, inherited tax exemptions, and Joe Biden's proposal to increase capital gains taxes.\"}, {\"start\": \"05:50\", \"end\": \"06:07\", \"title\": \"Credits\", \"summary\": \"Closing credits roll for the Vox production team and sources cited.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "465071d8-2a25-4f2f-9b62-8e78dd70e9ff",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "\", \"k\": 10"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b351f0ed-d7d0-411b-aae0-285181f050e0",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_012SPniZcpNbjKnN1edUiibd",
+            "name": "mcp__video__search",
+            "input": {
+              "query": "Coca-Cola Apple Dairy Queen American Express",
+              "k": 10
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 863,
+          "cache_read_input_tokens": 2346,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 863
+          },
+          "output_tokens": 24,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWzpNugS2kq7GDfwQns",
+        "stop_reason": null,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "uuid": "f6c61b92-7378-42f6-b4fd-ccf748a6f015"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8ba3df52-9fc3-4729-91ef-e496e2359f05",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "073f0790-11b2-4883-8021-b8bf8169289a",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 863,
+            "cache_read_input_tokens": 2346,
+            "output_tokens": 121,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 121,
+                "cache_read_input_tokens": 2346,
+                "cache_creation_input_tokens": 863,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 863
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "97c5dab2-58cc-4ab6-81a7-81be776e166a",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792371000,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792371000,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.32,
+                "resetsAt": 1792371000
+              },
+              "seven_day": {
+                "utilization": 0.2,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "b0c65d74-61f4-4e26-8d20-8dfa4d7b8354",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8"
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_012SPniZcpNbjKnN1edUiibd",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"query\": \"Coca-Cola Apple Dairy Queen American Express\", \"hits\": [{\"score\": 0.71, \"start\": 9.54, \"end\": 19.92, \"time\": \"00:10\", \"speaker\": \"speaker_0\", \"text\": \"Basically, it's a holding company that just owns a bunch of other companies: GEICO, Dairy Queen, a huge railroad, as well as a lot of stock in other companies, like Apple and Coca-Cola.\"}, {\"score\": 0.14, \"start\": 108.76, \"end\": 114.06, \"time\": \"01:49\", \"speaker\": \"speaker_2\", \"text\": \"I own stock in companies, I mean, Berkshire Hathaway and Amazon and Apple.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "4309b58d-2468-4d98-bb99-fb6b29607672",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"query\": \"Coca-Cola Apple Dairy Queen American Express\", \"hits\": [{\"score\": 0.71, \"start\": 9.54, \"end\": 19.92, \"time\": \"00:10\", \"speaker\": \"speaker_0\", \"text\": \"Basically, it's a holding company that just owns a bunch of other companies: GEICO, Dairy Queen, a huge railroad, as well as a lot of stock in other companies, like Apple and Coca-Cola.\"}, {\"score\": 0.14, \"start\": 108.76, \"end\": 114.06, \"time\": \"01:49\", \"speaker\": \"speaker_2\", \"text\": \"I own stock in companies, I mean, Berkshire Hathaway and Amazon and Apple.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+          "uuid": "2232dddc-8c58-4214-a2a9-bed94ff4f784"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c3cc4899-1c35-4370-82bb-2b1ec2ea5423",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAWzxpAHzTnUZKHkp2xx",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1275,
+              "cache_read_input_tokens": 3209,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1275
+              },
+              "output_tokens": 37,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "314570eb-7440-4077-973e-f03bfb9ca272",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d5b3e79d-a1c5-425b-8eb2-c0845cfc660f",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "Let me check vis"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6ee1c692-7564-4950-bce2-11656784aaf7",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ually for American Express."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "Let me check visually for American Express."
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1275,
+          "cache_read_input_tokens": 3209,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1275
+          },
+          "output_tokens": 37,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWzxpAHzTnUZKHkp2xx",
+        "stop_reason": null,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "uuid": "3b0ac850-d2c8-41c4-834f-ac5df39f6dab"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5d278dd5-2b0e-4e29-898c-a714fb7cfa7d",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6d1d78ae-d2f1-45a8-90c1-f4c09b6dd5c6",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01GoeA7HAJHYC3NWKwGpJL3M",
+            "name": "mcp__video__inspect",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b26277a2-acb5-4725-9257-4538a18c7efe",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ef23bc51-31d1-4f9c-b4dc-0f07a17f2045",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"start\": 5"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ca6e927e-b90a-41fb-b87a-54d6af9d2f2c",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ", \"end\": 30"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0a3e0c9c-b23b-4163-b6b6-7126623e6f08",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ", \"question\": \"Which company logos or names"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d015a46b-0589-4f4c-b798-1325950a1fcc",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": " are shown on"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "42d539ff-32bc-40ff-9a1f-0ce6d3373f4e",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": " screen?"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6463f444-b56d-467d-95b4-178ca2b4c7b9",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "\"}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01GoeA7HAJHYC3NWKwGpJL3M",
+            "name": "mcp__video__inspect",
+            "input": {
+              "start": 5,
+              "end": 30,
+              "question": "Which company logos or names are shown on screen?"
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1275,
+          "cache_read_input_tokens": 3209,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1275
+          },
+          "output_tokens": 37,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWzxpAHzTnUZKHkp2xx",
+        "stop_reason": null,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "uuid": "f3d15261-1383-4263-99c2-d40eed682e6e"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5b30f59e-8991-436c-b5fd-cf81a7aab388",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1b16560a-7e45-4a7e-8185-000e1be119b1",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1275,
+            "cache_read_input_tokens": 3209,
+            "output_tokens": 120,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 120,
+                "cache_read_input_tokens": 3209,
+                "cache_creation_input_tokens": 1275,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1275
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "eb46dcdf-55be-420b-8d1a-42d4c4f4934d",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01GoeA7HAJHYC3NWKwGpJL3M",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"question\": \"Which company logos or names are shown on screen?\", \"start\": 5.0, \"end\": 30.0, \"fps\": null, \"answer\": \"Between 00:05 and 00:30, the company logos or names displayed on screen include Vox, Fox Business, CNBC, Berkshire Hathaway, DQ (Dairy Queen), Duracell, GEICO, Long & Foster Real Estate, BNSF Railway, See's Candies, Fruit of the Loom, Apple, SiriusXM, Bank of America, American Express, Coca-Cola, and Kraft Heinz.\", \"observations\": [{\"time\": \"00:05\", \"observation\": \"Fox Business and CNBC microphone logos are visible near Warren Buffett, and the Vox logo appears in the top right corner.\"}, {\"time\": \"00:09\", \"observation\": \"\\\"Berkshire Hathaway\\\" is shown at the top of the graphic.\"}, {\"time\": \"00:11\", \"observation\": \"Logos for DQ (Dairy Queen), Duracell, and GEICO appear inside the top oval.\"}, {\"time\": \"00:13\", \"observation\": \"Logos for Long & Foster Real Estate and BNSF Railway appear inside the top oval.\"}, {\"time\": \"00:15\", \"observation\": \"Logos for See's Candies and Fruit of the Loom are added to the top oval.\"}, {\"time\": \"00:18\", \"observation\": \"Logos for Apple, SiriusXM, and Bank of America appear in the lower oval.\"}, {\"time\": \"00:19\", \"observation\": \"Logos for Coca-Cola, Kraft Heinz, and American Express appear in the lower oval.\"}], \"cached\": false}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "a97719b4-3621-44ff-b24c-034f96af944d",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"question\": \"Which company logos or names are shown on screen?\", \"start\": 5.0, \"end\": 30.0, \"fps\": null, \"answer\": \"Between 00:05 and 00:30, the company logos or names displayed on screen include Vox, Fox Business, CNBC, Berkshire Hathaway, DQ (Dairy Queen), Duracell, GEICO, Long & Foster Real Estate, BNSF Railway, See's Candies, Fruit of the Loom, Apple, SiriusXM, Bank of America, American Express, Coca-Cola, and Kraft Heinz.\", \"observations\": [{\"time\": \"00:05\", \"observation\": \"Fox Business and CNBC microphone logos are visible near Warren Buffett, and the Vox logo appears in the top right corner.\"}, {\"time\": \"00:09\", \"observation\": \"\\\"Berkshire Hathaway\\\" is shown at the top of the graphic.\"}, {\"time\": \"00:11\", \"observation\": \"Logos for DQ (Dairy Queen), Duracell, and GEICO appear inside the top oval.\"}, {\"time\": \"00:13\", \"observation\": \"Logos for Long & Foster Real Estate and BNSF Railway appear inside the top oval.\"}, {\"time\": \"00:15\", \"observation\": \"Logos for See's Candies and Fruit of the Loom are added to the top oval.\"}, {\"time\": \"00:18\", \"observation\": \"Logos for Apple, SiriusXM, and Bank of America appear in the lower oval.\"}, {\"time\": \"00:19\", \"observation\": \"Logos for Coca-Cola, Kraft Heinz, and American Express appear in the lower oval.\"}], \"cached\": false}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+          "uuid": "2176ac9b-8fd7-4c53-8134-e7b6d44b2232"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dcd8a18c-d125-41f1-a233-743b1e4a1c6a",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAX1onU4JmW6vWR1RVHC",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 724,
+              "cache_read_input_tokens": 4484,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 724
+              },
+              "output_tokens": 173,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "337e5188-f146-4b1d-afd6-a526719540c5",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "422def85-3fc5-4e0a-99bf-7f82b4e7cf24",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "The answer is D,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "afa51cd1-03c9-4df9-9bb7-81729762b537",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " American Express."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "25dee0a6-d8e5-490c-8dcf-3010245ba226",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Its logo app"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "009a5ea6-a4af-47d2-ab99-3f1e71217cfd",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ears on"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "22ef8e9a-c097-4276-bac3-6052ee444f4a",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " screen but its"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2f705127-3fe7-4ee6-91e3-f387f01e8591",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " name is never said.\n\n-"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9f0445f0-48c1-4d8b-8faa-5406d6b57a0e",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " **Shown on screen:"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9bccef7a-87e4-43e0-ac17-6eef96b9151e",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "** Co"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ede72145-5e99-4785-95ff-6e6acea27cb8",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ca-Cola, K"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cf187232-4a5d-48de-adeb-2711b8a75b62",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "raft Heinz and American"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7afd3381-e461-4583-9eef-4b5c906db5d2",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Express log"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e4fac977-c586-4e52-bac5-5f09365a616e",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "os appear in the"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "68aabd5f-8ade-435c-9f06-60475da192b1",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Berkshire Hatha"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "caefb78f-b28b-4fbe-9bea-64563170cc27",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "way hol"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "8d0db202-cd20-496a-953d-c2a8a605734b",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "dings graphic ["
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4af01dc2-a077-49f4-8bea-2fea96e934cf",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "00:19].\n- **What"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fe80c601-86cf-473b-9187-57827e65657f",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " the narration"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "11466cb3-cacb-4b4a-8252-83d66afe44a1",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " names"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7932896d-d3b6-4fe8-af51-0660e1b31199",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": ":** Only"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "606c20ea-7c9b-4d4d-ac3c-980cb83cbbc9",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " GEICO, Dair"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9f021484-b2eb-4bbc-bbd3-459966835d2c",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "y Queen, a railro"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4def7cea-6895-487c-8256-7f4b53c3ac85",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ad, Apple and Co"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "45cef5e0-a8df-410e-867e-256918a4ef7f",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ca-Cola ["
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "89b5b50a-24bd-4924-b127-552c66732404",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "00:10–00:20"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "18b23f41-e0d3-494a-9205-94a82aa7ec6c",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "]. Apple com"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "944173f9-f4b5-4e94-9a3e-cbb8b30fb304",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "es up again later ["
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5e3b33a4-dd2b-4816-91f1-89699abbe7bb",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "01:49]. A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "bd667802-7478-4fcc-a200-e592e44b0117",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " transcript search tur"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f10feb02-563b-4265-ab84-0544b9910b68",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ned up no mention of American"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "df2e2aa6-d833-4f17-8734-73a173279cfd",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Express.\n\nAnswer: D"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "The answer is D, American Express. Its logo appears on screen but its name is never said.\n\n- **Shown on screen:** Coca-Cola, Kraft Heinz and American Express logos appear in the Berkshire Hathaway holdings graphic [00:19].\n- **What the narration names:** Only GEICO, Dairy Queen, a railroad, Apple and Coca-Cola [00:10–00:20]. Apple comes up again later [01:49]. A transcript search turned up no mention of American Express.\n\nAnswer: D"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 724,
+          "cache_read_input_tokens": 4484,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 724
+          },
+          "output_tokens": 173,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAX1onU4JmW6vWR1RVHC",
+        "stop_reason": null,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "uuid": "1093d312-7a70-4329-a0c6-63021209aa4f"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6481b6d2-3020-4e92-8a78-7c49d0b6f46b",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6e19abdd-06ed-4591-a74f-8ba2cc9cabd7",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 724,
+            "cache_read_input_tokens": 4484,
+            "output_tokens": 173,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 173,
+                "cache_read_input_tokens": 4484,
+                "cache_creation_input_tokens": 724,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 724
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "53bbcd68-c03a-430e-bd18-9fa4ba47c1da",
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 15757,
+        "duration_api_ms": 6058,
+        "is_error": false,
+        "num_turns": 4,
+        "session_id": "ee68679d-ab19-4a9a-a017-f7c947d95bc8",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.0332078,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 2862,
+          "cache_read_input_tokens": 10039,
+          "output_tokens": 414,
+          "output_tokens_details": {
+            "thinking_tokens": 0
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 2862,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 173,
+              "cache_read_input_tokens": 4484,
+              "cache_creation_input_tokens": 724,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 724
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "The answer is D, American Express. Its logo appears on screen but its name is never said.\n\n- **Shown on screen:** Coca-Cola, Kraft Heinz and American Express logos appear in the Berkshire Hathaway holdings graphic [00:19].\n- **What the narration names:** Only GEICO, Dairy Queen, a railroad, Apple and Coca-Cola [00:10–00:20]. Apple comes up again later [01:49]. A transcript search turned up no mention of American Express.\n\nAnswer: D",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 6,
+            "outputTokens": 414,
+            "cacheReadInputTokens": 10039,
+            "cacheCreationInputTokens": 2862,
+            "webSearchRequests": 0,
+            "costUSD": 0.0332078,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 0,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "1f26e400-5881-4584-b8df-540f88b5b923",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

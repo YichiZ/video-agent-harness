@@ -25,7 +25,7 @@ uv run python -m server.cli ingest video.mp4   # probe it into workspace/<id>/
 ```
 server/        FastAPI: upload, ingest pipeline, agent session, video tools
 web/           Vite + React: player, transcript, chat
-.claude/       Skills for the agent and worktrees for development
+.claude/       Worktrees for development (the agent's Skills are in server/agent/plugin/)
 workspace/     Per-video data (gitignored)
 ```
 
