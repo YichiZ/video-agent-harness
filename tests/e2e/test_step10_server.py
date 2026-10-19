@@ -53,12 +53,14 @@ def server(cli, env: dict[str, str | None] | None = None) -> Iterator[str]:
     )
     base = f"http://127.0.0.1:{port}"
     try:
-        for _ in range(100):
+        deadline = time.monotonic() + 60
+        while True:
             try:
                 httpx.get(f"{base}/docs", timeout=1)
                 break
             except httpx.TransportError:
                 assert proc.poll() is None, proc.stdout.read()
+                assert time.monotonic() < deadline, "server did not start"
                 time.sleep(0.1)
         yield base
     finally:
