@@ -4,7 +4,7 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 9 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI) and M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries). Commands:
+Steps 0 to 10 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI), M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries) and M3 (the HTTP server and chat WebSocket). Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
@@ -12,6 +12,7 @@ make doctor                              # tools, release.json, keys, Claude aut
 uv run python -m server.cli ingest <video> [--only probe|transcribe|overview|shots|captions|index] [--force]
 uv run python -m server.cli tool <name> '<json args>' [--video <video>]   # call one agent tool
 make chat VIDEO=<video>                  # streaming terminal chat (`server.cli chat <video> --resume` continues)
+make serve                               # HTTP server + chat WebSocket on localhost:8000
 make test                                # unit + offline e2e tests, no keys needed
 make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
 make lint / make fmt                     # ruff
@@ -27,6 +28,7 @@ uv run python -m server.cli <command>    # the CLI
 - **Ingest steps:** `server/ingest/`. One module per step defining `STEP = Step(name, outputs, run, requires)`, listed in `STEP_MODULES`. `run_steps` runs them in parallel threads as their `requires` finish, writes `status.json` (chat-ready once `CHAT_READY` steps are done), and returns failed or blocked results instead of raising. A step whose outputs exist is skipped. Raise `ingest.Rejected` for unacceptable input. `ingest --only <name>` picks the step up automatically. `HARNESS_FAKE_FAIL` / `HARNESS_FAKE_SLOW` inject failures and delays in tests.
 - **Agent tools:** `server/agent/tools.py`. `VideoTools` holds the plain tool methods for one workspace; `build_server()` wraps them as the in-process MCP server `video` (`ALLOWED_TOOLS` lists `mcp__video__*`). Raise `ToolError` for a call the agent should fix.
 - **Agent session:** `server/agent/session.py`. `build_options()` is the only place `ClaudeAgentOptions` is set (no built-in tools, `mcp__video__*` only, `dontAsk`); `ChatSession.ask()` yields text, tool and result events and keeps `session.json`. The system prompt is `server/agent/prompt.<prompt_version>.md`. Offline replays `tests/fixtures/agent/<media>-chat.json` / `-resume.json`.
+- **Server:** `server/api/`. `app.py` has the routes (its docstring lists them), `library.py` the current video and its ingest thread, `chat.py` the `WS /chat` connection, `protocol.py` the frames; after changing frames run `scripts/export_protocol.py` to update `web/src/protocol.ts`.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
 - **Tests:** `tests/unit/` and `tests/e2e/test_stepNN_<name>.py`. E2E tests run the CLI as a subprocess through the `cli` fixture, which isolates `.env`, keys and the Claude login and sets `HARNESS_FAKE_PROVIDERS=1`. Mark real-API tests `@pytest.mark.live`. Use the `videomme("short")` fixture for Video-MME videos (skips when absent, as in CI) and `test_media` for generated media.
 

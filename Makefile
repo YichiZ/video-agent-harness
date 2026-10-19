@@ -1,4 +1,4 @@
-.PHONY: help sync test test-live lint fmt media doctor chat
+.PHONY: help sync test test-live lint fmt media doctor chat serve
 
 help:  ## list targets
 	@grep -E "^[a-z-]+:.*##" $(MAKEFILE_LIST) | sed -E "s/:.*## /\t/"
@@ -28,3 +28,6 @@ doctor:  ## check tools, config, keys and Claude auth
 
 chat:  ## chat about a video (step 5): make chat VIDEO=path/to/video.mp4
 	uv run python -m server.cli chat $(VIDEO)
+
+serve:  ## run the HTTP server on localhost:8000 (step 10)
+	uv run python -m server.cli serve
