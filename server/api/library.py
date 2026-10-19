@@ -23,6 +23,7 @@ from server.config import Release, Settings
 from server.workspace import ID_LENGTH, Workspace
 
 CURRENT = "current.json"
+HISTORY = "chat.json"  # written by server.api.chat
 UPLOADS = ".uploads"
 MAX_UPLOAD_BYTES = 8 * 1024**3  # a 60-minute video, with room to spare
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".m4v", ".mpg", ".mpeg", ".ts"}
@@ -111,7 +112,8 @@ class Library:
             video.unlink(missing_ok=True)
             raise
         with self._lock:
-            workspace.path(SESSION).unlink(missing_ok=True)  # a new upload starts a new chat
+            for name in (SESSION, HISTORY):  # a new upload starts a new chat
+                workspace.path(name).unlink(missing_ok=True)
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name
             self.generation += 1
@@ -133,12 +135,15 @@ class Library:
     def status(self) -> IngestStatus:
         workspace, name = self.current, self.name
         if workspace is None:
-            return IngestStatus(video_id=None, name=None, chat_ready=False, steps={})
+            return IngestStatus(
+                video_id=None, generation=self.generation, name=None, chat_ready=False, steps={}
+            )
         path = workspace.path(ingest.STATUS)
         data = workspace.read_json(ingest.STATUS) if path.is_file() else {}
         steps = data.get("steps", {})
         return IngestStatus(
             video_id=workspace.id,
+            generation=self.generation,
             name=name,
             chat_ready=bool(data.get("chat_ready")),
             steps={n: s["state"] for n, s in steps.items()},

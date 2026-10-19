@@ -15,6 +15,7 @@ from __future__ import annotations
 import asyncio
 import dataclasses
 import json
+import os
 from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -25,7 +26,9 @@ from claude_agent_sdk import Message, ResultMessage, StreamEvent, SystemMessage
 from server.providers import fixtures, sdk_codec
 from server.providers.base import JSON, AgentClient, RemoteFile, Transcriber, VisionModel
 
-STREAM_DELAY_S = 0.01  # between replayed text deltas, so an interrupt can land mid-turn
+# Between replayed text deltas, so an interrupt can land mid-turn; tests that need a
+# slower stream set HARNESS_FAKE_STREAM_DELAY (seconds).
+STREAM_DELAY_S = float(os.environ.get("HARNESS_FAKE_STREAM_DELAY") or 0.01)
 
 
 class FakeTranscriber:

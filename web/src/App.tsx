@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getShots, getTranscript, proxyUrl, type Shot, type Transcript as TranscriptData } from "./api";
+import Chat from "./components/Chat";
 import IngestPanel from "./components/IngestPanel";
 import ShotStrip from "./components/ShotStrip";
 import Transcript from "./components/Transcript";
@@ -52,7 +53,9 @@ export default function App() {
     String(done("captions")), // refetch with captions, keeping the strip meanwhile
     getShots,
   );
-  useEffect(() => setTime(0), [id]);
+  useEffect(() => {
+    setTime(0);
+  }, [id]);
 
   const seek = useCallback((t: number) => {
     if (video.current) video.current.currentTime = t;
@@ -97,9 +100,7 @@ export default function App() {
           </>
         )}
       </main>
-      <aside className="rounded-lg border border-neutral-800 p-3 text-sm text-neutral-500">
-        Chat
-      </aside>
+      <Chat videoId={id} chatReady={!!status?.chat_ready} onSeek={seek} />
     </div>
   );
 }

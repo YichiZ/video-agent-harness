@@ -25,6 +25,7 @@ Environment variables the harness reads:
 | `HARNESS_FAKE_PROVIDERS` | `1` replaces every provider with a fake that replays fixtures |
 | `HARNESS_RECORD_FIXTURES` | `1` records real provider responses into the fixtures dir |
 | `HARNESS_FAKE_FAIL`, `HARNESS_FAKE_SLOW` | Fake providers only: steps that fail or are slow |
+| `HARNESS_FAKE_STREAM_DELAY` | Fake agent only: seconds between replayed text deltas |
 """
 
 from __future__ import annotations

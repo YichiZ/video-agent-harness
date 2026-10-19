@@ -4,7 +4,7 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 10, 11a and 12 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI), M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries), M3 (the HTTP server and chat WebSocket), step 11a (the UI shell: upload, player, ingest panel, shot strip, transcript) and step 12 (prompt v2 and the Skills). Commands:
+Steps 0 to 12 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI), M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries), M3 (the HTTP server and chat WebSocket), M4 (the browser UI: upload, player, ingest panel, shot strip, transcript, and the streaming chat with timestamp chips) and step 12 (prompt v2 and the Skills). Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
@@ -34,7 +34,7 @@ uv run python -m server.cli <command>    # the CLI
 - **Skills:** `server/agent/plugin/skills/<name>/SKILL.md`, loaded as the local plugin `video`; list a new one in `session.SKILLS` as `video:<name>`.
 - **Evals:** `make eval SUBSET=smoke` (`evals/smoke.py`) asks the six Video-MME questions in `evals/smoke.jsonl` with prompt v1 and v2 and fails if v2 scores lower. Step 13 replaces it.
 - **Server:** `server/api/`. `app.py` has the routes (its docstring lists them), `library.py` the current video and its ingest thread, `chat.py` the `WS /chat` connection, `protocol.py` the frames; after changing frames run `scripts/export_protocol.py` to update `web/src/protocol.ts`.
-- **UI:** `web/src/`. `App.tsx` lays out the upload zone, player, ingest panel, shot strip and transcript (`components/`); `api.ts` wraps the HTTP routes and `protocol.ts` is generated. Browser e2e tests use Python Playwright with Google Chrome (`page` fixture), since Chromium cannot play the H.264 proxy.
+- **UI:** `web/src/`. `App.tsx` lays out the upload zone, player, ingest panel, shot strip, transcript and chat (`components/`); `lib/useChat.ts` is the `WS /chat` client and `lib/chips.ts` turns `[mm:ss]` into seek chips; `api.ts` wraps the HTTP routes and `protocol.ts` is generated. Browser e2e tests use Python Playwright with Google Chrome (`page` fixture), since Chromium cannot play the H.264 proxy.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
 - **Tests:** `tests/unit/` and `tests/e2e/test_stepNN_<name>.py`. E2E tests run the CLI as a subprocess through the `cli` fixture, which isolates `.env`, keys and the Claude login and sets `HARNESS_FAKE_PROVIDERS=1`. Mark real-API tests `@pytest.mark.live`. Use the `videomme("short")` fixture for Video-MME videos (skips when absent, as in CI) and `test_media` for generated media.
 
