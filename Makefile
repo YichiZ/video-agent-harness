@@ -38,7 +38,7 @@ chat:  ## chat about a video (step 5): make chat VIDEO=path/to/video.mp4
 	uv run python -m server.cli chat $(VIDEO)
 
 SUBSET ?= full
-eval:  ## the eval and its gate (step 13): make eval [SUBSET=smoke] [ARGS=--prompt-version broken]
+eval:  ## the eval and its gate (step 13): make eval [SUBSET=smoke] [ARGS="--lengths short,medium"]
 	uv run python -m evals.run --subset $(SUBSET) $(ARGS)
 
 eval-compare:  ## prompt v1 vs v2 on the six smoke questions (step 12)
