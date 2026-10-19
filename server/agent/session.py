@@ -34,6 +34,7 @@ from server.agent.tools import ALLOWED_TOOLS, SERVER_NAME, VideoTools, build_ser
 from server.auth import claude_env
 from server.config import Release, Settings
 from server.providers import AgentClient, fixtures, get_agent_client
+from server.tracing import Tracer
 from server.workspace import Workspace
 
 SESSION = "session.json"
@@ -118,6 +119,8 @@ class ChatSession:
             media = fixtures.media_key(workspace.source)
             fixture = f"{media}-{'resume' if resume else 'chat'}"
         self.client = client or get_agent_client(settings, options, fixture=fixture)
+        self.tracer = Tracer(settings, release)
+        self.last_trace_id: str | None = None
 
     def stored_session_id(self) -> str | None:
         return self._stored(self.workspace)
@@ -147,6 +150,30 @@ class ChatSession:
         await self.client.interrupt()
 
     async def ask(self, prompt: str) -> AsyncIterator[Event]:
+        """One turn: yields its events, and traces it in Langfuse when tracing is on."""
+        turn = self.tracer.turn(prompt, video_id=self.workspace.id, session_id=self.session_id)
+        self.last_trace_id = turn.trace_id
+        answer: list[str] = []
+        result: ResultMessage | None = None
+        error: str | None = None
+        try:
+            async for event in self._events(prompt):
+                if event.kind == "text":
+                    answer.append(event.text)
+                elif event.kind == "tool":
+                    turn.tool(event.id, event.text, event.input)
+                elif event.kind == "tool_result":
+                    turn.tool_result(event.id, event.text, event.is_error)
+                elif event.kind == "result":
+                    result = event.result
+                yield event
+        except BaseException as e:  # including an abandoned turn (GeneratorExit, cancel)
+            error = f"{type(e).__name__}: {e}"
+            raise
+        finally:
+            turn.end("".join(answer), _result_metadata(result, self.session_id), error)
+
+    async def _events(self, prompt: str) -> AsyncIterator[Event]:
         await self.client.query(prompt)
         streamed = False  # text deltas arrived, so skip the full TextBlock repeat
         async for message in self.client.receive_response():
@@ -177,6 +204,20 @@ class ChatSession:
             elif isinstance(message, ResultMessage):
                 self._remember(message.session_id)
                 yield Event("result", result=message)
+
+
+def _result_metadata(result: ResultMessage | None, session_id: str | None) -> dict:
+    if result is None:
+        return {"session_id": session_id}
+    return {
+        "session_id": session_id,
+        "subtype": result.subtype,
+        "is_error": result.is_error,
+        "num_turns": result.num_turns,
+        "cost_usd": result.total_cost_usd,
+        "duration_ms": result.duration_ms,
+        "stop_reason": result.stop_reason,
+    }
 
 
 def _result_text(content: str | list | None) -> str:
