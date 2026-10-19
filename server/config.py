@@ -24,6 +24,7 @@ Environment variables the harness reads:
 | `HARNESS_FIXTURES_DIR` | Recorded provider responses (default `<repo>/tests/fixtures`) |
 | `HARNESS_FAKE_PROVIDERS` | `1` replaces every provider with a fake that replays fixtures |
 | `HARNESS_RECORD_FIXTURES` | `1` records real provider responses into the fixtures dir |
+| `LANGFUSE_PUBLIC_KEY`, `_SECRET_KEY`, `_BASE_URL` | Langfuse tracing (step 13); off when unset |
 | `HARNESS_FAKE_FAIL`, `HARNESS_FAKE_SLOW` | Fake providers only: steps that fail or are slow |
 | `HARNESS_FAKE_STREAM_DELAY` | Fake agent only: seconds between replayed text deltas |
 """
@@ -109,6 +110,9 @@ class Settings:
     fake_providers: bool
     record_fixtures: bool
     env_file: Path
+    langfuse_public_key: str | None = None
+    langfuse_secret_key: str | None = None
+    langfuse_base_url: str | None = None
     fake_fail: frozenset[str] = frozenset()
     fake_slow: frozenset[str] = frozenset()
 
@@ -142,6 +146,9 @@ class Settings:
             fake_providers=_truthy(get("HARNESS_FAKE_PROVIDERS")),
             record_fixtures=_truthy(get("HARNESS_RECORD_FIXTURES")),
             env_file=env_file,
+            langfuse_public_key=get("LANGFUSE_PUBLIC_KEY"),
+            langfuse_secret_key=get("LANGFUSE_SECRET_KEY"),
+            langfuse_base_url=get("LANGFUSE_BASE_URL"),
             fake_fail=names("HARNESS_FAKE_FAIL"),
             fake_slow=names("HARNESS_FAKE_SLOW"),
         )

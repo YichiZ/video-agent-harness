@@ -1,0 +1,564 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__list_shots",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+          "uuid": "45f92a10-5b3b-4cf2-a211-56bd01754af7"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "80421e1c-3065-44ee-a275-1705bd2607c8",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAk72U73aptynoia4Jpk",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 1182,
+              "cache_read_input_tokens": 1782,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1182
+              },
+              "output_tokens": 9,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "37a715d9-21cc-4dd0-9317-f000d68cc228",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2df4428f-7316-49d2-9e2c-195587f7cf06",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "18f7b584-935d-40b1-877b-1aa974ad0157",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQS7wQKEAgSGAI4AUIIdGhpbmtpbmcSDIYVu26ZiOVsVBo1JBoMMvdU2XtQx4WhMrJgIjAZKS7xwFVexEeeS1py1IoOBvD6sOxhAf27ErXVtVTl9bC60CasWEiPjQykh4jiDBsqjARVh2IxskaQkJRvYbpkaIDAz2ciReWZRDxTeqKD+wXcfYiKiuuHew3KoJ/JAeNCihX+reFIKcJoIaUpATtF2XrhZDcxTemRTld2oI5Wo3yJYjoId8MvJFf+D2JGEgMMThB2ajDMWJeuIy3sUe4fLBZ1lUJ4NofUiYE0GY/kYsSuU5jWBiYgaWBH9P10Kiw52oIlrP/igdEvxF5HutmmKTtHp7wdEeYWGdCRBTK30XT7pZnDLiv2L4ZUcjszlCXn9Xgp3wU6SZD3cHhdCvgDRlga4xPy72wI/lYcqV4cOFk1s3sKPFYLSPABgKKQ51ulogBHCWyMtNbWSxz2yOgaQumvjyMfOwVdkSoa9JYv4z1Nv77CpBSkn/GDc2q4phk450uE/RgdW8z71t6fbjOIPduzwFUI8h2f6dgGSCbTNz6we32qqV/Rp50aKDqR+mWGwDndv1dMvjVSMeY1K3V/BkzB4r5Mps5j9ksb7N9ZIt4SidyXlHlzGZwK1rHZJAvbjyteMgVk4cGL1NzT+b2Q4GRKr3yTHks8O9aN641y93bVMspXHgcVsZnz5N4L+zybEv5m2+3sE2VRO3j8m49vJvbvJegUrbBoH8Po4JNylaOCrntdHu8LNGWCK68O4J3oHia6zRHsYCS0HVT7TYNYbf/MKzIA8Jhdr0z2uniTUd42RLkPzdwIu9UP5w/GdRgB"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQS7wQKEAgSGAI4AUIIdGhpbmtpbmcSDIYVu26ZiOVsVBo1JBoMMvdU2XtQx4WhMrJgIjAZKS7xwFVexEeeS1py1IoOBvD6sOxhAf27ErXVtVTl9bC60CasWEiPjQykh4jiDBsqjARVh2IxskaQkJRvYbpkaIDAz2ciReWZRDxTeqKD+wXcfYiKiuuHew3KoJ/JAeNCihX+reFIKcJoIaUpATtF2XrhZDcxTemRTld2oI5Wo3yJYjoId8MvJFf+D2JGEgMMThB2ajDMWJeuIy3sUe4fLBZ1lUJ4NofUiYE0GY/kYsSuU5jWBiYgaWBH9P10Kiw52oIlrP/igdEvxF5HutmmKTtHp7wdEeYWGdCRBTK30XT7pZnDLiv2L4ZUcjszlCXn9Xgp3wU6SZD3cHhdCvgDRlga4xPy72wI/lYcqV4cOFk1s3sKPFYLSPABgKKQ51ulogBHCWyMtNbWSxz2yOgaQumvjyMfOwVdkSoa9JYv4z1Nv77CpBSkn/GDc2q4phk450uE/RgdW8z71t6fbjOIPduzwFUI8h2f6dgGSCbTNz6we32qqV/Rp50aKDqR+mWGwDndv1dMvjVSMeY1K3V/BkzB4r5Mps5j9ksb7N9ZIt4SidyXlHlzGZwK1rHZJAvbjyteMgVk4cGL1NzT+b2Q4GRKr3yTHks8O9aN641y93bVMspXHgcVsZnz5N4L+zybEv5m2+3sE2VRO3j8m49vJvbvJegUrbBoH8Po4JNylaOCrntdHu8LNGWCK68O4J3oHia6zRHsYCS0HVT7TYNYbf/MKzIA8Jhdr0z2uniTUd42RLkPzdwIu9UP5w/GdRgB"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1182,
+          "cache_read_input_tokens": 1782,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1182
+          },
+          "output_tokens": 9,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk72U73aptynoia4Jpk",
+        "stop_reason": null,
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "uuid": "96e6457c-1543-4dfc-84bb-d7c310d84273"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "eaad55e0-fdfc-489a-9af5-fdee02a55a83",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2b19612a-5150-4fe0-acb9-b74868ef0b85",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "10c2e51b-63c4-4dc0-92b8-6f69c1af8670",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "Under the step-up in"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ebbeee57-28fa-46f2-8ba0-d07c4a180640",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " basis rule, John's c"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "afc2d507-8093-4370-b89a-576f4d90ca5a",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ost basis is the st"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "82a172b1-43f9-4998-bbbc-1709e3d67d2d",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "ock's market value when Emily"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "92e9c559-4a96-4423-9138-7a8d564132fe",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " died, which"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f2e29c29-194f-4a3d-b893-5452620d859c",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " is $150 per share, not"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "64d67a98-6986-4706-b2c0-fd91cf0ad564",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " her original $50. His ta"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c35a60ec-6dc3-407d-b4ad-9cdc6cd34f31",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "xable gain is $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "614941b7-0e2c-4278-b8b1-4fadf33738e9",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "180 − $150 = $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "82f7d936-ff58-4fc5-a3dc-7e8fe2e7df83",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "30 per share, so"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b1d3004a-f69d-4bb2-a825-49b8db31974d",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": " the tax is $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a88be046-a57d-47db-bca5-120c27e1859a",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "30 × 15% = $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "aec6d1b4-7261-4c83-90eb-695db883e0d7",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "4.50 per share."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a417a7df-a645-4f56-a16a-ab7d2ccac524",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nAnswer: A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "Under the step-up in basis rule, John's cost basis is the stock's market value when Emily died, which is $150 per share, not her original $50. His taxable gain is $180 − $150 = $30 per share, so the tax is $30 × 15% = $4.50 per share.\n\nAnswer: A"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1182,
+          "cache_read_input_tokens": 1782,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 1182
+          },
+          "output_tokens": 9,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAk72U73aptynoia4Jpk",
+        "stop_reason": null,
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "uuid": "a183746d-796d-4047-9c2f-023a98d7bfa3"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e06947ff-aa1e-4403-8999-8a72e40d6226",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7932500b-c9f5-4eb2-8b42-9f8b5e2cee94",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1182,
+            "cache_read_input_tokens": 1782,
+            "output_tokens": 110,
+            "output_tokens_details": {
+              "thinking_tokens": 15
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 110,
+                "cache_read_input_tokens": 1782,
+                "cache_creation_input_tokens": 1182,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1182
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ea48a827-3c3b-4cc5-bd09-9dbb6151393c",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792390800,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792390800,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.03,
+                "resetsAt": 1792390800
+              },
+              "seven_day": {
+                "utilization": 0.22,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "f3251e37-2d9d-4458-9fbc-e092d0cd9652",
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233"
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 2330,
+        "duration_api_ms": 2305,
+        "is_error": false,
+        "num_turns": 1,
+        "session_id": "c89976c7-e83d-4754-83e8-b23734fb6233",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.0120204,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 1182,
+          "cache_read_input_tokens": 1782,
+          "output_tokens": 110,
+          "output_tokens_details": {
+            "thinking_tokens": 15
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1182,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 110,
+              "cache_read_input_tokens": 1782,
+              "cache_creation_input_tokens": 1182,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 1182
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "Under the step-up in basis rule, John's cost basis is the stock's market value when Emily died, which is $150 per share, not her original $50. His taxable gain is $180 − $150 = $30 per share, so the tax is $30 × 15% = $4.50 per share.\n\nAnswer: A",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 2,
+            "outputTokens": 110,
+            "cacheReadInputTokens": 1782,
+            "cacheCreationInputTokens": 1182,
+            "webSearchRequests": 0,
+            "costUSD": 0.0120204,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 15,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "a640e99f-5da3-47bf-ad8a-0c0c56bcc44d",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

@@ -4,7 +4,7 @@ A local demo: upload one video, then chat with an agent about it. The full desig
 
 ## Status
 
-Steps 0 to 12 of [PLAN.md](PLAN.md) are in place: M1 (the agent chat CLI), M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries), M3 (the HTTP server and chat WebSocket), M4 (the browser UI: upload, player, ingest panel, shot strip, transcript, and the streaming chat with timestamp chips) and step 12 (prompt v2 and the Skills). Commands:
+All of [PLAN.md](PLAN.md) (steps 0 to 13) is in place: M1 (the agent chat CLI), M2 (shots, per-shot captions, the search index, and parallel ingest with `status.json` and retries), M3 (the HTTP server and chat WebSocket), M4 (the browser UI: upload, player, ingest panel, shot strip, transcript, and the streaming chat with timestamp chips), step 12 (prompt v2 and the Skills) and step 13 (the eval with its gate, and Langfuse tracing). Commands:
 
 ```
 uv sync                                  # install (Python 3.12+, ffmpeg on PATH)
@@ -17,7 +17,9 @@ make web / make test-web                 # build the UI (Vite + React + Tailwind
 cd web && npm run dev                    # UI dev server on :5173, proxying the API to :8000
 make test                                # unit + offline e2e tests, no keys needed
 make test-live                           # real APIs; ARGS=--record refreshes tests/fixtures
-make eval SUBSET=smoke                   # prompt v1 vs v2 on six Video-MME questions
+make eval                                # 60 Video-MME questions, scorecard in evals/results/, exit 1 below the gate
+make eval SUBSET=smoke                   # the same on six questions (ARGS=--prompt-version broken must fail)
+make eval-compare                        # prompt v1 vs v2 on the six smoke questions
 make lint / make fmt                     # ruff
 uv run python -m server.cli <command>    # the CLI
 ```
@@ -32,7 +34,8 @@ uv run python -m server.cli <command>    # the CLI
 - **Agent tools:** `server/agent/tools.py`. `VideoTools` holds the plain tool methods for one workspace; `build_server()` wraps them as the in-process MCP server `video` (`ALLOWED_TOOLS` lists `mcp__video__*`). Raise `ToolError` for a call the agent should fix.
 - **Agent session:** `server/agent/session.py`. `build_options()` is the only place `ClaudeAgentOptions` is set (only the `Skill` built-in, `mcp__video__*`, `dontAsk`, `setting_sources=[]`); `ChatSession.ask()` yields text, tool, tool_result and result events and keeps `session.json`. The system prompt is `server/agent/prompt.<prompt_version>.md`. Offline replays `tests/fixtures/agent/<media>-chat.json` / `-resume.json`.
 - **Skills:** `server/agent/plugin/skills/<name>/SKILL.md`, loaded as the local plugin `video`; list a new one in `session.SKILLS` as `video:<name>`.
-- **Evals:** `make eval SUBSET=smoke` (`evals/smoke.py`) asks the six Video-MME questions in `evals/smoke.jsonl` with prompt v1 and v2 and fails if v2 scores lower. Step 13 replaces it.
+- **Evals:** `evals/run.py` (`make eval`) ingests each video once, asks each question of `evals/dataset.jsonl` (built by `evals/build_dataset.py`, fixed seed) in a fresh session, scores it with `evals/scoring.py` (accuracy by task type and length, grounded citations, cost, latency, a Gemini-only baseline) and gates on `ACCURACY_MIN` / `CITATION_MIN`. `make eval-compare` (`evals/smoke.py`) compares prompt v1 with v2. Offline evals replay `tests/fixtures/agent/eval-<subset>/`.
+- **Tracing:** `server/tracing.py`. `ChatSession.ask()` makes one Langfuse trace per turn (tools as child spans, versioned and tagged with the `release.json` hash) when the `LANGFUSE_*` keys are set; it is off with fake providers and never raises.
 - **Server:** `server/api/`. `app.py` has the routes (its docstring lists them), `library.py` the current video and its ingest thread, `chat.py` the `WS /chat` connection, `protocol.py` the frames; after changing frames run `scripts/export_protocol.py` to update `web/src/protocol.ts`.
 - **UI:** `web/src/`. `App.tsx` lays out the upload zone, player, ingest panel, shot strip, transcript and chat (`components/`); `lib/useChat.ts` is the `WS /chat` client and `lib/chips.ts` turns `[mm:ss]` into seek chips; `api.ts` wraps the HTTP routes and `protocol.ts` is generated. Browser e2e tests use Python Playwright with Google Chrome (`page` fixture), since Chromium cannot play the H.264 proxy.
 - **CLI:** `server/cli/`. One module per subcommand with `register(subparsers)`; add its name to `COMMANDS`. Exit codes: 0 ok, 1 config, 2 bad input, 3 ingest step failed.
