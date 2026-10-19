@@ -10,7 +10,7 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Status
 
-Steps 0 to 13 of the plan are in place: ingest (transcript, overview, shots, captions, search index), the agent chat in the terminal, the HTTP server, the browser UI with player, transcript, shot strip and streaming chat, and a Video-MME eval with a pass/fail gate and Langfuse tracing (`make eval`).
+Steps 0 to 13 of the plan are in place: ingest (transcript, overview, shots, captions, search index), the agent chat in the terminal, the HTTP server, the browser UI with player, transcript, shot strip and streaming chat, and a Video-MME eval with a pass/fail gate and Langfuse tracing (`make eval`). See [DESIGN.md](DESIGN.md) for the architecture and [PLAN.md](PLAN.md) for the step-by-step build and test plan.
 
 ```
 uv sync
