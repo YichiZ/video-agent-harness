@@ -14,6 +14,7 @@ import base64
 from pathlib import Path
 
 import pytest
+from playwright.sync_api import expect
 
 from tests.e2e.test_step10_server import READY_TIMEOUT_S, server
 
@@ -73,9 +74,9 @@ def open_and_drop(page, base: str, video: Path) -> None:
 def test_ui_cuts(cli, test_media, page):
     with server(cli) as base:
         open_and_drop(page, base, test_media / "cuts.mp4")
-        assert page.locator("[data-shot]").count() == 5
+        expect(page.locator("[data-shot]")).to_have_count(5)
         check_seek(page, '[data-shot="2"]')
-        assert page.get_by_text("No speech in this video.").is_visible()
+        expect(page.get_by_text("No speech in this video.")).to_be_visible()
 
 
 def test_ui_short(cli, videomme, page):

@@ -6,17 +6,32 @@ import Transcript from "./components/Transcript";
 import UploadZone from "./components/UploadZone";
 import { useStatus } from "./lib/useStatus";
 
-/** Loads `load()` whenever `key` changes and is not null; `null` until then. */
-function useLoaded<T>(key: string | null, load: () => Promise<T>): T | null {
+const RETRY_MS = 2000;
+
+/**
+ * Loads `load()` whenever `key` or `version` changes (and `key` is not null),
+ * retrying on failure. `null` until the first load for `key`; while a newer
+ * `version` loads, the previous value stays.
+ */
+function useLoaded<T>(key: string | null, version: string, load: () => Promise<T>): T | null {
   const [value, setValue] = useState<{ key: string; value: T } | null>(null);
+  const [attempt, setAttempt] = useState(0);
   useEffect(() => {
     if (key === null) return;
     let live = true;
-    load().then((v) => live && setValue({ key, value: v }), console.error);
+    let retry: ReturnType<typeof setTimeout> | undefined;
+    load().then(
+      (v) => live && setValue({ key, value: v }),
+      (e) => {
+        console.error(e);
+        if (live) retry = setTimeout(() => setAttempt((n) => n + 1), RETRY_MS);
+      },
+    );
     return () => {
       live = false;
+      clearTimeout(retry);
     };
-  }, [key]);
+  }, [key, version, attempt]);
   return value && value.key === key ? value.value : null;
 }
 
@@ -29,12 +44,15 @@ export default function App() {
   const done = (step: string) => status?.steps[step] === "done";
   const transcript = useLoaded<TranscriptData>(
     id && done("transcribe") ? id : null,
+    "",
     getTranscript,
   );
   const shots = useLoaded<{ shots: Shot[] }>(
-    id && done("shots") ? `${id}:${done("captions")}` : null,
+    id && done("shots") ? id : null,
+    String(done("captions")), // refetch with captions, keeping the strip meanwhile
     getShots,
   );
+  useEffect(() => setTime(0), [id]);
 
   const seek = useCallback((t: number) => {
     if (video.current) video.current.currentTime = t;

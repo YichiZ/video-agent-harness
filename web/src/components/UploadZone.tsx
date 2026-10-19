@@ -14,8 +14,10 @@ export default function UploadZone({ hasVideo, onUploaded }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [over, setOver] = useState(false);
 
-  async function start(files: FileList | null) {
-    if (!files || files.length === 0 || progress !== null) return;
+  async function start(fileList: FileList | null) {
+    const files = fileList ? [...fileList] : [];
+    if (input.current) input.current.value = ""; // so picking the same file again fires
+    if (files.length === 0 || progress !== null) return;
     if (files.length > 1) {
       setError("Drop one video at a time.");
       return;
@@ -29,7 +31,6 @@ export default function UploadZone({ hasVideo, onUploaded }: Props) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setProgress(null);
-      if (input.current) input.current.value = "";
     }
   }
 
