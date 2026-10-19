@@ -1,0 +1,1477 @@
+{
+  "turns": [
+    [
+      {
+        "_type": "SystemMessage",
+        "subtype": "init",
+        "data": {
+          "type": "system",
+          "subtype": "init",
+          "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+          "model": "claude-opus-5-5",
+          "tools": [
+            "Skill",
+            "mcp__video__get_frames",
+            "mcp__video__get_overview",
+            "mcp__video__get_transcript",
+            "mcp__video__inspect",
+            "mcp__video__search"
+          ],
+          "permissionMode": "dontAsk",
+          "mcp_servers": [
+            {
+              "name": "video",
+              "status": "connected"
+            }
+          ]
+        }
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+          "uuid": "887aeed4-a01b-4c69-9abd-f96d006051c4"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "42359b38-4d2a-44e3-abd2-d5c18130d7a8",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAWwJ9dncVPmR1H987iq",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 970,
+              "cache_read_input_tokens": 2026,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 970
+              },
+              "output_tokens": 3,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3c8a56ee-ca95-43e5-9650-abedf1035e35",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "thinking",
+            "thinking": "",
+            "signature": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5827bce4-fd28-491e-ae96-2df39643f874",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "thinking_delta",
+            "thinking": "",
+            "estimated_tokens": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a636d213-f3c9-4b10-9521-53b1b091c913",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "signature_delta",
+            "signature": "CAQSqAUKEAgSGAI4AUIIdGhpbmtpbmcSDOh9PSmfXiu2jPVsvBoMOwcraEYqc1sbCk9MIjBRkJIEl5eEVAco0vdToLIlxOdUEJ3sNvLQRZrKQ8R3GfqL2RZYCGZD0chUIhxtepYqxQTQwjWFRGX1TS0P+4jTR29kQLZL2tQGOPSCbv8T7JWr5HLAZzuv1MOG5/lS6ukagy+rE/7XlzXlpVJ1Tij9VjlEGTMb5DRNhjaahrnpzvQ3UP1DNFydJf7YoGtNNGs4/BZBvPsmi4mtyDNQOASxRWN4yzp/pxDd+yLRMnvoU0yczQ/infGsK/JAKF071myP4zhfBlMkgeM1Q+fFAYGkd0cIOzLaVk6KVUxnsCdX1x2Hi9i/I58zmrTtubRF/+V2btu/12nuAEw3jdn5eXuErUYpl1BJ9xIUGmDZbR3FBSn1X0kE5FjtBJQAwSCVu+r+50vQYTPboTkaJGglC8BoKBSObYk1jbFkS3AViZp32mrMtm2FZTeasTWBwg8G69V2EVb6dvOZRePQhOWenZ/jyEHJhX0Zx31AphDxObELxHcB43vELIUxjM7LDAmloaONDHhhmirIRMv8mHjOBbuuyo7cAcFjAaZkEwgQgjBwJreH9Wk9OhQhIQILEc6/2lu3HOAltpmqfcNLVnFxJBdOk5M/Czu+tFwjb7/99me78MBh842qXqdhDyGgjmk28FHuEuKP2xlDnwb95BrSLsYOZFYD1VKaFu/xpVT7qnBHeRlUuRjWzXEQPsLq/nhht/2xN5JMsJBc99nHEerF5eHEyLJpD9QlJIZ7YkMBiDUK48R+pjs9MPwPYOK/0ANenR/dmlnMIBHhiGdy5vImynNsGQYxc+XNb30MNLY000qHrkLy1TIzR6RFuKaEO+OKbphDdjj6Z+3zlRgB"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ThinkingBlock",
+            "thinking": "",
+            "signature": "CAQSqAUKEAgSGAI4AUIIdGhpbmtpbmcSDOh9PSmfXiu2jPVsvBoMOwcraEYqc1sbCk9MIjBRkJIEl5eEVAco0vdToLIlxOdUEJ3sNvLQRZrKQ8R3GfqL2RZYCGZD0chUIhxtepYqxQTQwjWFRGX1TS0P+4jTR29kQLZL2tQGOPSCbv8T7JWr5HLAZzuv1MOG5/lS6ukagy+rE/7XlzXlpVJ1Tij9VjlEGTMb5DRNhjaahrnpzvQ3UP1DNFydJf7YoGtNNGs4/BZBvPsmi4mtyDNQOASxRWN4yzp/pxDd+yLRMnvoU0yczQ/infGsK/JAKF071myP4zhfBlMkgeM1Q+fFAYGkd0cIOzLaVk6KVUxnsCdX1x2Hi9i/I58zmrTtubRF/+V2btu/12nuAEw3jdn5eXuErUYpl1BJ9xIUGmDZbR3FBSn1X0kE5FjtBJQAwSCVu+r+50vQYTPboTkaJGglC8BoKBSObYk1jbFkS3AViZp32mrMtm2FZTeasTWBwg8G69V2EVb6dvOZRePQhOWenZ/jyEHJhX0Zx31AphDxObELxHcB43vELIUxjM7LDAmloaONDHhhmirIRMv8mHjOBbuuyo7cAcFjAaZkEwgQgjBwJreH9Wk9OhQhIQILEc6/2lu3HOAltpmqfcNLVnFxJBdOk5M/Czu+tFwjb7/99me78MBh842qXqdhDyGgjmk28FHuEuKP2xlDnwb95BrSLsYOZFYD1VKaFu/xpVT7qnBHeRlUuRjWzXEQPsLq/nhht/2xN5JMsJBc99nHEerF5eHEyLJpD9QlJIZ7YkMBiDUK48R+pjs9MPwPYOK/0ANenR/dmlnMIBHhiGdy5vImynNsGQYxc+XNb30MNLY000qHrkLy1TIzR6RFuKaEO+OKbphDdjj6Z+3zlRgB"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 970,
+          "cache_read_input_tokens": 2026,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 970
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWwJ9dncVPmR1H987iq",
+        "stop_reason": null,
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "uuid": "ceb4e024-be22-4569-ae19-fbbeb0eb78ea"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4b43130b-044d-411d-a495-9127c6489956",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9a389f78-eb1d-45c1-b1fd-366fd3e656f4",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_start",
+          "index": 1,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01QzquV9dnBmi2PkoSVB1xaQ",
+            "name": "mcp__video__search",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7bc6a839-ab72-4520-a1bd-8ea871d29396",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "f09916e6-0207-4c1b-ac66-e20743683821",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"query\": \"step-up in basis"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ac72b142-9056-4056-a20a-e6445694104e",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "\", \"k\": 5"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "74940eb0-0f13-4359-aa13-57c81d1e49c5",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 1,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01QzquV9dnBmi2PkoSVB1xaQ",
+            "name": "mcp__video__search",
+            "input": {
+              "query": "step-up in basis",
+              "k": 5
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 970,
+          "cache_read_input_tokens": 2026,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 970
+          },
+          "output_tokens": 3,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWwJ9dncVPmR1H987iq",
+        "stop_reason": null,
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "uuid": "45741f7b-1222-4e77-867d-aa987e6a4d49"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d2338e0d-b5e1-49df-98bd-3916dd5cf4e1",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_stop",
+          "index": 1
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cfe0372b-7959-48f4-80b4-886c0685c723",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 970,
+            "cache_read_input_tokens": 2026,
+            "output_tokens": 113,
+            "output_tokens_details": {
+              "thinking_tokens": 35
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 113,
+                "cache_read_input_tokens": 2026,
+                "cache_creation_input_tokens": 970,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 970
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "4c11562e-f092-4498-8615-24f79285a323",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "RateLimitEvent",
+        "rate_limit_info": {
+          "_type": "RateLimitInfo",
+          "status": "allowed",
+          "resets_at": 1792371000,
+          "rate_limit_type": "five_hour",
+          "utilization": null,
+          "overage_status": "rejected",
+          "overage_resets_at": null,
+          "overage_disabled_reason": "org_level_disabled",
+          "raw": {
+            "status": "allowed",
+            "resetsAt": 1792371000,
+            "rateLimitType": "five_hour",
+            "overageStatus": "rejected",
+            "overageDisabledReason": "org_level_disabled",
+            "isUsingOverage": false,
+            "unifiedWindows": {
+              "five_hour": {
+                "utilization": 0.32,
+                "resetsAt": 1792371000
+              },
+              "seven_day": {
+                "utilization": 0.2,
+                "resetsAt": 1792688400
+              }
+            }
+          }
+        },
+        "uuid": "f2060cfa-d7ba-40ec-adbd-330bac0fa957",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d"
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01QzquV9dnBmi2PkoSVB1xaQ",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"query\": \"step-up in basis\", \"hits\": [{\"score\": 0.75, \"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"score\": 0.25, \"start\": 0.06, \"end\": 9.02, \"time\": \"00:00\", \"speaker\": \"speaker_0\", \"text\": \"[upbeat music] This is Warren Buffett, one of the richest people in the world, thanks to the company he runs, Berkshire Hathaway.\"}, {\"score\": 0.25, \"start\": 9.54, \"end\": 19.92, \"time\": \"00:10\", \"speaker\": \"speaker_0\", \"text\": \"Basically, it's a holding company that just owns a bunch of other companies: GEICO, Dairy Queen, a huge railroad, as well as a lot of stock in other companies, like Apple and Coca-Cola.\"}, {\"score\": 0.25, \"start\": 20.64, \"end\": 25.04, \"time\": \"00:21\", \"speaker\": \"speaker_0\", \"text\": \"So when those companies do well and their stock goes up, Berkshire Hathaway stock goes up.\"}, {\"score\": 0.25, \"start\": 26.52, \"end\": 31.04, \"time\": \"00:27\", \"speaker\": \"speaker_0\", \"text\": \"When Buffett took over the company in 1965, a single share was worth $19.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "13a41c65-b31a-44a7-861f-6790ec54872d",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"query\": \"step-up in basis\", \"hits\": [{\"score\": 0.75, \"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"score\": 0.25, \"start\": 0.06, \"end\": 9.02, \"time\": \"00:00\", \"speaker\": \"speaker_0\", \"text\": \"[upbeat music] This is Warren Buffett, one of the richest people in the world, thanks to the company he runs, Berkshire Hathaway.\"}, {\"score\": 0.25, \"start\": 9.54, \"end\": 19.92, \"time\": \"00:10\", \"speaker\": \"speaker_0\", \"text\": \"Basically, it's a holding company that just owns a bunch of other companies: GEICO, Dairy Queen, a huge railroad, as well as a lot of stock in other companies, like Apple and Coca-Cola.\"}, {\"score\": 0.25, \"start\": 20.64, \"end\": 25.04, \"time\": \"00:21\", \"speaker\": \"speaker_0\", \"text\": \"So when those companies do well and their stock goes up, Berkshire Hathaway stock goes up.\"}, {\"score\": 0.25, \"start\": 26.52, \"end\": 31.04, \"time\": \"00:27\", \"speaker\": \"speaker_0\", \"text\": \"When Buffett took over the company in 1965, a single share was worth $19.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+          "uuid": "b19bf06a-0c33-4b8c-bd6c-bfd4b3825f49"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "a7dc4826-c9eb-428b-aa3b-bb404581b302",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAWwRWPxUWHnQdCo1MQF",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 646,
+              "cache_read_input_tokens": 2996,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 646
+              },
+              "output_tokens": 24,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "459a58d6-0590-41e8-9e04-baaac26457fb",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "tool_use",
+            "id": "toolu_01A4aKnTYXLNibAAihPAffuB",
+            "name": "mcp__video__get_transcript",
+            "input": {},
+            "caller": {
+              "type": "direct"
+            }
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b87b5379-e1bf-442e-856f-2ba1b0cbd82b",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "69dc14e5-6936-4dfb-99fe-ddf2e3f8ed97",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "{\"start\": 236"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "071e5c78-8aef-4705-8c17-db58355b8509",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": ", \"end\": 275"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "ee1e0894-fd06-41ea-947f-ecd1d3f7c70d",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "input_json_delta",
+            "partial_json": "}"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "ToolUseBlock",
+            "id": "toolu_01A4aKnTYXLNibAAihPAffuB",
+            "name": "mcp__video__get_transcript",
+            "input": {
+              "start": 236,
+              "end": 275
+            }
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 646,
+          "cache_read_input_tokens": 2996,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 646
+          },
+          "output_tokens": 24,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWwRWPxUWHnQdCo1MQF",
+        "stop_reason": null,
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "uuid": "44276a43-a762-44b3-b21d-77e5f35cd0a5"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "cd3bf342-d599-43c6-84f0-320d2e4682ac",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c5e62b93-5645-4e03-bab9-fa6ca5022b29",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "tool_use",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 646,
+            "cache_read_input_tokens": 2996,
+            "output_tokens": 76,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 76,
+                "cache_read_input_tokens": 2996,
+                "cache_creation_input_tokens": 646,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 646
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "eaf9147e-775e-4da2-a044-121b376553bf",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "UserMessage",
+        "content": [
+          {
+            "_type": "ToolResultBlock",
+            "tool_use_id": "toolu_01A4aKnTYXLNibAAihPAffuB",
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"start\": 236.0, \"end\": 275.0, \"segments\": [{\"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"start\": 242.46, \"end\": 251.42, \"time\": \"04:02\", \"speaker\": \"speaker_0\", \"text\": \"If, hypothetically, Warren Buffett were to sell his stock, he'd have to pay capital gains taxes based on his profit, so the cost of the stock minus the original investment.\"}, {\"start\": 252.1, \"end\": 262.64, \"time\": \"04:12\", \"speaker\": \"speaker_0\", \"text\": \"But if he holds off selling his entire life, when he dies, whoever inherits the stock and then sells it would only have to pay taxes on what they earned after they inherited it,\"}, {\"start\": 263.52, \"end\": 266.24, \"time\": \"04:24\", \"speaker\": \"speaker_0\", \"text\": \"leaving all those original gains untaxed.\"}, {\"start\": 267.2, \"end\": 273.2, \"time\": \"04:27\", \"speaker\": \"speaker_0\", \"text\": \"It's part of what's called buy, borrow, die, and it's one way the richest families avoid paying taxes.\"}, {\"start\": 274.02, \"end\": 283.92, \"time\": \"04:34\", \"speaker\": \"speaker_0\", \"text\": \"It's this system and the fact that most taxable capital gains are going to the top 1% that lawmakers see changing the capital gains tax as an easy way to tax the rich.\"}]}"
+              }
+            ],
+            "is_error": null
+          }
+        ],
+        "uuid": "0fdf474e-964e-45ff-908e-6b084438a687",
+        "parent_tool_use_id": null,
+        "tool_use_result": [
+          {
+            "type": "text",
+            "text": "{\"start\": 236.0, \"end\": 275.0, \"segments\": [{\"start\": 236.48, \"end\": 241.68, \"time\": \"03:56\", \"speaker\": \"speaker_0\", \"text\": \"There's also a big loophole in capital gains taxes that the rich exploit called the stepped-up basis.\"}, {\"start\": 242.46, \"end\": 251.42, \"time\": \"04:02\", \"speaker\": \"speaker_0\", \"text\": \"If, hypothetically, Warren Buffett were to sell his stock, he'd have to pay capital gains taxes based on his profit, so the cost of the stock minus the original investment.\"}, {\"start\": 252.1, \"end\": 262.64, \"time\": \"04:12\", \"speaker\": \"speaker_0\", \"text\": \"But if he holds off selling his entire life, when he dies, whoever inherits the stock and then sells it would only have to pay taxes on what they earned after they inherited it,\"}, {\"start\": 263.52, \"end\": 266.24, \"time\": \"04:24\", \"speaker\": \"speaker_0\", \"text\": \"leaving all those original gains untaxed.\"}, {\"start\": 267.2, \"end\": 273.2, \"time\": \"04:27\", \"speaker\": \"speaker_0\", \"text\": \"It's part of what's called buy, borrow, die, and it's one way the richest families avoid paying taxes.\"}, {\"start\": 274.02, \"end\": 283.92, \"time\": \"04:34\", \"speaker\": \"speaker_0\", \"text\": \"It's this system and the fact that most taxable capital gains are going to the top 1% that lawmakers see changing the capital gains tax as an easy way to tax the rich.\"}]}"
+          }
+        ],
+        "origin": null
+      },
+      {
+        "_type": "SystemMessage",
+        "subtype": "status",
+        "data": {
+          "type": "system",
+          "subtype": "status",
+          "status": "requesting",
+          "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+          "uuid": "ba70aff0-2e22-42ff-9670-1fdfd94549f6"
+        }
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "34ab864d-ccd4-492c-a08b-fa07835a23f1",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_start",
+          "message": {
+            "model": "claude-opus-5-5",
+            "id": "msg_011CgAWwViAnGMN22ShkZkm6",
+            "type": "message",
+            "role": "assistant",
+            "content": [],
+            "container": null,
+            "stop_reason": null,
+            "stop_sequence": null,
+            "stop_details": null,
+            "usage": {
+              "input_tokens": 2,
+              "cache_creation_input_tokens": 657,
+              "cache_read_input_tokens": 3642,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 657
+              },
+              "output_tokens": 254,
+              "service_tier": "standard",
+              "inference_geo": "global",
+              "speed": "standard"
+            },
+            "input_transformations": [],
+            "diagnostics": null,
+            "context_management": null
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3e98cd24-ed04-4a9f-b5b3-a39452f63989",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_start",
+          "index": 0,
+          "content_block": {
+            "type": "text",
+            "text": ""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c99d6e12-66f0-4c3f-9ff7-ec1c4808684d",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "John would"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "3261dcaa-74aa-4772-a98d-b8c8e1eee756",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " pay $4.50"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7825d601-2331-4e65-96a9-a478532aaea8",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " per share in capital gains"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "42d30830-e066-477b-b9ef-944a9ac7a7fc",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " tax.\n\nThe video explains"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "18a84788-daa3-43d6-b576-bcf743ad3223",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " the \""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7c869891-2097-4a03-ac0d-f7693a9021a4",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "stepped-up basis\""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0a93dd99-106b-470c-a3a8-c9a0140742d3",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " at [03:56–"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6558bc90-0a6a-4b88-ba40-44978b374df9",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "04:24"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "79426936-7d34-4e1d-a004-6b86e0b7b35e",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "]. Someone who inher"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "94c30bf2-d313-4f1f-bd51-56170be5aeb6",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "its stock and"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "2b35d5e0-2b83-4295-89b9-8f4d742905d6",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " later"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "26ac0ead-0ea4-43db-add7-13f3b76cf43f",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " sells it \""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d52d0cf7-deff-4d72-badd-3167ebf38193",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "would"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c9359cfd-a0ed-4ef2-b81f-1633629a5be1",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " only have to pay taxes"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "12aeca31-cf2c-4f3f-a9b0-44f059d26bc4",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " on what they earned after they in"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dca5cd6b-0676-4388-8f21-428bcec8c6ed",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "herited it.\""
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6e86122e-1b08-4a00-ab2a-562742b43c63",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Any gains from"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "72cf32c9-4724-4413-a13b-ee6ff14b347b",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " before the"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "9938a9a8-5d6e-4fe1-a661-7a450c1861b1",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " inheritance are never"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "92f4c56e-a83a-4e8a-8caa-ef168330bea6",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " taxed.\n\n-"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "387ccc5e-939c-4d19-9468-216aa5832c63",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " John's basis ste"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1e26d422-161f-4cd1-9384-42ef1da56d80",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ps up to the $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "6fa5b789-b9ed-4e3e-b903-7fd26e765bf2",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "150 value at Emily's"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e39341b8-0af3-4935-966b-b3101d749b3c",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " death in 2020."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1df9af94-4c01-4363-83bf-a91a1f1c766e",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Her original $50 purch"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "1581342b-b791-4976-a6ff-7400b6502c6f",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "ase price no"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "784edbe5-b570-4978-8038-9c413d5ca2ea",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " longer counts.\n- His"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "76241e0e-f876-445c-a270-40ce8df5088e",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " taxable gain is $180"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0e49cb4f-2708-40cd-9622-e35632a9c8df",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " − $150 = $30"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "5de86d6c-5e6b-4ddb-974e-fcd1b4ba6ab1",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " per share.\n- At"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "7379775b-a846-4e6f-9bc0-67ec5b08f69c",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " 15%, the"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "391002d5-a480-446e-aa85-8d234c767783",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " tax is $30 × "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "fef8529e-6458-4bf5-8d2e-d92efbe5487c",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "0.15 = $4."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "707caa84-7af7-4807-92a5-e9b37b3bdcf3",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "50 per share.\n\nThe $"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "59a2c0da-54b2-43ad-978f-0331a735b40a",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "100 per"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "befb3c04-e0b9-43ba-a8f1-12f6796b244e",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " share"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "00ff2fde-6fed-4e26-a54b-cc94baab2fbe",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " Emily gained between "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "49e161eb-b1d9-42c9-9711-553fd1e4e0aa",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "2005 and 2020 "
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "26e021ee-094a-471a-83f7-a1ab2e73a3b6",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "is never taxed. The video"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "e622e486-4d91-49f9-b1ff-247c5f6950a5",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " calls this"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b848c897-16c2-45a7-bd09-2f6f6c5a7961",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " a"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "d91ccaf7-d26e-4d51-9562-97edd434bf5d",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " loophole used in"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b5775089-bcf0-48df-9d01-0d10649b63aa",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " \"buy, borrow,"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "dca2e8fe-442f-4671-ae29-0d2531a4430a",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": " die\" [04:27]."
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "c1e09dd4-a545-4c33-8fe1-d30159c03daa",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_delta",
+          "index": 0,
+          "delta": {
+            "type": "text_delta",
+            "text": "\n\nAnswer: A"
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "AssistantMessage",
+        "content": [
+          {
+            "_type": "TextBlock",
+            "text": "John would pay $4.50 per share in capital gains tax.\n\nThe video explains the \"stepped-up basis\" at [03:56–04:24]. Someone who inherits stock and later sells it \"would only have to pay taxes on what they earned after they inherited it.\" Any gains from before the inheritance are never taxed.\n\n- John's basis steps up to the $150 value at Emily's death in 2020. Her original $50 purchase price no longer counts.\n- His taxable gain is $180 − $150 = $30 per share.\n- At 15%, the tax is $30 × 0.15 = $4.50 per share.\n\nThe $100 per share Emily gained between 2005 and 2020 is never taxed. The video calls this a loophole used in \"buy, borrow, die\" [04:27].\n\nAnswer: A"
+          }
+        ],
+        "model": "claude-opus-5-5",
+        "parent_tool_use_id": null,
+        "error": null,
+        "usage": {
+          "input_tokens": 2,
+          "cache_creation_input_tokens": 657,
+          "cache_read_input_tokens": 3642,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 657
+          },
+          "output_tokens": 254,
+          "service_tier": "standard",
+          "inference_geo": "global",
+          "speed": "standard"
+        },
+        "message_id": "msg_011CgAWwViAnGMN22ShkZkm6",
+        "stop_reason": null,
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "uuid": "e60b954d-5088-4562-966c-e590cf35c25e"
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "732b8d6b-7b2d-485d-808b-93ee8487b933",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "content_block_stop",
+          "index": 0
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "b1f45e1f-a092-4c88-a227-4893f4fdc42c",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_delta",
+          "delta": {
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "stop_details": null,
+            "container": null
+          },
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 657,
+            "cache_read_input_tokens": 3642,
+            "output_tokens": 254,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 254,
+                "cache_read_input_tokens": 3642,
+                "cache_creation_input_tokens": 657,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 657
+                },
+                "type": "message"
+              }
+            ]
+          },
+          "context_management": {
+            "applied_edits": []
+          }
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "StreamEvent",
+        "uuid": "0e211f20-09f1-4aae-befe-281daa135a27",
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "event": {
+          "type": "message_stop"
+        },
+        "parent_tool_use_id": null
+      },
+      {
+        "_type": "ResultMessage",
+        "subtype": "success",
+        "duration_ms": 5771,
+        "duration_api_ms": 5728,
+        "is_error": false,
+        "num_turns": 3,
+        "session_id": "7c9acdbd-68fe-4b14-b3b7-3cc04aa9751d",
+        "stop_reason": "end_turn",
+        "total_cost_usd": 0.028800799999999998,
+        "usage": {
+          "input_tokens": 6,
+          "cache_creation_input_tokens": 2273,
+          "cache_read_input_tokens": 8664,
+          "output_tokens": 443,
+          "output_tokens_details": {
+            "thinking_tokens": 35
+          },
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 2273,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "global",
+          "iterations": [
+            {
+              "input_tokens": 2,
+              "output_tokens": 254,
+              "cache_read_input_tokens": 3642,
+              "cache_creation_input_tokens": 657,
+              "cache_creation": {
+                "ephemeral_5m_input_tokens": 0,
+                "ephemeral_1h_input_tokens": 657
+              },
+              "type": "message"
+            }
+          ],
+          "speed": "standard",
+          "fallback_credit": null
+        },
+        "result": "John would pay $4.50 per share in capital gains tax.\n\nThe video explains the \"stepped-up basis\" at [03:56–04:24]. Someone who inherits stock and later sells it \"would only have to pay taxes on what they earned after they inherited it.\" Any gains from before the inheritance are never taxed.\n\n- John's basis steps up to the $150 value at Emily's death in 2020. Her original $50 purchase price no longer counts.\n- His taxable gain is $180 − $150 = $30 per share.\n- At 15%, the tax is $30 × 0.15 = $4.50 per share.\n\nThe $100 per share Emily gained between 2005 and 2020 is never taxed. The video calls this a loophole used in \"buy, borrow, die\" [04:27].\n\nAnswer: A",
+        "structured_output": null,
+        "model_usage": {
+          "claude-opus-5-5": {
+            "inputTokens": 6,
+            "outputTokens": 443,
+            "cacheReadInputTokens": 8664,
+            "cacheCreationInputTokens": 2273,
+            "webSearchRequests": 0,
+            "costUSD": 0.028800799999999998,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 128000,
+            "thinkingTokens": 35,
+            "canonicalModel": "claude-opus-5-5",
+            "provider": "firstParty",
+            "costBasis": "list"
+          }
+        },
+        "permission_denials": [],
+        "deferred_tool_use": null,
+        "errors": null,
+        "api_error_status": null,
+        "uuid": "0f650ea1-7b17-49fb-a35a-6a6487ba3989",
+        "terminal_reason": "completed",
+        "origin": null
+      }
+    ]
+  ]
+}

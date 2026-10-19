@@ -1,0 +1,10 @@
+{
+  "_comment": "Hand-written response for the generated cuts.mp4, so CI can run step 4 offline.",
+  "answer": "The range shows a single continuous clip with no cut [00:02].",
+  "observations": [
+    {
+      "time": "00:02",
+      "observation": "One static shot fills the frame."
+    }
+  ]
+}

@@ -10,21 +10,51 @@ The design builds on [HKUDS/VideoAgent](https://github.com/HKUDS/VideoAgent) and
 
 ## Status
 
-The project is at the design stage, and there is no runnable code yet. See [DESIGN.md](DESIGN.md) for the architecture and [PLAN.md](PLAN.md) for the step-by-step build and test plan.
+Steps 0 to 13 of the plan are in place: ingest (transcript, overview, shots, captions, search index), the agent chat in the terminal, the HTTP server, the browser UI with player, transcript, shot strip and streaming chat, and a Video-MME eval with a pass/fail gate and Langfuse tracing (`make eval`). See [DESIGN.md](DESIGN.md) for the architecture and [PLAN.md](PLAN.md) for the step-by-step build and test plan.
 
-## Planned layout
+```
+uv sync
+cp .env.example .env    # add keys; ANTHROPIC_API_KEY is optional
+make doctor             # checks ffmpeg, release.json, keys and the Claude auth mode
+make test               # offline tests, no keys needed
+```
+
+## Running the UI
+
+```
+uv sync
+make web                # installs web/node_modules on first run, then builds web/dist
+make serve              # the server on http://127.0.0.1:8000, which also serves the built UI
+```
+
+Open http://127.0.0.1:8000, drop one video (60 minutes at most) on the page, and wait for the ingest chips to turn green. The chat opens once the transcript and overview are ready; click a timestamp in an answer to jump the player there.
+
+To work on the UI with hot reload, keep `make serve` running and start the Vite dev server in a second terminal (it proxies the API to :8000):
+
+```
+cd web && npm run dev   # http://localhost:5173
+```
+
+## Chatting in the terminal
+
+```
+make chat VIDEO=path/to/video.mp4                                  # ingest if needed, then chat
+uv run python -m server.cli chat path/to/video.mp4 --resume        # continue the last chat
+```
+
+## Layout
 
 ```
 server/        FastAPI: upload, ingest pipeline, agent session, video tools
 web/           Vite + React: player, transcript, chat
-.claude/       Skills for the agent and worktrees for development
+evals/         Video-MME eval sets and the eval runner
 workspace/     Per-video data (gitignored)
 ```
 
-## Requirements (planned)
+## Requirements
 
 - Python 3.12+, Node 20+, ffmpeg
-- `ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`, `GEMINI_API_KEY` in `.env`
+- `ELEVENLABS_API_KEY`, `GOOGLE_CLOUD_PROJECT` and `HARNESS_GCS_BUCKET` in `.env`, plus `gcloud auth application-default login` for Gemini on Vertex AI. `ANTHROPIC_API_KEY` is optional: without it the agent uses your Claude Code login (subscription).
 
 ## Contributing
 

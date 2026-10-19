@@ -1,0 +1,55 @@
+{
+  "summary": "This educational animation explains the biological mechanism behind mRNA vaccines designed to fight COVID-19. It illustrates how the virus targets host cells, how messenger RNA teaches the body to recognize spike proteins, and how antibodies neutralize the virus. The clip concludes by emphasizing the safety and rigorous testing of mRNA technology.",
+  "subjects": [
+    {
+      "name": "Coronavirus (COVID-19)",
+      "kind": "other",
+      "description": "An animated model of the coronavirus covered in distinctive surface spike proteins.",
+      "first_seen": "00:01"
+    },
+    {
+      "name": "Host Cell",
+      "kind": "other",
+      "description": "A body cell that is targeted by the virus and later processes the vaccine's mRNA.",
+      "first_seen": "00:07"
+    },
+    {
+      "name": "mRNA Vaccine",
+      "kind": "object",
+      "description": "A syringe delivering messenger RNA instructions into host cells.",
+      "first_seen": "00:19"
+    },
+    {
+      "name": "Antibodies",
+      "kind": "other",
+      "description": "Y-shaped immune proteins generated to attach to and neutralize spike proteins.",
+      "first_seen": "00:43"
+    }
+  ],
+  "chapters": [
+    {
+      "start": "00:00",
+      "end": "00:19",
+      "title": "Virus Infection Process",
+      "summary": "The animation shows how the COVID-19 virus attaches to host cells using its outer spike proteins."
+    },
+    {
+      "start": "00:19",
+      "end": "00:45",
+      "title": "How mRNA Vaccines Work",
+      "summary": "The vaccine introduces mRNA that instructs cells to produce harmless spike proteins, triggering an immune response."
+    },
+    {
+      "start": "00:45",
+      "end": "01:02",
+      "title": "Neutralizing the Virus",
+      "summary": "Antibodies lock onto the viral spike proteins, preventing the virus from replicating or entering cells."
+    },
+    {
+      "start": "01:02",
+      "end": "01:24",
+      "title": "Vaccine Safety and Credits",
+      "summary": "The video highlights the verified safety of mRNA vaccines and concludes with creator credits."
+    }
+  ]
+}
