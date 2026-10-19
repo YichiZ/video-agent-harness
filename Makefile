@@ -13,9 +13,11 @@ test-live: media  ## live tests against the real APIs; add ARGS=--record to refr
 	uv run pytest -m live $(ARGS)
 
 test-web:  ## UI type check, vitest and build (web/dist, which `serve` and the browser tests use)
+	@test -d web/node_modules || npm ci --prefix web
 	cd web && npx vitest run && npm run build
 
-web:  ## build the UI into web/dist
+web:  ## build the UI into web/dist (installs web/node_modules on first run)
+	@test -d web/node_modules || npm ci --prefix web
 	cd web && npm run build
 
 lint:  ## ruff lint and format check
