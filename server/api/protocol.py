@@ -53,6 +53,8 @@ class Result(BaseModel):
 class IngestStatus(BaseModel):
     type: Literal["ingest_status"] = "ingest_status"
     video_id: str | None
+    generation: int = 0
+    """Counts uploads since the server started, so a re-upload of the same video shows."""
     name: str | None
     chat_ready: bool
     steps: dict[str, str]
@@ -79,12 +81,16 @@ class ChatTurn(BaseModel):
 class History(BaseModel):
     type: Literal["history"] = "history"
     video_id: str | None
+    generation: int
+    """The upload count; `IngestStatus.generation` moving past it means the chat was cleared."""
     turns: list[ChatTurn]
 
 
 class ChatError(BaseModel):
     type: Literal["error"] = "error"
     message: str
+    refused: bool = False
+    """The user message was refused (no turn started), rather than a turn failing."""
 
 
 ClientFrame = Annotated[UserMessage | Interrupt, Field(discriminator="type")]

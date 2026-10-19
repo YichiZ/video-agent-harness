@@ -27,6 +27,7 @@ export interface ChatTurn {
 export interface History {
   type: "history";
   video_id: string | null;
+  generation: number;
   turns: ChatTurn[];
 }
 
@@ -61,6 +62,7 @@ export interface Result {
 export interface IngestStatus {
   type: "ingest_status";
   video_id: string | null;
+  generation: number;
   name: string | null;
   chat_ready: boolean;
   steps: Record<string, string>;
@@ -70,6 +72,7 @@ export interface IngestStatus {
 export interface ChatError {
   type: "error";
   message: string;
+  refused: boolean;
 }
 
 export type ClientFrame = UserMessage | Interrupt;

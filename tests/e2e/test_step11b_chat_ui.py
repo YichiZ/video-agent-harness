@@ -3,8 +3,9 @@
 On `short` (Video-MME, skips in CI): the step 5 question streams in, its first
 timestamp chip seeks the player to within 0.5 s, a tool row expands to show its
 input, Stop ends the second answer, and after a reload the history is still
-there. Offline the agent replays `TbaCxIJ_VP4-chat.json` (whose first two turns
-are these two questions); live it is the real agent through the whole stack.
+there; uploading the same video again clears the chat. Offline the agent replays
+`TbaCxIJ_VP4-chat.json` (whose first two turns are these two questions); live it is
+the real agent through the whole stack.
 On `cuts.mp4` (everywhere) the input stays disabled until the video is chat-ready.
 """
 
@@ -69,9 +70,15 @@ def check_chat(page, base: str, video) -> None:
     expect(page.locator('[data-role="assistant"]').first).to_contain_text("pike")
     expect(page.get_by_text("(stopped)")).to_be_visible()
 
+    drop(page, video)  # the same video again: a new upload starts a new chat
+    expect(page.locator('[data-role="user"]')).to_have_count(0)
+    page.reload()
+    expect(page.get_by_label("message")).to_be_enabled(timeout=ANSWER_TIMEOUT_MS)
+    expect(page.locator('[data-role="user"]')).to_have_count(0)
+
 
 def test_chat_ui_short(cli, videomme, page):
-    with server(cli) as base:
+    with server(cli, {"HARNESS_FAKE_STREAM_DELAY": "0.1"}) as base:  # time to see and press Stop
         check_chat(page, base, videomme("short"))
 
 

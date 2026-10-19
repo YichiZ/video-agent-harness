@@ -71,10 +71,20 @@ class Connection:
     def send(self, frame: BaseModel) -> None:
         self.outbox.put_nowait(frame)
 
+    def refuse(self, message: str) -> None:
+        """No turn started for the user's message."""
+        self.send(p.ChatError(message=message, refused=True))
+
     async def run(self) -> None:
         current = self.library.current
         turns = load_history(current) if current else []
-        self.send(p.History(video_id=current.id if current else None, turns=turns))
+        self.send(
+            p.History(
+                video_id=current.id if current else None,
+                generation=self.library.generation,
+                turns=turns,
+            )
+        )
         tasks = [asyncio.create_task(c) for c in (self._writer(), self._status())]
         try:
             await self._reader()
@@ -114,24 +124,24 @@ class Connection:
                     self.interrupted = True
                     await self.session.interrupt()
             elif self.turn and not self.turn.done():
-                self.send(p.ChatError(message="a turn is already running; interrupt it first"))
+                self.refuse("a turn is already running; interrupt it first")
             else:
                 await self._start_turn(frame.text)
 
     async def _start_turn(self, text: str) -> None:
         status = self.library.status()
         if not status.chat_ready:
-            self.send(p.ChatError(message="the video is not chat-ready yet"))
+            self.refuse("the video is not chat-ready yet")
             return
         settings = self.library.settings
         if detect_auth(settings).mode is AuthMode.NONE and not settings.fake_providers:
-            self.send(p.ChatError(message="no Claude auth: set ANTHROPIC_API_KEY or log in"))
+            self.refuse("no Claude auth: set ANTHROPIC_API_KEY or log in")
             return
         try:
             await self._ensure_session()
         except Exception as e:
             log.exception("could not start a chat session")
-            self.send(p.ChatError(message=f"could not start the chat: {type(e).__name__}: {e}"))
+            self.refuse(f"could not start the chat: {type(e).__name__}: {e}")
             return
         self.interrupted = False
         self.turn = asyncio.create_task(self._turn(text))
@@ -175,15 +185,24 @@ class Connection:
             log.exception("chat turn failed")
             self.send(p.ChatError(message=f"{type(e).__name__}: {e}"))
         finally:  # also for an interrupted or abandoned turn
-            reply = p.ChatTurn(
-                role="assistant",
-                text="".join(answer),
-                tools=list(tools.values()),
-                interrupted=self.interrupted,
-            )
-            user = p.ChatTurn(role="user", text=text)
-            if workspace.dir.is_dir():
-                save_history(workspace, [*load_history(workspace), user, reply])
+            self._save_turn(workspace, text, answer, tools)
+
+    def _save_turn(
+        self, workspace: Workspace, text: str, answer: list[str], tools: dict[str, p.ToolCall]
+    ) -> None:
+        if self.library.generation != self.generation:
+            return  # the video was uploaded again mid-turn: that chat is gone
+        if not answer and not tools:
+            return  # nothing came back (a failed turn): the client drops it too
+        reply = p.ChatTurn(
+            role="assistant",
+            text="".join(answer),
+            tools=list(tools.values()),
+            interrupted=self.interrupted,
+        )
+        user = p.ChatTurn(role="user", text=text)
+        if workspace.dir.is_dir():
+            save_history(workspace, [*load_history(workspace), user, reply])
 
     async def _close_session(self) -> None:
         if self.session:

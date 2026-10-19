@@ -70,7 +70,7 @@ function Turn({ turn, onSeek }: { turn: ChatTurn; onSeek: (t: number) => void })
 }
 
 export default function Chat({ videoId, chatReady, onSeek }: Props) {
-  const chat = useChat(videoId);
+  const chat = useChat();
   const [draft, setDraft] = useState("");
   const end = useRef<HTMLDivElement>(null);
   const last = chat.turns[chat.turns.length - 1];

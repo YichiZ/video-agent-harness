@@ -37,17 +37,17 @@ function applyFrame(turns: ChatTurn[], frame: ServerFrame): ChatTurn[] {
   }
 }
 
-/** A refused message (not ready, turn running) leaves an empty reply: take the pair back out. */
+/** A refused message (not ready, a turn already running) gets no reply: take the pair back out. */
 function dropUnanswered(turns: ChatTurn[]): ChatTurn[] {
   const last = turns[turns.length - 1];
   return last?.role === "assistant" && !last.text && last.tools.length === 0 ? turns.slice(0, -2) : turns;
 }
 
 /** The `WS /chat` connection: history on connect, streamed replies, Stop. Reconnects. */
-export function useChat(videoId: string | null) {
+export function useChat() {
   const [state, setState] = useState<ChatState>({ turns: [], running: false, connected: false, error: null });
   const socket = useRef<WebSocket | null>(null);
-  const historyVideo = useRef<string | null>(null);
+  const generation = useRef<number | null>(null); // the upload the shown chat belongs to
 
   useEffect(() => {
     let closed = false;
@@ -57,17 +57,26 @@ export function useChat(videoId: string | null) {
       const scheme = location.protocol === "https:" ? "wss" : "ws";
       const ws = new WebSocket(`${scheme}://${location.host}/chat`);
       socket.current = ws;
-      ws.onopen = () => setState((s) => ({ ...s, connected: true }));
       ws.onmessage = (event) => {
         const frame = JSON.parse(event.data) as ServerFrame;
         if (frame.type === "history") {
-          historyVideo.current = frame.video_id;
-          setState((s) => ({ ...s, turns: frame.turns, running: false, error: null }));
+          // Connected only now, so a message sent before this can't be overwritten by it.
+          generation.current = frame.generation;
+          setState((s) => ({ ...s, turns: frame.turns, running: false, error: null, connected: true }));
+        } else if (frame.type === "ingest_status") {
+          if (generation.current !== null && frame.generation !== generation.current) {
+            generation.current = frame.generation; // a new upload cleared the chat on the server
+            setState((s) => ({ ...s, turns: [], running: false, error: null }));
+          }
         } else if (frame.type === "error") {
-          setState((s) => ({ ...s, error: frame.message, running: false, turns: dropUnanswered(s.turns) }));
+          setState((s) =>
+            frame.refused
+              ? { ...s, error: frame.message, running: false, turns: dropUnanswered(s.turns) }
+              : { ...s, error: frame.message, running: false }, // the turn failed; keep what came
+          );
         } else if (frame.type === "result") {
           setState((s) => ({ ...s, turns: applyFrame(s.turns, frame), running: false }));
-        } else if (frame.type !== "ingest_status") {
+        } else {
           setState((s) => ({ ...s, turns: applyFrame(s.turns, frame) }));
         }
       };
@@ -84,14 +93,6 @@ export function useChat(videoId: string | null) {
       socket.current?.close();
     };
   }, []);
-
-  // A new upload clears the chat on the server; clear it here too.
-  useEffect(() => {
-    if (videoId && historyVideo.current !== null && videoId !== historyVideo.current) {
-      historyVideo.current = videoId;
-      setState((s) => ({ ...s, turns: [], running: false, error: null }));
-    }
-  }, [videoId]);
 
   const send = useCallback((text: string) => {
     const ws = socket.current;

@@ -159,7 +159,8 @@ def check_replace_and_refuse(base: str, video: Path) -> None:
         frame = json.loads(ws.recv(timeout=10))
         while frame["type"] == "ingest_status":
             frame = json.loads(ws.recv(timeout=10))
-        assert frame == {"type": "error", "message": "the video is not chat-ready yet"}
+        refused = {"type": "error", "message": "the video is not chat-ready yet", "refused": True}
+        assert frame == refused
 
 
 def check_over_cap(base: str, over_cap: Path, current: Path) -> None:

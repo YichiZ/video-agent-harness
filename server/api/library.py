@@ -135,12 +135,15 @@ class Library:
     def status(self) -> IngestStatus:
         workspace, name = self.current, self.name
         if workspace is None:
-            return IngestStatus(video_id=None, name=None, chat_ready=False, steps={})
+            return IngestStatus(
+                video_id=None, generation=self.generation, name=None, chat_ready=False, steps={}
+            )
         path = workspace.path(ingest.STATUS)
         data = workspace.read_json(ingest.STATUS) if path.is_file() else {}
         steps = data.get("steps", {})
         return IngestStatus(
             video_id=workspace.id,
+            generation=self.generation,
             name=name,
             chat_ready=bool(data.get("chat_ready")),
             steps={n: s["state"] for n, s in steps.items()},
