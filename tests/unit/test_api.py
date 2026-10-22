@@ -2,12 +2,15 @@ import asyncio
 import hashlib
 import subprocess
 import sys
+import threading
 import time
 
 import pytest
 
 from server.api.library import Library, UploadError, safe_name
 from server.config import REPO_ROOT, Settings, load_release
+from server.ingest import Step
+from server.workspace import video_id
 
 
 def test_protocol_ts_is_current():
@@ -88,3 +91,39 @@ def test_receive_hashes_and_writes_off_the_event_loop(tmp_path, monkeypatch):
     assert path.read_bytes() == b"x" * 10240
     assert ticks >= 10  # the loop kept running through 0.5 s of hashing
 
+
+def _fake_probe(monkeypatch, hold: dict[str, threading.Event]):
+    """A probe that waits on `hold[video_id]`, and ingests that only record that they started."""
+
+    def run(ctx):
+        if ctx.workspace.id in hold:
+            hold[ctx.workspace.id].wait(5)
+        ctx.workspace.write_json("meta.json", {})
+
+    probe = Step(name="probe", outputs=["meta.json"], run=run)
+    monkeypatch.setattr("server.ingest.steps", lambda: {"probe": probe})
+    started: dict[str, bool] = {}
+
+    def ingest(self, workspace):
+        started[workspace.id] = True
+
+    monkeypatch.setattr(Library, "_ingest", ingest)
+    return started
+
+
+def _videos(tmp_path):
+    a, b = tmp_path / "a.mp4", tmp_path / "b.mp4"
+    a.write_bytes(b"video a")
+    b.write_bytes(b"video b")
+    return a, b
+
+
+def test_startup_resumes_the_current_video_ingest(tmp_path, monkeypatch):
+    a, _ = _videos(tmp_path)
+    started = _fake_probe(monkeypatch, {})
+    library = _library(tmp_path, monkeypatch)
+    library.replace(a, "a.mp4")
+    started.clear()
+    Library(library.settings, library.release)  # the server restarts
+    time.sleep(0.1)
+    assert list(started) == [video_id(a)]

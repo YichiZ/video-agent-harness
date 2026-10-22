@@ -41,7 +41,8 @@ def free_port() -> int:
 
 
 @contextmanager
-def server(cli, env: dict[str, str | None] | None = None) -> Iterator[str]:
+def server(cli, env: dict[str, str | None] | None = None, kill: bool = False) -> Iterator[str]:
+    """Run `serve` until the block ends, then stop it (with SIGKILL if `kill`, as a crash)."""
     port = free_port()
     proc = subprocess.Popen(
         [sys.executable, "-m", "server.cli", "serve", "--port", str(port)],
@@ -64,7 +65,7 @@ def server(cli, env: dict[str, str | None] | None = None) -> Iterator[str]:
                 time.sleep(0.1)
         yield base
     finally:
-        proc.terminate()
+        proc.kill() if kill else proc.terminate()
         proc.wait(timeout=10)
 
 

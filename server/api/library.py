@@ -5,7 +5,8 @@ and writing in a worker thread, so the event loop stays free). `replace()` probe
 it synchronously (so a rejected video never replaces the current one), points
 `current.json` at it and starts the rest of the ingest in a background thread.
 The video's chats (`server.chats`) are kept, so uploading it again brings them
-back. `status()` reads the workspace's `status.json`.
+back. On startup the current video's ingest resumes (finished steps are
+skipped). `status()` reads the workspace's `status.json`.
 """
 
 from __future__ import annotations
@@ -55,6 +56,9 @@ class Library:
         self.busy: set[str] = set()
         """Chats with a turn running (their folders), so a second tab can't start another."""
         self.current, self.name = self._load_current()
+        if self.current is not None:  # the server may have stopped mid-ingest
+            with self._lock:
+                self._start_ingest(self.current)
 
     def _load_current(self) -> tuple[Workspace | None, str | None]:
         path = self.root / CURRENT
@@ -122,12 +126,16 @@ class Library:
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name
             self.generation += 1
-            running = self._ingests.get(workspace.id)
-            if running is None or not running.is_alive():  # the same video uploaded again
-                thread = threading.Thread(target=self._ingest, args=(workspace,), daemon=True)
-                self._ingests = {**self._ingests, workspace.id: thread}
-                thread.start()
+            self._start_ingest(workspace)
         return workspace
+
+    def _start_ingest(self, workspace: Workspace) -> None:
+        """Start `workspace`'s ingest unless it is running. Call with `_lock` held."""
+        running = self._ingests.get(workspace.id)
+        if running is None or not running.is_alive():  # the same video uploaded again
+            thread = threading.Thread(target=self._ingest, args=(workspace,), daemon=True)
+            self._ingests = {**self._ingests, workspace.id: thread}
+            thread.start()
 
     def _ingest(self, workspace: Workspace) -> None:
         try:
