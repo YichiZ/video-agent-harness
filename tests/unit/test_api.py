@@ -1,6 +1,8 @@
 import asyncio
+import hashlib
 import subprocess
 import sys
+import time
 
 import pytest
 
@@ -40,3 +42,49 @@ def test_receive_rejects_non_video_and_empty(tmp_path, monkeypatch):
     path = asyncio.run(library.receive("a b.mp4", body(b"abc", b"def")))
     assert path.name == "a_b.mp4" and path.read_bytes() == b"abcdef"
     assert not list((tmp_path / ".uploads").glob("*.part"))
+
+
+def _library(tmp_path, monkeypatch) -> Library:
+    monkeypatch.setenv("HARNESS_WORKSPACE_DIR", str(tmp_path / "workspace"))
+    return Library(Settings.load(), load_release(REPO_ROOT / "release.json"))
+
+
+def test_receive_hashes_and_writes_off_the_event_loop(tmp_path, monkeypatch):
+    sha256 = hashlib.sha256
+
+    class SlowDigest:
+        def __init__(self):
+            self._digest = sha256()
+
+        def update(self, chunk):
+            time.sleep(0.05)
+            self._digest.update(chunk)
+
+        def hexdigest(self):
+            return self._digest.hexdigest()
+
+    monkeypatch.setattr("server.api.library.hashlib.sha256", SlowDigest)
+    library = _library(tmp_path, monkeypatch)
+
+    async def body():
+        for _ in range(10):
+            yield b"x" * 1024
+
+    async def main():
+        ticks = 0
+
+        async def tick():
+            nonlocal ticks
+            while True:
+                await asyncio.sleep(0.01)
+                ticks += 1
+
+        ticker = asyncio.create_task(tick())
+        path = await library.receive("a.mp4", body())
+        ticker.cancel()
+        return path, ticks
+
+    path, ticks = asyncio.run(main())
+    assert path.read_bytes() == b"x" * 10240
+    assert ticks >= 10  # the loop kept running through 0.5 s of hashing
+

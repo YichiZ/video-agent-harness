@@ -1,7 +1,8 @@
 """The current video. There is one at a time, and each upload replaces it.
 
-`Library.upload()` streams the body to `<workspace_dir>/.uploads/`, probes it
-synchronously (so a rejected video never replaces the current one), points
+`Library.receive()` streams the body to `<workspace_dir>/.uploads/` (hashing
+and writing in a worker thread, so the event loop stays free). `replace()` probes
+it synchronously (so a rejected video never replaces the current one), points
 `current.json` at it and starts the rest of the ingest in a background thread.
 The video's chats (`server.chats`) are kept, so uploading it again brings them
 back. `status()` reads the workspace's `status.json`.
@@ -9,6 +10,7 @@ back. `status()` reads the workspace's `status.json`.
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import logging
 import re
@@ -80,12 +82,16 @@ class Library:
         digest, size = hashlib.sha256(), 0
         try:
             with part.open("wb") as f:
+
+                def write(chunk: bytes) -> None:
+                    digest.update(chunk)
+                    f.write(chunk)
+
                 async for chunk in chunks:
                     size += len(chunk)
                     if size > MAX_UPLOAD_BYTES:
                         raise UploadError(f"{name}: larger than {MAX_UPLOAD_BYTES // 1024**3} GB")
-                    digest.update(chunk)
-                    f.write(chunk)
+                    await asyncio.to_thread(write, chunk)
             if size == 0:
                 raise UploadError(f"{name}: empty upload")
             # Keep the file name: fixtures and Gemini display names are keyed by it.
