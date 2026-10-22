@@ -1,12 +1,18 @@
-"""`WS /chat`: the step 5 chat session over a WebSocket.
+"""`WS /chat?chat=<id>`: one chat about the current video, over a WebSocket.
 
-Each connection reads client frames in one task and sends every server frame
-through one queue, so a turn can stream while an `interrupt` arrives and
-`ingest_status` frames go out whenever `status.json` changes. A connection keeps
-one `ChatSession` for the current video and resumes its stored session; after any
-upload (even of the same video), the next message starts a new session. Each turn
-is appended to the workspace's `chat.json`, which a new connection gets first as
-a `History` frame, so the chat survives a page reload.
+`chat` picks the chat: an id opens it (an empty one if it has no folder yet),
+`new` starts a new one, and without it the most recently updated chat opens, or
+a new one. The connection first sends a `History` frame naming the chat with its
+turns, then keeps one `ChatSession` for it that resumes the chat's stored session.
+Client frames are read in one task and every server frame goes through one queue,
+so a turn can stream while an `interrupt` arrives and `ingest_status` frames go
+out whenever `status.json` changes.
+
+A chat runs one turn at a time, across connections (`Library.busy`); different
+chats run at once, each in its own Claude Code process. After a chat's first
+answer its title is written in the background and pushed as a `ChatTitle` frame.
+Once a new upload changes the current video, the connection refuses messages and
+the client reconnects to that video's chats.
 """
 
 from __future__ import annotations
@@ -14,29 +20,39 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import logging
+from contextlib import aclosing
 
 from fastapi import WebSocket, WebSocketDisconnect
 from pydantic import BaseModel, ValidationError
 
+from server import chats
+from server.agent import titles
 from server.agent.session import ChatSession, Event
 from server.api import protocol as p
-from server.api.library import HISTORY, Library
+from server.api.library import Library
 from server.auth import AuthMode, detect_auth
-from server.workspace import Workspace
+from server.chats import Chat
 
 STATUS_POLL_S = 0.5
 
 log = logging.getLogger(__name__)
+_titling: set[asyncio.Task] = set()  # title tasks outlive their connection
 
 
-def load_history(workspace: Workspace) -> list[p.ChatTurn]:
-    if not workspace.path(HISTORY).is_file():
-        return []
-    return [p.ChatTurn.model_validate(t) for t in workspace.read_json(HISTORY)["turns"]]
+def load_history(chat: Chat | None) -> list[p.ChatTurn]:
+    return [p.ChatTurn.model_validate(t) for t in chat.turns()] if chat else []
 
 
-def save_history(workspace: Workspace, turns: list[p.ChatTurn]) -> None:
-    workspace.write_json(HISTORY, {"turns": [t.model_dump() for t in turns]})
+def open_chat(library: Library, requested: str | None) -> Chat | None:
+    """The chat `requested` names, for the current video. Raises `ValueError` for a bad id."""
+    current = library.current
+    if current is None:
+        return None
+    if requested == "new":
+        return chats.new(current)
+    if requested:
+        return chats.get(current, requested)
+    return chats.latest(current) or chats.new(current)
 
 
 def frame_for(event: Event, interrupted: bool) -> BaseModel | None:
@@ -59,14 +75,14 @@ def frame_for(event: Event, interrupted: bool) -> BaseModel | None:
 
 
 class Connection:
-    def __init__(self, ws: WebSocket, library: Library):
+    def __init__(self, ws: WebSocket, library: Library, chat: Chat | None):
         self.ws = ws
         self.library = library
+        self.chat = chat
+        self.generation = library.generation  # the upload the chat belongs to
         self.outbox: asyncio.Queue[BaseModel] = asyncio.Queue()
         self.session: ChatSession | None = None
-        self.generation = -1  # the library's upload count the session belongs to
         self.turn: asyncio.Task | None = None
-        self.interrupted = False
 
     def send(self, frame: BaseModel) -> None:
         self.outbox.put_nowait(frame)
@@ -77,12 +93,12 @@ class Connection:
 
     async def run(self) -> None:
         current = self.library.current
-        turns = load_history(current) if current else []
         self.send(
             p.History(
                 video_id=current.id if current else None,
-                generation=self.library.generation,
-                turns=turns,
+                generation=self.generation,
+                chat_id=self.chat.id if self.chat else None,
+                turns=load_history(self.chat),
             )
         )
         tasks = [asyncio.create_task(c) for c in (self._writer(), self._status())]
@@ -121,10 +137,7 @@ class Connection:
                 continue
             if isinstance(frame, p.Interrupt):
                 if self.turn and not self.turn.done() and self.session:
-                    self.interrupted = True
                     await self.session.interrupt()
-            elif self.turn and not self.turn.done():
-                self.refuse("a turn is already running; interrupt it first")
             else:
                 await self._start_turn(frame.text)
 
@@ -133,76 +146,78 @@ class Connection:
         if not status.chat_ready:
             self.refuse("the video is not chat-ready yet")
             return
+        if self.chat is None or self.library.generation != self.generation:
+            self.refuse("a new video was uploaded; reopen the chat")
+            return
         settings = self.library.settings
         if detect_auth(settings).mode is AuthMode.NONE and not settings.fake_providers:
             self.refuse("no Claude auth: set ANTHROPIC_API_KEY or log in")
             return
+        busy = str(self.chat.dir)
+        if busy in self.library.busy:
+            self.refuse("a turn is already running; interrupt it first")
+            return
+        self.library.busy.add(busy)  # before the await, so another tab can't slip in
         try:
             await self._ensure_session()
         except Exception as e:
+            self.library.busy.discard(busy)
             log.exception("could not start a chat session")
             self.refuse(f"could not start the chat: {type(e).__name__}: {e}")
             return
-        self.interrupted = False
         self.turn = asyncio.create_task(self._turn(text))
+        self.turn.add_done_callback(lambda _: self.library.busy.discard(busy))  # even if cancelled
 
     async def _ensure_session(self) -> None:
-        current, generation = self.library.current, self.library.generation
-        if self.session and self.generation == generation:
+        if self.session:
             return
-        await self._close_session()
-        if current is None:
-            raise LookupError("no video")
+        assert self.chat and self.library.current
         session = ChatSession(
-            current,
+            self.library.current,
             self.library.settings,
             self.library.release,
-            resume=ChatSession.has_stored_session(current),
+            chat=self.chat,
+            resume=self.chat.session_id() is not None,
         )
         await session.connect()
-        self.session, self.generation = session, generation
+        self.session = session
 
     async def _turn(self, text: str) -> None:
-        assert self.session
-        workspace = self.session.workspace
-        answer, tools = [], {}
+        assert self.session and self.chat
+        first = not self.chat.turns()
+        answer = []
         try:
-            async for event in self.session.ask(text):
-                frame = frame_for(event, self.interrupted)
-                if frame:
-                    self.send(frame)
-                if isinstance(frame, p.TextDelta):
-                    answer.append(frame.text)
-                elif isinstance(frame, p.ToolUse):
-                    tools[frame.id] = p.ToolCall(id=frame.id, name=frame.name, input=frame.input)
-                elif isinstance(frame, p.ToolResult) and frame.id in tools:
-                    tools[frame.id] = tools[frame.id].model_copy(
-                        update={"result": frame.text, "is_error": frame.is_error}
-                    )
+            async with aclosing(self.session.ask(text)) as events:  # saves the turn
+                async for event in events:
+                    frame = frame_for(event, self.session.interrupted)
+                    if frame:
+                        self.send(frame)
+                    if isinstance(frame, p.TextDelta):
+                        answer.append(frame.text)
         except asyncio.CancelledError:
             raise
         except Exception as e:
             log.exception("chat turn failed")
             self.send(p.ChatError(message=f"{type(e).__name__}: {e}"))
-        finally:  # also for an interrupted or abandoned turn
-            self._save_turn(workspace, text, answer, tools)
+        if first and self.chat.exists:
+            self._write_title(self.chat, text, "".join(answer))
 
-    def _save_turn(
-        self, workspace: Workspace, text: str, answer: list[str], tools: dict[str, p.ToolCall]
-    ) -> None:
-        if self.library.generation != self.generation:
-            return  # the video was uploaded again mid-turn: that chat is gone
-        if not answer and not tools:
-            return  # nothing came back (a failed turn): the client drops it too
-        reply = p.ChatTurn(
-            role="assistant",
-            text="".join(answer),
-            tools=list(tools.values()),
-            interrupted=self.interrupted,
-        )
-        user = p.ChatTurn(role="user", text=text)
-        if workspace.dir.is_dir():
-            save_history(workspace, [*load_history(workspace), user, reply])
+    def _write_title(self, chat: Chat, question: str, answer: str) -> None:
+        """Title the chat in the background; until then (or if it fails) it keeps the question."""
+        settings, release = self.library.settings, self.library.release
+
+        async def write() -> None:
+            try:
+                title = await titles.write_title(question, answer, settings, release)
+            except Exception:
+                log.exception("could not write a title for chat %s", chat.id)
+                return
+            if chat.set_title(title, by_user=False):
+                self.send(p.ChatTitle(chat_id=chat.id, title=title))
+
+        task = asyncio.create_task(write())
+        _titling.add(task)
+        task.add_done_callback(_titling.discard)
 
     async def _close_session(self) -> None:
         if self.session:
@@ -211,6 +226,11 @@ class Connection:
             self.session = None
 
 
-async def chat(ws: WebSocket, library: Library) -> None:
+async def chat(ws: WebSocket, library: Library, requested: str | None) -> None:
     await ws.accept()
-    await Connection(ws, library).run()
+    try:
+        opened = open_chat(library, requested)
+    except ValueError as e:
+        await ws.close(code=1008, reason=str(e))
+        return
+    await Connection(ws, library, opened).run()

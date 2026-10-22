@@ -52,6 +52,7 @@ class Release(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     agent_model: str = Field(min_length=1)
+    title_model: str = Field(min_length=1)
     gemini_model: str = Field(min_length=1)
     stt_model: str = Field(min_length=1)
     max_budget_usd: float = Field(gt=0)

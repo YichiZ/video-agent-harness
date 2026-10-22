@@ -23,6 +23,7 @@ SERVER = [
     protocol.ToolUse,
     protocol.ToolResult,
     protocol.Result,
+    protocol.ChatTitle,
     protocol.IngestStatus,
     protocol.ChatError,
 ]

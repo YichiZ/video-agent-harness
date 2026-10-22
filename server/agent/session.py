@@ -4,9 +4,10 @@
 by `build_options()`: the model from `release.json`, the workspace as `cwd`,
 the versioned system prompt, the `video` MCP server and the Skills in
 `plugin/skills/` as the only tools, and the budget and turn limits. `ask()`
-sends one user message and yields `Event`s as the turn streams. The SDK
-session id is kept in `session.json`, so `ChatSession(..., resume=True)`
-continues the conversation.
+sends one user message and yields `Event`s as the turn streams. Given a
+`server.chats.Chat`, the session keeps the SDK session id and each turn in it, so
+`ChatSession(..., chat=chat, resume=True)` continues that conversation; without
+one (the evals) nothing is stored.
 
 Offline (`HARNESS_FAKE_PROVIDERS=1`) the client replays the recorded stream
 `tests/fixtures/agent/<media>-chat.json`, or `<media>-resume.json` when resuming.
@@ -34,12 +35,12 @@ from claude_agent_sdk import (
 
 from server.agent.tools import ALLOWED_TOOLS, SERVER_NAME, VideoTools, build_server
 from server.auth import claude_env
+from server.chats import Chat
 from server.config import Release, Settings
 from server.providers import AgentClient, fixtures, get_agent_client
 from server.tracing import Tracer, Turn
 from server.workspace import Workspace
 
-SESSION = "session.json"
 # Largest message the SDK will read from the CLI. A `get_frames` result with 8 JPEGs at
 # 720p is several MB of base64, and the SDK's 1 MB default ends the turn with an error.
 MAX_BUFFER_BYTES = 32 * 1024 * 1024
@@ -111,15 +112,18 @@ class ChatSession:
         settings: Settings,
         release: Release,
         *,
+        chat: Chat | None = None,
         resume: bool = False,
         client: AgentClient | None = None,
         fixture: str | None = None,
     ):
         self.workspace = workspace
+        self.chat = chat
         self.tools = VideoTools(workspace, settings, release)
-        self.session_id = self.stored_session_id() if resume else None
+        self.session_id = chat.session_id() if resume and chat else None
         if resume and self.session_id is None:
             raise LookupError("no earlier chat to resume for this video")
+        self.interrupted = False
         options = build_options(self.tools, settings, release, resume=self.session_id)
         if fixture is None:
             media = fixtures.media_key(workspace.source)
@@ -128,23 +132,11 @@ class ChatSession:
         self.tracer = Tracer(settings, release)
         self.last_trace_id: str | None = None
 
-    def stored_session_id(self) -> str | None:
-        return self._stored(self.workspace)
-
-    @staticmethod
-    def _stored(workspace: Workspace) -> str | None:
-        if not workspace.path(SESSION).exists():
-            return None
-        return workspace.read_json(SESSION).get("session_id")
-
-    @classmethod
-    def has_stored_session(cls, workspace: Workspace) -> bool:
-        return cls._stored(workspace) is not None
-
     def _remember(self, session_id: str | None) -> None:
         if session_id and session_id != self.session_id:
             self.session_id = session_id
-            self.workspace.write_json(SESSION, {"session_id": session_id})
+            if self.chat:
+                self.chat.remember_session(session_id)
 
     async def connect(self) -> None:
         await self.client.connect()
@@ -156,22 +148,29 @@ class ChatSession:
             await asyncio.to_thread(self.tracer.flush)
 
     async def interrupt(self) -> None:
+        self.interrupted = True
         await self.client.interrupt()
 
     async def ask(self, prompt: str) -> AsyncIterator[Event]:
-        """One turn: yields its events, and traces it in Langfuse when tracing is on."""
+        """One turn: yields its events, saves it to the chat, and traces it in Langfuse.
+
+        The turn is saved even when it is interrupted or abandoned, unless nothing came back.
+        """
         turn: Turn | None = None  # started at the first event, once the session id is known
+        chat_id = self.chat.id if self.chat else None
 
         def started() -> Turn:
             nonlocal turn
             if turn is None:
                 turn = self.tracer.turn(
-                    prompt, video_id=self.workspace.id, session_id=self.session_id
+                    prompt, video_id=self.workspace.id, session_id=self.session_id, chat_id=chat_id
                 )
                 self.last_trace_id = turn.trace_id
             return turn
 
+        self.interrupted = False
         answer: list[str] = []
+        tools: dict[str | None, dict] = {}
         result: ResultMessage | None = None
         error: str | None = None
         try:
@@ -182,8 +181,15 @@ class ChatSession:
                         answer.append(event.text)
                     elif event.kind == "tool":
                         trace.tool(event.id, event.text, event.input)
+                        tools[event.id] = _tool_call(event)
                     elif event.kind == "tool_result":
                         trace.tool_result(event.id, event.text, event.is_error)
+                        if event.id in tools:
+                            tools[event.id] = {
+                                **tools[event.id],
+                                "result": event.text,
+                                "is_error": event.is_error,
+                            }
                     elif event.kind == "result":
                         result = event.result
                     yield event
@@ -192,6 +198,12 @@ class ChatSession:
             raise
         finally:
             started().end("".join(answer), _result_metadata(result, self.session_id), error)
+            if self.chat and (answer or tools):  # nothing came back: the client drops it too
+                self.chat.save_turn(
+                    {"role": "user", "text": prompt, "tools": [], "interrupted": False},
+                    {"role": "assistant", "text": "".join(answer), "tools": list(tools.values()),
+                     "interrupted": self.interrupted},
+                )  # fmt: skip
 
     async def _events(self, prompt: str) -> AsyncIterator[Event]:
         await self.client.query(prompt)
@@ -224,6 +236,11 @@ class ChatSession:
             elif isinstance(message, ResultMessage):
                 self._remember(message.session_id)
                 yield Event("result", result=message)
+
+
+def _tool_call(event: Event) -> dict:
+    return {"id": event.id, "name": event.text, "input": event.input or {}, "result": None,
+            "is_error": False}  # fmt: skip
 
 
 def _result_metadata(result: ResultMessage | None, session_id: str | None) -> dict:

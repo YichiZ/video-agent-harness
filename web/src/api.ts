@@ -74,3 +74,32 @@ export function uploadVideo(file: File, onProgress: (fraction: number) => void) 
     xhr.send(file);
   });
 }
+
+export interface ChatSummary {
+  id: string;
+  title: string;
+  updated: number;
+}
+
+export const listChats = () => getJson<ChatSummary[]>("/video/current/chats");
+
+async function send(method: string, url: string, body?: unknown): Promise<void> {
+  const response = await fetch(url, {
+    method,
+    headers: body === undefined ? undefined : { "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!response.ok) {
+    let detail = await response.text();
+    try {
+      detail = JSON.parse(detail).detail ?? detail;
+    } catch {
+      // not JSON: keep the text
+    }
+    throw new Error(typeof detail === "string" ? detail : `${method} ${url}: ${response.status}`);
+  }
+}
+
+export const renameChat = (id: string, title: string) =>
+  send("PATCH", `/video/current/chats/${id}`, { title });
+export const deleteChat = (id: string) => send("DELETE", `/video/current/chats/${id}`);
