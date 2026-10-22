@@ -20,14 +20,16 @@ from tests.e2e.test_step10_server import server, wait_for
 
 
 def test_last_upload_wins(cli, test_media):
-    large, small = test_media / "cuts.mp4", test_media / "windowed.mp4"
-    assert large.stat().st_size > small.stat().st_size
+    # cuts.mp4 is larger with Video-MME clips, smaller with CI's solid colours.
+    small, large = sorted(
+        [test_media / "cuts.mp4", test_media / "windowed.mp4"], key=lambda p: p.stat().st_size
+    )
     sent: dict[str, float] = {}
 
     def send(base, video, pause):
         def chunks():
             with video.open("rb") as f:
-                while chunk := f.read(1 << 16):
+                while chunk := f.read(-(-video.stat().st_size // 10)):  # ten chunks
                     time.sleep(pause)
                     yield chunk
             sent[video.name] = time.monotonic()
@@ -37,7 +39,7 @@ def test_last_upload_wins(cli, test_media):
 
     with server(cli) as base:
         uploads = [
-            threading.Thread(target=send, args=(base, large, 0.2)),  # about 1.5 s
+            threading.Thread(target=send, args=(base, large, 0.15)),  # 1.5 s
             threading.Thread(target=send, args=(base, small, 0)),
         ]
         uploads[0].start()
