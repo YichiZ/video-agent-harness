@@ -3,10 +3,10 @@
 `Library.receive()` streams the body to `<workspace_dir>/.uploads/` (hashing
 and writing in a worker thread, so the event loop stays free). `replace()` probes
 it synchronously (so a rejected video never replaces the current one), points
-`current.json` at it and starts the rest of the ingest in a background thread.
-The video's chats (`server.chats`) are kept, so uploading it again brings them
-back. On startup the current video's ingest resumes (finished steps are
-skipped). `status()` reads the workspace's `status.json`.
+`current.json` at it, cancels the previous video's ingest and starts the rest of
+the ingest in a background thread. The video's chats (`server.chats`) are kept,
+so uploading it again brings them back. On startup the current video's ingest
+resumes (finished steps are skipped). `status()` reads the workspace's `status.json`.
 """
 
 from __future__ import annotations
@@ -50,7 +50,8 @@ class Library:
         self.root = settings.workspace_dir
         self.root.mkdir(parents=True, exist_ok=True)
         self._lock = threading.Lock()
-        self._ingests: dict[str, threading.Thread] = {}
+        self._ingests: dict[str, tuple[threading.Thread, threading.Event]] = {}
+        """Ingest threads by video id, with the event that cancels each."""
         self.generation = 0
         """Counts uploads, so a chat connection knows the video changed under it."""
         self.busy: set[str] = set()
@@ -70,8 +71,15 @@ class Library:
         except (FileNotFoundError, KeyError):
             return None, None
 
-    def context(self, workspace: Workspace) -> ingest.StepContext:
-        return ingest.StepContext(workspace=workspace, settings=self.settings, release=self.release)
+    def context(
+        self, workspace: Workspace, cancel: threading.Event | None = None
+    ) -> ingest.StepContext:
+        return ingest.StepContext(
+            workspace=workspace,
+            settings=self.settings,
+            release=self.release,
+            cancel=cancel or threading.Event(),
+        )
 
     async def receive(self, name: str, chunks: AsyncIterator[bytes]) -> Path:
         """Stream an upload to disk. Returns `.uploads/<video_id>/<name>`."""
@@ -123,23 +131,34 @@ class Library:
             video.unlink(missing_ok=True)
             raise
         with self._lock:
+            previous = self.current
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name
             self.generation += 1
+            if previous is not None and previous.id != workspace.id:
+                self._cancel_ingest(previous)
             self._start_ingest(workspace)
         return workspace
 
     def _start_ingest(self, workspace: Workspace) -> None:
         """Start `workspace`'s ingest unless it is running. Call with `_lock` held."""
         running = self._ingests.get(workspace.id)
-        if running is None or not running.is_alive():  # the same video uploaded again
-            thread = threading.Thread(target=self._ingest, args=(workspace,), daemon=True)
-            self._ingests = {**self._ingests, workspace.id: thread}
-            thread.start()
+        if running and running[0].is_alive() and not running[1].is_set():
+            return  # the same video uploaded again
+        # A cancelled run may still be stopping; the workspace lock makes this one wait.
+        cancel = threading.Event()
+        thread = threading.Thread(target=self._ingest, args=(workspace, cancel), daemon=True)
+        self._ingests = {**self._ingests, workspace.id: (thread, cancel)}
+        thread.start()
 
-    def _ingest(self, workspace: Workspace) -> None:
+    def _cancel_ingest(self, workspace: Workspace) -> None:
+        running = self._ingests.get(workspace.id)
+        if running:
+            running[1].set()
+
+    def _ingest(self, workspace: Workspace, cancel: threading.Event) -> None:
         try:
-            failed = ingest.failures(ingest.run_steps(self.context(workspace)))
+            failed = ingest.failures(ingest.run_steps(self.context(workspace, cancel)))
             if failed:
                 log.warning("ingest of %s: %s", workspace.id, [(r.name, r.state) for r in failed])
         except Exception:  # recorded in status.json; nothing else to tell

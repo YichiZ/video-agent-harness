@@ -5,6 +5,7 @@ const STYLE: Record<string, string> = {
   running: "bg-sky-900 text-sky-200 animate-pulse",
   failed: "bg-rose-900 text-rose-200",
   blocked: "bg-neutral-800 text-neutral-500",
+  cancelled: "bg-neutral-800 text-neutral-500",
   pending: "bg-neutral-800 text-neutral-400",
 };
 

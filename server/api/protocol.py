@@ -59,7 +59,7 @@ class IngestStatus(BaseModel):
     name: str | None
     chat_ready: bool
     steps: dict[str, str]
-    """Step name to state: "pending", "running", "done", "failed" or "blocked"."""
+    """Step name to state: "pending", "running", "done", "failed", "blocked" or "cancelled"."""
     errors: dict[str, str] = {}
     """Why a failed or blocked step did not finish."""
 

@@ -93,7 +93,7 @@ def test_receive_hashes_and_writes_off_the_event_loop(tmp_path, monkeypatch):
 
 
 def _fake_probe(monkeypatch, hold: dict[str, threading.Event]):
-    """A probe that waits on `hold[video_id]`, and ingests that only record that they started."""
+    """A probe that waits on `hold[video_id]`, and ingests that never finish on their own."""
 
     def run(ctx):
         if ctx.workspace.id in hold:
@@ -102,10 +102,11 @@ def _fake_probe(monkeypatch, hold: dict[str, threading.Event]):
 
     probe = Step(name="probe", outputs=["meta.json"], run=run)
     monkeypatch.setattr("server.ingest.steps", lambda: {"probe": probe})
-    started: dict[str, bool] = {}
+    started: dict[str, threading.Event] = {}
 
-    def ingest(self, workspace):
-        started[workspace.id] = True
+    def ingest(self, workspace, cancel):
+        started[workspace.id] = cancel
+        cancel.wait(5)
 
     monkeypatch.setattr(Library, "_ingest", ingest)
     return started
@@ -116,6 +117,19 @@ def _videos(tmp_path):
     a.write_bytes(b"video a")
     b.write_bytes(b"video b")
     return a, b
+
+
+def test_replace_cancels_the_previous_ingest(tmp_path, monkeypatch):
+    a, b = _videos(tmp_path)
+    started = _fake_probe(monkeypatch, {})
+    library = _library(tmp_path, monkeypatch)
+    library.replace(a, "a.mp4")
+    library.replace(b, "b.mp4")
+    time.sleep(0.1)
+    assert started[video_id(a)].is_set() and not started[video_id(b)].is_set()
+    library.replace(a, "a.mp4")  # back to a: its cancelled ingest starts again
+    time.sleep(0.1)
+    assert not started[video_id(a)].is_set() and started[video_id(b)].is_set()
 
 
 def test_startup_resumes_the_current_video_ingest(tmp_path, monkeypatch):
