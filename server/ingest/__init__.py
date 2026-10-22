@@ -15,8 +15,14 @@ A step signals bad input (a video the harness will not accept) by raising
 `Rejected`, which `run_steps` re-raises once the other steps have stopped and
 the CLI turns into exit code 2. Any other exception is a step failure (exit 3).
 
+Setting `StepContext.cancel` stops the run: steps not yet started become
+"cancelled", and long steps (`proxy`) watch the event and stop early by raising
+`Cancelled`. Only one `run_steps` works on a workspace at a time, across
+processes (`Workspace.lock()`), so the CLI waits for the server's ingest and
+then skips what it finished.
+
 With fake providers, `HARNESS_FAKE_FAIL=<step>[,<step>]` makes those steps fail
-and `HARNESS_FAKE_SLOW=<step>[,<step>]` delays them, for tests.
+and `HARNESS_FAKE_SLOW=<step>[,<step>]` delays them (cancellably), for tests.
 """
 
 from __future__ import annotations
@@ -24,7 +30,6 @@ from __future__ import annotations
 import importlib
 import logging
 import threading
-import time
 from collections.abc import Callable, Collection, Iterable
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
@@ -49,6 +54,7 @@ STATUS = "status.json"
 CHAT_READY = ("transcribe", "overview")
 """Steps the agent needs before a chat can start; the rest can finish in the background."""
 FAKE_SLOW_SECONDS = 10
+CANCEL_POLL_S = 0.5
 
 log = logging.getLogger(__name__)
 
@@ -57,11 +63,17 @@ class Rejected(Exception):
     """The input video is not acceptable. The message is shown to the user as is."""
 
 
+class Cancelled(Exception):
+    """A step stopped early because `StepContext.cancel` was set."""
+
+
 @dataclass(frozen=True)
 class StepContext:
     workspace: Workspace
     settings: Settings
     release: Release
+    cancel: threading.Event = field(default_factory=threading.Event)
+    """Set to stop the run: no new step starts, and `proxy` kills its ffmpeg."""
 
 
 @dataclass(frozen=True)
@@ -88,7 +100,7 @@ class Step:
 @dataclass(frozen=True)
 class StepResult:
     name: str
-    state: str  # "done", "skipped", "failed" or "blocked"
+    state: str  # "done", "skipped", "failed", "blocked" or "cancelled"
     summary: str | None = None
     """For "done", the step's one-line summary; for "failed" or "blocked", why."""
 
@@ -147,8 +159,8 @@ def _run_one(ctx: StepContext, step: Step) -> str | None:
     if ctx.settings.fake_providers:
         if step.name in ctx.settings.fake_fail:
             raise RuntimeError(f"injected failure (HARNESS_FAKE_FAIL={step.name})")
-        if step.name in ctx.settings.fake_slow:
-            time.sleep(FAKE_SLOW_SECONDS)
+        if step.name in ctx.settings.fake_slow and ctx.cancel.wait(FAKE_SLOW_SECONDS):
+            raise Cancelled
     return step.run(ctx)
 
 
@@ -171,7 +183,17 @@ def run_steps(
     if unknown:
         raise KeyError(f"unknown ingest step(s): {', '.join(sorted(unknown))}")
     needed = _with_requires(registry, wanted)
+    with ctx.workspace.lock():
+        return _run_locked(ctx, registry, needed, force, on_result)
 
+
+def _run_locked(
+    ctx: StepContext,
+    registry: dict[str, Step],
+    needed: set[str],
+    force: Collection[str],
+    on_result: Callable[[StepResult], None] | None,
+) -> list[StepResult]:
     status = _Status(ctx.workspace, registry)
     pending = [s for s in registry.values() if s.name in needed]
     finished: dict[str, StepResult] = {}
@@ -186,6 +208,10 @@ def run_steps(
 
     with ThreadPoolExecutor(max_workers=max(1, len(pending))) as pool:
         while pending or running:
+            if ctx.cancel.is_set():
+                for step in pending:
+                    finish(StepResult(step.name, "cancelled"))
+                pending = []
             for step in [s for s in pending if all(d in finished for d in s.requires)]:
                 pending.remove(step)
                 broken = [d for d in step.requires if not finished[d].ok]
@@ -198,11 +224,13 @@ def run_steps(
                     running[pool.submit(_run_one, ctx, step)] = step
             if not running:
                 continue  # skipped or blocked steps may have unblocked others
-            done, _ = wait(running, return_when=FIRST_COMPLETED)
+            done, _ = wait(running, timeout=CANCEL_POLL_S, return_when=FIRST_COMPLETED)
             for future in done:
                 step = running.pop(future)
                 try:
                     finish(StepResult(step.name, "done", future.result()))
+                except Cancelled:
+                    finish(StepResult(step.name, "cancelled"))
                 except Rejected as e:
                     rejected = e
                     finish(StepResult(step.name, "failed", str(e)))

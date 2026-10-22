@@ -3,7 +3,7 @@ import threading
 import pytest
 
 from server.config import REPO_ROOT, Settings, load_release
-from server.ingest import STATUS, Rejected, Step, StepContext, run_steps, steps
+from server.ingest import STATUS, Cancelled, Rejected, Step, StepContext, run_steps, steps
 from server.workspace import Workspace
 
 
@@ -134,3 +134,38 @@ def test_rejected_is_raised_after_the_run(tmp_path, monkeypatch):
     with pytest.raises(Rejected, match="too long"):
         run_steps(ctx)
     assert ctx.workspace.read_json(STATUS)["steps"]["b"]["state"] == "blocked"
+
+
+def test_cancel_stops_steps_that_have_not_started(tmp_path, monkeypatch):
+    def cancel_then_write(ctx):
+        ctx.cancel.set()
+        ctx.workspace.write_json("a.json", {})
+
+    fake = {"a": _step("a", run=cancel_then_write), "b": _step("b", ["a"]), "c": _step("c", ["b"])}
+    monkeypatch.setattr("server.ingest.steps", lambda: fake)
+    ctx = _ctx(tmp_path)
+    states = {r.name: r.state for r in run_steps(ctx)}
+    assert states == {"a": "done", "b": "cancelled", "c": "cancelled"}
+    saved = ctx.workspace.read_json(STATUS)["steps"]
+    assert {n: s["state"] for n, s in saved.items()} == states
+    assert not ctx.workspace.path("b.json").exists()
+
+
+def test_a_step_that_stops_on_cancel_is_cancelled(tmp_path, monkeypatch):
+    def stop(ctx):
+        raise Cancelled
+
+    monkeypatch.setattr("server.ingest.steps", lambda: {"a": _step("a", run=stop)})
+    assert [(r.name, r.state) for r in run_steps(_ctx(tmp_path))] == [("a", "cancelled")]
+
+
+def test_one_run_at_a_time_per_workspace(tmp_path, monkeypatch):
+    monkeypatch.setattr("server.ingest.steps", lambda: {"a": _step("a")})
+    ctx = _ctx(tmp_path)
+    with ctx.workspace.lock():  # as another process would hold it
+        runner = threading.Thread(target=run_steps, args=(ctx,))
+        runner.start()
+        runner.join(0.5)
+        assert runner.is_alive() and not ctx.workspace.path("a.json").exists()
+    runner.join(5)
+    assert ctx.workspace.path("a.json").exists()
