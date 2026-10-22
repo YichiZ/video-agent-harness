@@ -102,7 +102,15 @@ class Tracer:
     def enabled(self) -> bool:
         return self._client is not None
 
-    def turn(self, prompt: str, *, video_id: str, session_id: str | None, tags=()) -> Turn:
+    def turn(
+        self,
+        prompt: str,
+        *,
+        video_id: str,
+        session_id: str | None,
+        chat_id: str | None = None,
+        tags=(),
+    ) -> Turn:
         if self._client is None:
             return Turn(None)
         try:
@@ -113,7 +121,7 @@ class Tracer:
                 version=self.version,
                 tags=[self.version, f"prompt-{self.release.prompt_version}", *tags],
                 trace_name="chat-turn",
-                metadata={"video_id": video_id},
+                metadata={"video_id": video_id, "chat_id": chat_id or ""},
             ):
                 root = self._client.start_observation(
                     name="chat-turn",

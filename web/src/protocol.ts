@@ -28,6 +28,7 @@ export interface History {
   type: "history";
   video_id: string | null;
   generation: number;
+  chat_id: string | null;
   turns: ChatTurn[];
 }
 
@@ -59,6 +60,12 @@ export interface Result {
   interrupted: boolean;
 }
 
+export interface ChatTitle {
+  type: "chat_title";
+  chat_id: string;
+  title: string;
+}
+
 export interface IngestStatus {
   type: "ingest_status";
   video_id: string | null;
@@ -77,4 +84,4 @@ export interface ChatError {
 
 export type ClientFrame = UserMessage | Interrupt;
 
-export type ServerFrame = History | TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError;
+export type ServerFrame = History | TextDelta | ToolUse | ToolResult | Result | ChatTitle | IngestStatus | ChatError;

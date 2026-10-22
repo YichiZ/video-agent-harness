@@ -1,6 +1,7 @@
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { parseChips } from "../lib/chips";
 import { useChat } from "../lib/useChat";
+import ChatList from "./ChatList";
 import type { ChatTurn, ToolCall } from "../protocol";
 
 const PIN_PX = 40; // this close to the bottom counts as "at the bottom"
@@ -94,12 +95,18 @@ export default function Chat({ videoId, chatReady, onSeek }: Props) {
     const text = draft.trim();
     if (!text || !canSend) return;
     pinned.current = true;
-    chat.send(text);
-    setDraft("");
+    if (chat.send(text)) setDraft(""); // else keep the draft to send again
   }
 
   return (
     <aside className="flex min-h-0 flex-col rounded-lg border border-neutral-800" aria-label="chat">
+      <ChatList
+        videoId={videoId}
+        current={chat.chatId}
+        version={chat.version}
+        disabled={chat.running || !chat.connected}
+        onOpen={chat.open}
+      />
       <div ref={list} onScroll={onScroll} className="flex-1 space-y-3 overflow-y-auto p-3 text-sm">
         {chat.turns.length === 0 && (
           <p className="text-neutral-500">

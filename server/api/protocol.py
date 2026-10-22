@@ -1,9 +1,10 @@
 """The `WS /chat` frames. `scripts/export_protocol.py` writes them to `web/src/protocol.ts`.
 
 Client to server: `UserMessage`, `Interrupt`.
-Server to client: `History` (on connect: the chat so far, from `chat.json`),
-`TextDelta`, `ToolUse`, `ToolResult`, `Result` (one per turn), `IngestStatus`
-(on connect and whenever `status.json` changes) and `ChatError`.
+Server to client: `History` (on connect: the open chat and its turns so far),
+`TextDelta`, `ToolUse`, `ToolResult`, `Result` (one per turn), `ChatTitle` (once
+a chat's generated title is ready), `IngestStatus` (on connect and whenever
+`status.json` changes) and `ChatError`.
 """
 
 from __future__ import annotations
@@ -82,8 +83,16 @@ class History(BaseModel):
     type: Literal["history"] = "history"
     video_id: str | None
     generation: int
-    """The upload count; `IngestStatus.generation` moving past it means the chat was cleared."""
+    """The upload count; `IngestStatus.generation` moving past it means a new upload."""
+    chat_id: str | None
+    """The open chat; `None` only without a video. It has no folder until its first turn."""
     turns: list[ChatTurn]
+
+
+class ChatTitle(BaseModel):
+    type: Literal["chat_title"] = "chat_title"
+    chat_id: str
+    title: str
 
 
 class ChatError(BaseModel):
@@ -94,5 +103,7 @@ class ChatError(BaseModel):
 
 
 ClientFrame = Annotated[UserMessage | Interrupt, Field(discriminator="type")]
-ServerFrame = History | TextDelta | ToolUse | ToolResult | Result | IngestStatus | ChatError
+ServerFrame = (
+    History | TextDelta | ToolUse | ToolResult | Result | ChatTitle | IngestStatus | ChatError
+)
 client_frame = TypeAdapter(ClientFrame)

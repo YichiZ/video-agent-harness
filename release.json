@@ -1,5 +1,6 @@
 {
   "agent_model": "claude-opus-5-5",
+  "title_model": "claude-haiku-5-5",
   "gemini_model": "gemini-3.8-flash",
   "stt_model": "scribe_v2",
   "max_budget_usd": 2.0,

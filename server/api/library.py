@@ -2,8 +2,9 @@
 
 `Library.upload()` streams the body to `<workspace_dir>/.uploads/`, probes it
 synchronously (so a rejected video never replaces the current one), points
-`current.json` at it, clears its chat and starts the rest of the ingest in a
-background thread. `status()` reads the workspace's `status.json`.
+`current.json` at it and starts the rest of the ingest in a background thread.
+The video's chats (`server.chats`) are kept, so uploading it again brings them
+back. `status()` reads the workspace's `status.json`.
 """
 
 from __future__ import annotations
@@ -17,13 +18,11 @@ from collections.abc import AsyncIterator
 from pathlib import Path
 
 from server import ingest
-from server.agent.session import SESSION
 from server.api.protocol import IngestStatus
 from server.config import Release, Settings
 from server.workspace import ID_LENGTH, Workspace
 
 CURRENT = "current.json"
-HISTORY = "chat.json"  # written by server.api.chat
 UPLOADS = ".uploads"
 MAX_UPLOAD_BYTES = 8 * 1024**3  # a 60-minute video, with room to spare
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".webm", ".avi", ".m4v", ".mpg", ".mpeg", ".ts"}
@@ -50,7 +49,9 @@ class Library:
         self._lock = threading.Lock()
         self._ingests: dict[str, threading.Thread] = {}
         self.generation = 0
-        """Counts uploads, so a chat connection knows to start a new session."""
+        """Counts uploads, so a chat connection knows the video changed under it."""
+        self.busy: set[str] = set()
+        """Chats with a turn running (their folders), so a second tab can't start another."""
         self.current, self.name = self._load_current()
 
     def _load_current(self) -> tuple[Workspace | None, str | None]:
@@ -112,8 +113,6 @@ class Library:
             video.unlink(missing_ok=True)
             raise
         with self._lock:
-            for name in (SESSION, HISTORY):  # a new upload starts a new chat
-                workspace.path(name).unlink(missing_ok=True)
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name
             self.generation += 1

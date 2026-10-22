@@ -1,4 +1,7 @@
-"""`chat <video> [--resume]`: a streaming terminal chat with the agent about one video.
+"""`chat <video> [--resume | --chat <id>]`: a streaming terminal chat about one video.
+
+Each run starts a new chat (`server.chats`), which the browser UI lists too;
+`--resume` continues the video's most recent chat and `--chat` a given one.
 
 It starts any ingest steps that are still missing and opens the chat as soon as
 the video is chat-ready (`ingest.CHAT_READY`); the other steps finish in the
@@ -20,11 +23,12 @@ import json
 import signal
 import sys
 import threading
+from contextlib import aclosing
 from pathlib import Path
 
 from rich.console import Console
 
-from server import cli, ingest
+from server import chats, cli, ingest
 from server.agent.session import ChatSession
 from server.auth import AuthMode, detect_auth
 from server.config import ConfigError, Settings, load_release
@@ -36,7 +40,9 @@ QUIT = {"/quit", "/exit"}
 def register(subparsers: argparse._SubParsersAction) -> None:
     p = subparsers.add_parser("chat", help="chat with the agent about a video")
     p.add_argument("video", type=Path, help="path to the video file")
-    p.add_argument("--resume", action="store_true", help="continue the last chat about it")
+    which = p.add_mutually_exclusive_group()
+    which.add_argument("--resume", action="store_true", help="continue the most recent chat")
+    which.add_argument("--chat", metavar="ID", help="continue this chat (see `chats <video>`)")
     p.set_defaults(func=run)
 
 
@@ -57,27 +63,28 @@ async def turn(session: ChatSession, prompt: str, out: Console, mode: AuthMode) 
     loop.add_signal_handler(signal.SIGINT, on_sigint)
     at_line_start = True
     try:
-        async for event in session.ask(prompt):
-            if event.kind == "text":
-                out.print(event.text, end="", markup=False)
-                at_line_start = event.text.endswith("\n")
-            elif event.kind == "tool":
-                if not at_line_start:
-                    out.print()
-                out.print(f"  · {event.text} {_args(event.input)}", style="dim", markup=False)
-                at_line_start = True
-            elif event.kind == "result" and event.result:
-                r = event.result
-                if not at_line_start:
-                    out.print()
-                if r.is_error and r.subtype != "error_during_execution":
-                    out.print(f"[error: {r.result or r.subtype}]", style="red", markup=False)
-                cost = (
-                    f"${r.total_cost_usd:.4f}"
-                    if mode is AuthMode.API_KEY and r.total_cost_usd is not None
-                    else f"{r.num_turns} turn(s)"
-                )
-                out.print(f"[{cost}]", style="dim", markup=False)
+        async with aclosing(session.ask(prompt)) as events:  # saves the turn, even if cut short
+            async for event in events:
+                if event.kind == "text":
+                    out.print(event.text, end="", markup=False)
+                    at_line_start = event.text.endswith("\n")
+                elif event.kind == "tool":
+                    if not at_line_start:
+                        out.print()
+                    out.print(f"  · {event.text} {_args(event.input)}", style="dim", markup=False)
+                    at_line_start = True
+                elif event.kind == "result" and event.result:
+                    r = event.result
+                    if not at_line_start:
+                        out.print()
+                    if r.is_error and r.subtype != "error_during_execution":
+                        out.print(f"[error: {r.result or r.subtype}]", style="red", markup=False)
+                    cost = (
+                        f"${r.total_cost_usd:.4f}"
+                        if mode is AuthMode.API_KEY and r.total_cost_usd is not None
+                        else f"{r.num_turns} turn(s)"
+                    )
+                    out.print(f"[{cost}]", style="dim", markup=False)
     finally:
         loop.remove_signal_handler(signal.SIGINT)
 
@@ -168,6 +175,18 @@ def failure_text(background: Ingest) -> str:
     return "; ".join(f"{r.name} {r.state} ({r.summary})" for r in background.failed)
 
 
+def pick_chat(workspace: Workspace, args: argparse.Namespace) -> chats.Chat:
+    """A new chat, or the one `--chat` / `--resume` names. Raises `LookupError` or `ValueError`."""
+    if args.chat:
+        return chats.get(workspace, args.chat)  # ChatSession says if it has nothing to resume
+    if args.resume:
+        latest = chats.latest(workspace)
+        if latest is None:
+            raise LookupError("no earlier chat to resume for this video")
+        return latest
+    return chats.new(workspace)
+
+
 def run(args: argparse.Namespace) -> int:
     out = Console(soft_wrap=True, highlight=False)
     err = Console(stderr=True, soft_wrap=True, highlight=False, markup=False)
@@ -206,14 +225,17 @@ def run(args: argparse.Namespace) -> int:
         err.print(f"error: ingest failed: {failure_text(background)}")
         return cli.EXIT_STEP_FAILED
 
+    resume = bool(args.resume or args.chat)
     try:
-        session = ChatSession(workspace, settings, release, resume=args.resume)
-    except LookupError as e:
+        chat = pick_chat(workspace, args)
+        session = ChatSession(workspace, settings, release, chat=chat, resume=resume)
+    except (LookupError, ValueError) as e:
+        background.finish(out)
         err.print(f"error: {e}")
         return cli.EXIT_BAD_INPUT
     out.print(
         f"[bold]{video.name}[/bold]  agent {release.agent_model} · vision {release.gemini_model}"
-        f" · {auth.mode.value}" + (" · resumed" if args.resume else "")
+        f" · {auth.mode.value}" + (" · resumed" if resume else "")
     )
     out.print("Ask about the video. Ctrl-C interrupts an answer; /quit exits.", style="dim")
     repl(session, out, auth.mode)

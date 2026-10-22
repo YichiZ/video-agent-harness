@@ -3,6 +3,7 @@ import json
 
 import pytest
 
+from server import chats
 from server.agent.session import PLUGIN_DIR, SKILLS, ChatSession, build_options
 from server.agent.tools import ALLOWED_TOOLS, VideoTools
 from server.config import REPO_ROOT, Settings, load_release
@@ -30,10 +31,11 @@ def test_options_allow_only_video_tools(setup):
     assert "[mm:ss]" in options.system_prompt
 
 
-def test_ask_streams_events_and_stores_session(setup):
+def test_ask_streams_events_and_stores_session_and_turn(setup):
     ws, settings, release = setup
     client = ScriptedAgentClient.from_fixture(REPO_ROOT / "tests/fixtures/agent/example.json")
-    session = ChatSession(ws, settings, release, client=client)
+    chat = chats.new(ws)
+    session = ChatSession(ws, settings, release, chat=chat, client=client)
 
     async def go():
         await session.connect()
@@ -44,14 +46,34 @@ def test_ask_streams_events_and_stores_session(setup):
     assert kinds[0] == "text" and "tool" in kinds and kinds[-1] == "result"
     tool = next(e for e in events if e.kind == "tool")
     assert (tool.text, tool.input) == ("search", {"query": "spikes"})
-    assert ChatSession(ws, settings, release, resume=True, client=client).session_id == (
-        "example-session"
-    )
+    resumed = ChatSession(ws, settings, release, chat=chat, resume=True, client=client)
+    assert resumed.session_id == "example-session"
+    user, reply = chat.turns()
+    assert (user["role"], user["text"]) == ("user", "hi")
+    assert reply["text"] == "".join(e.text for e in events if e.kind == "text")
+    assert reply["tools"][0]["name"] == "search" and reply["tools"][0]["result"] is not None
+    assert chat.meta()["title"] == "hi"
+
+
+def test_without_a_chat_nothing_is_stored(setup):
+    ws, settings, release = setup
+    client = ScriptedAgentClient.from_fixture(REPO_ROOT / "tests/fixtures/agent/example.json")
+    session = ChatSession(ws, settings, release, client=client)
+
+    async def go():
+        await session.connect()
+        return [e async for e in session.ask("hi")]
+
+    asyncio.run(go())
+    assert session.session_id == "example-session"
+    assert sorted(p.name for p in ws.dir.iterdir()) == ["source.mp4"]
 
 
 def test_resume_needs_a_stored_session(setup):
     with pytest.raises(LookupError):
         ChatSession(*setup, resume=True, client=object())
+    with pytest.raises(LookupError):
+        ChatSession(*setup, chat=chats.new(setup[0]), resume=True, client=object())
 
 
 def test_options_shut_out_other_mcp_servers(setup):

@@ -175,7 +175,7 @@ Off for v1. One Opus loop is enough for a single video, and Opus delegates eager
 
 ### Sessions
 
-- One SDK session per video. The server stores `session_id` in `workspace/<id>/session.json` so a reload resumes the conversation with `resume=`.
+- One SDK session per chat, and a video can have several chats. Each chat stores its `session_id` in `workspace/<id>/chats/<chat_id>/session.json` so a reload resumes the conversation with `resume=`.
 - A new upload starts a new session.
 
 ## 6. UI
@@ -269,7 +269,7 @@ video-agent-harness/
   - It lives in `release.json` as `gemini_model`, not hard-coded. If `inspect` answers on hard questions (small on-screen text, fast action, counting) look weak in evals, switch it to `gemini-4-argon` (about 2.7× the price).
   - Caching: Flash supports explicit context caching, so the video can be cached once per session and repeat `inspect` calls read it at $0.075 per 1M tokens. Explicit caching goes through `generateContent` with `cached_content`, not the Interactions API.
   - Superseded: Yichi first picked `gemini-4-argon` for everything, then switched to Flash on cost (2026-10-18).
-- **Persistence:** one video at a time; a new upload replaces the old one and its chat.
+- **Persistence:** one video at a time; a new upload replaces the current video, and its chats are kept for when it is uploaded again.
 - **VideoAgent code in v1:** none imported. Every v1 tool (Scribe, shots, Gemini, search, frames) is new code. VideoAgent's reusable roles are all audio and editing, so the `BaseTool` → MCP adapter and `server/legacy/` arrive with phase 2.
 
 ## Open questions (original, now answered above)

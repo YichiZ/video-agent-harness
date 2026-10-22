@@ -98,8 +98,13 @@ def check_chat(cli, short) -> None:
     child.close()
     assert child.exitstatus == 0
 
-    session = json.loads((cli.workspace / video_id(short) / "session.json").read_text())
+    (folder,) = (cli.workspace / video_id(short) / "chats").iterdir()
+    session = json.loads((folder / "session.json").read_text())
     assert session["session_id"]
+    turns = json.loads((folder / "chat.json").read_text())["turns"]
+    assert turns[0]["text"] == GROUNDED and turns[1]["role"] == "assistant"
+    listed = cli("chats", str(short))
+    assert listed.returncode == 0 and listed.stdout.startswith(folder.name), listed.stdout
 
     resumed = spawn(cli, short, "--resume")
     assert "resumed" in resumed.before
@@ -107,6 +112,11 @@ def check_chat(cli, short) -> None:
     assert re.search(r"virus|attach|host cell", first, flags=re.I), first
     resumed.sendline("/quit")
     resumed.expect(pexpect.EOF)
+
+    picked = spawn(cli, short, "--chat", folder.name)
+    assert "resumed" in picked.before
+    picked.sendline("/quit")
+    picked.expect(pexpect.EOF)
 
 
 def test_chat(cli, videomme):

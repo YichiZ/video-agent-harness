@@ -39,7 +39,8 @@ cd web && npm run dev   # http://localhost:5173
 
 ```
 make chat VIDEO=path/to/video.mp4                                  # ingest if needed, then chat
-uv run python -m server.cli chat path/to/video.mp4 --resume        # continue the last chat
+uv run python -m server.cli chat path/to/video.mp4 --resume        # continue the most recent chat
+uv run python -m server.cli chats path/to/video.mp4                # list its chats (`chat --chat <id>` opens one)
 ```
 
 ## Layout

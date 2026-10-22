@@ -8,20 +8,25 @@
 | `GET /video/current/thumbs/<shot>.jpg` | A shot's thumbnail, made on first request |
 | `GET /video/current/transcript` | `transcript.json` |
 | `GET /video/current/shots` | The shots, with their captions once those exist |
+| `GET /video/current/chats` | The video's chats (`id`, `title`, `updated`), most recent first |
+| `PATCH /video/current/chats/<id>` | Rename a chat: `{"title": ...}` |
+| `DELETE /video/current/chats/<id>` | Delete a chat (409 while a turn runs in it) |
 | `GET /` | The built UI in `web/dist/` (`npm run build`), if present |
-| `WS /chat` | The chat; frames in `server.api.protocol` |
+| `WS /chat?chat=<id or new>` | One chat; frames in `server.api.protocol` |
 """
 
 from __future__ import annotations
 
+import shutil
 import uuid
 
-from fastapi import FastAPI, HTTPException, Request, WebSocket
+from fastapi import FastAPI, HTTPException, Query, Request, WebSocket
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 
-from server import ingest
+from server import chats, ingest
 from server.agent.tools import ToolError, VideoTools
 from server.api import chat
 from server.api.library import Library, UploadError
@@ -35,6 +40,10 @@ from server.workspace import Workspace
 
 THUMBS = "thumbs"
 WEB_DIST = REPO_ROOT / "web" / "dist"
+
+
+class Rename(BaseModel):
+    title: str = Field(min_length=1, max_length=100)
 
 
 def create_app(settings: Settings | None = None, release: Release | None = None) -> FastAPI:
@@ -102,9 +111,35 @@ def create_app(settings: Settings | None = None, release: Release | None = None)
         name = CAPTIONS if workspace.path(CAPTIONS).is_file() else SHOTS
         return {"captioned": name == CAPTIONS, "shots": workspace.read_json(name)["shots"]}
 
+    def existing_chat(chat_id: str) -> chats.Chat:
+        try:
+            found = chats.get(current(), chat_id)
+        except ValueError as e:
+            raise HTTPException(404, str(e)) from e
+        if not found.exists:
+            raise HTTPException(404, f"no chat {chat_id}")
+        return found
+
+    @app.get("/video/current/chats")
+    def list_chats() -> list[dict]:
+        return [c.summary() for c in chats.chats(current())]
+
+    @app.patch("/video/current/chats/{chat_id}")
+    def rename_chat(chat_id: str, body: Rename) -> dict:
+        found = existing_chat(chat_id)
+        found.set_title(" ".join(body.title.split()), by_user=True)
+        return found.summary()
+
+    @app.delete("/video/current/chats/{chat_id}", status_code=204)
+    def delete_chat(chat_id: str) -> None:
+        found = existing_chat(chat_id)
+        if str(found.dir) in library.busy:
+            raise HTTPException(409, "a turn is running in this chat; stop it first")
+        shutil.rmtree(found.dir)
+
     @app.websocket("/chat")
-    async def chat_socket(ws: WebSocket) -> None:
-        await chat.chat(ws, library)
+    async def chat_socket(ws: WebSocket, chat_id: str | None = Query(None, alias="chat")) -> None:
+        await chat.chat(ws, library, chat_id)
 
     if WEB_DIST.is_dir():  # last, so the API routes win
         app.mount("/", StaticFiles(directory=WEB_DIST, html=True), name="web")
