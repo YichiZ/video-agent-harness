@@ -40,7 +40,7 @@ def new_id() -> str:
 
 
 def valid_id(chat_id: str) -> bool:
-    return bool(ID_PATTERN.match(chat_id))
+    return bool(ID_PATTERN.fullmatch(chat_id))
 
 
 def short_title(question: str) -> str:
@@ -128,11 +128,12 @@ def chats(workspace: Workspace) -> list[Chat]:
     """The video's chats, most recently updated first."""
     _migrate(workspace)
     folder = root(workspace).dir
-    found = (
-        [Chat(d) for d in folder.iterdir() if d.is_dir() and valid_id(d.name)]
-        if (folder.is_dir())
-        else []
-    )
+    # No meta.json: a first turn stopped before any output, so nothing to show.
+    found = [
+        Chat(d)
+        for d in (folder.iterdir() if folder.is_dir() else [])
+        if valid_id(d.name) and (d / META).is_file()
+    ]
     return sorted(found, key=lambda c: (c.meta().get("updated", 0), c.id), reverse=True)
 
 
@@ -143,9 +144,13 @@ def latest(workspace: Workspace) -> Chat | None:
 
 def _migrate(workspace: Workspace) -> None:
     """Move a pre-15a `chat.json` / `session.json` into a chat folder of its own."""
-    old = [workspace.path(n) for n in (HISTORY, SESSION) if workspace.path(n).is_file()]
-    if not old:
-        return
+    with _meta_lock:  # a page load lists chats from a route thread and the socket at once
+        old = [workspace.path(n) for n in (HISTORY, SESSION) if workspace.path(n).is_file()]
+        if old:
+            _move_into_chat(workspace, old)
+
+
+def _move_into_chat(workspace: Workspace, old: list) -> None:
     chat = new(workspace)
     chat.dir.mkdir(parents=True)
     for path in old:

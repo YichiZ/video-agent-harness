@@ -43,7 +43,7 @@ def test_ids_sort_by_creation_and_are_validated(ws):
     a = chats.new_id()
     time.sleep(0.002)
     assert chats.valid_id(a) and a < chats.new_id()
-    for bad in ["../x", "new", "", "A" * 18, a + "0"]:
+    for bad in ["../x", "new", "", "A" * 18, a + "0", a + "\n"]:
         with pytest.raises(ValueError):
             chats.get(ws, bad)
 
@@ -89,3 +89,9 @@ def test_clean_title():
     assert titles.clean("one two three four five six seven") == "one two three four five six"
     with pytest.raises(ValueError):
         titles.clean("  ")
+
+
+def test_a_chat_without_turns_is_not_listed(ws):
+    chat = chats.new(ws)
+    chat.remember_session("stopped-at-once")  # Stop before any output: no turn saved
+    assert chat.exists and chats.chats(ws) == []

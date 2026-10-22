@@ -114,6 +114,7 @@ export function useChat() {
         }
       };
       ws.onclose = () => {
+        if (socket.current !== ws) return; // an old chat's socket, closed after switching
         setState((s) => ({ ...s, connected: false, running: false }));
         if (!closed) timer = setTimeout(connect, RECONNECT_MS);
       };
