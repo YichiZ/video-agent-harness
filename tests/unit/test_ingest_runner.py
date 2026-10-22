@@ -157,3 +157,15 @@ def test_a_step_that_stops_on_cancel_is_cancelled(tmp_path, monkeypatch):
 
     monkeypatch.setattr("server.ingest.steps", lambda: {"a": _step("a", run=stop)})
     assert [(r.name, r.state) for r in run_steps(_ctx(tmp_path))] == [("a", "cancelled")]
+
+
+def test_one_run_at_a_time_per_workspace(tmp_path, monkeypatch):
+    monkeypatch.setattr("server.ingest.steps", lambda: {"a": _step("a")})
+    ctx = _ctx(tmp_path)
+    with ctx.workspace.lock():  # as another process would hold it
+        runner = threading.Thread(target=run_steps, args=(ctx,))
+        runner.start()
+        runner.join(0.5)
+        assert runner.is_alive() and not ctx.workspace.path("a.json").exists()
+    runner.join(5)
+    assert ctx.workspace.path("a.json").exists()

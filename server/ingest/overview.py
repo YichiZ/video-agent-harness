@@ -148,15 +148,15 @@ def stored_file(workspace: Workspace) -> RemoteFile | None:
     )
 
 
-_upload_lock = threading.Lock()  # overview, captions and inspect run in parallel
+_upload_locks: dict[str, threading.Lock] = {}
+"""One per workspace: overview, captions and inspect run in parallel on the same video."""
 
 
 def ensure_active(vision: VisionModel, workspace: Workspace) -> tuple[RemoteFile, bool]:
     """Return the uploaded file for the workspace video, and whether it was uploaded now."""
     # ponytail: trusts the stored record; after changing HARNESS_GCS_BUCKET or deleting the
     # object, rerun with the workspace's gemini_file.json removed.
-    # ponytail: one lock for every workspace; per-workspace locks if videos ingest in parallel.
-    with _upload_lock:
+    with _upload_locks.setdefault(workspace.id, threading.Lock()):  # atomic in CPython
         stored = stored_file(workspace)
         if stored:
             return stored, False

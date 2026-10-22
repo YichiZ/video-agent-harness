@@ -4,9 +4,10 @@
 and writing in a worker thread, so the event loop stays free). `replace()` probes
 it synchronously (so a rejected video never replaces the current one), points
 `current.json` at it, cancels the previous video's ingest and starts the rest of
-the ingest in a background thread. The video's chats (`server.chats`) are kept,
-so uploading it again brings them back. On startup the current video's ingest
-resumes (finished steps are skipped). `status()` reads the workspace's `status.json`.
+the ingest in a background thread. Of two uploads that overlap, the one received
+last wins. The video's chats (`server.chats`) are kept, so uploading it again
+brings them back. On startup the current video's ingest resumes (finished steps
+are skipped). `status()` reads the workspace's `status.json`.
 """
 
 from __future__ import annotations
@@ -52,6 +53,10 @@ class Library:
         self._lock = threading.Lock()
         self._ingests: dict[str, tuple[threading.Thread, threading.Event]] = {}
         """Ingest threads by video id, with the event that cancels each."""
+        self._tickets = 0
+        """Counts uploads that reached `replace()`, so the last one received wins."""
+        self._switched = 0
+        """The ticket of the upload that last became current."""
         self.generation = 0
         """Counts uploads, so a chat connection knows the video changed under it."""
         self.busy: set[str] = set()
@@ -119,7 +124,13 @@ class Library:
             part.unlink(missing_ok=True)
 
     def replace(self, video: Path, name: str) -> Workspace:
-        """Probe `video` and make it the current video. Raises `ingest.Rejected`."""
+        """Probe `video` and make it the current video. Raises `ingest.Rejected`.
+
+        If a later upload has already become current, this one does not replace it.
+        """
+        with self._lock:
+            self._tickets += 1
+            ticket = self._tickets
         workspace, created = Workspace.for_video(self.root, video)
         probe = ingest.steps()["probe"]
         try:
@@ -131,6 +142,9 @@ class Library:
             video.unlink(missing_ok=True)
             raise
         with self._lock:
+            if ticket < self._switched:  # a later upload finished first and stays current
+                return workspace
+            self._switched = ticket
             previous = self.current
             Workspace(self.root).write_json(CURRENT, {"video_id": workspace.id, "name": name})
             self.current, self.name = workspace, name

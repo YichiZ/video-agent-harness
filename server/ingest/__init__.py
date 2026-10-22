@@ -17,7 +17,9 @@ the CLI turns into exit code 2. Any other exception is a step failure (exit 3).
 
 Setting `StepContext.cancel` stops the run: steps not yet started become
 "cancelled", and long steps (`proxy`) watch the event and stop early by raising
-`Cancelled`.
+`Cancelled`. Only one `run_steps` works on a workspace at a time, across
+processes (`Workspace.lock()`), so the CLI waits for the server's ingest and
+then skips what it finished.
 
 With fake providers, `HARNESS_FAKE_FAIL=<step>[,<step>]` makes those steps fail
 and `HARNESS_FAKE_SLOW=<step>[,<step>]` delays them (cancellably), for tests.
@@ -181,7 +183,17 @@ def run_steps(
     if unknown:
         raise KeyError(f"unknown ingest step(s): {', '.join(sorted(unknown))}")
     needed = _with_requires(registry, wanted)
+    with ctx.workspace.lock():
+        return _run_locked(ctx, registry, needed, force, on_result)
 
+
+def _run_locked(
+    ctx: StepContext,
+    registry: dict[str, Step],
+    needed: set[str],
+    force: Collection[str],
+    on_result: Callable[[StepResult], None] | None,
+) -> list[StepResult]:
     status = _Status(ctx.workspace, registry)
     pending = [s for s in registry.values() if s.name in needed]
     finished: dict[str, StepResult] = {}

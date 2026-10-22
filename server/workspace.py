@@ -17,14 +17,19 @@ tool reads and writes only inside its workspace. Files, by the step that writes 
 | `status.json` | 9 |
 | `proxy.mp4`, `thumbs/<shot>.jpg` | 10: the player's 720p copy, shot thumbnails |
 | `chats/<chat_id>/` | 15a: one folder per chat (see `server.chats`) |
+| `.lock` | `ingest.run_steps` holds an exclusive `flock` on it while it runs |
 """
 
 from __future__ import annotations
 
+import fcntl
 import hashlib
 import json
+import os
+import secrets
 import shutil
-import threading
+from collections.abc import Iterator
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -98,10 +103,18 @@ class Workspace:
     def write_json(self, name: str, data: Any) -> Path:
         """Write atomically, so a crash never leaves a half-written output."""
         path = self.path(name)
-        tmp = path.with_suffix(f"{path.suffix}.{threading.get_ident()}.tmp")  # threads may race
+        # Threads and processes (the CLI and the server) may race on the same file.
+        tmp = path.with_suffix(f"{path.suffix}.{os.getpid()}.{secrets.token_hex(4)}.tmp")
         tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
         tmp.replace(path)
         return path
+
+    @contextmanager
+    def lock(self) -> Iterator[None]:
+        """Hold the workspace's `.lock` exclusively; blocks while another holder has it."""
+        with self.path(".lock").open("a") as f:
+            fcntl.flock(f, fcntl.LOCK_EX)  # released when the file closes
+            yield
 
     def remove(self) -> None:
         shutil.rmtree(self.dir, ignore_errors=True)

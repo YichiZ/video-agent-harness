@@ -119,6 +119,21 @@ def _videos(tmp_path):
     return a, b
 
 
+def test_the_upload_received_last_wins(tmp_path, monkeypatch):
+    a, b = _videos(tmp_path)
+    hold = {video_id(a): threading.Event()}
+    _fake_probe(monkeypatch, hold)
+    library = _library(tmp_path, monkeypatch)
+    first = threading.Thread(target=library.replace, args=(a, "a.mp4"))
+    first.start()
+    time.sleep(0.2)  # a is probing
+    library.replace(b, "b.mp4")
+    hold[video_id(a)].set()  # a's probe finishes after b's
+    first.join(5)
+    assert library.current.id == video_id(b) and library.name == "b.mp4"
+    assert Library(library.settings, library.release).current.id == video_id(b)
+
+
 def test_replace_cancels_the_previous_ingest(tmp_path, monkeypatch):
     a, b = _videos(tmp_path)
     started = _fake_probe(monkeypatch, {})
